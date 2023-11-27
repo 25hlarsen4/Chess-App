@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QHBoxLayout>
+#include <map>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Chess; }
@@ -19,5 +20,7 @@ public:
 private:
     Ui::Chess *ui;
     void startGame();
+    void styleChessboard();
+    void lesson1();
 };
 #endif // CHESS_H
