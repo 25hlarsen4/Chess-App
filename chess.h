@@ -22,5 +22,6 @@ private:
     void startGame();
     void styleChessboard();
     void lesson1();
+    void puzzle1();
 };
 #endif // CHESS_H
