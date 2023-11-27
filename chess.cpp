@@ -1,6 +1,7 @@
 // should do control stuffs, .ui file -> veiw stuffs
 
 #include "chess.h"
+#include "puzzle.h"
 #include "ui_chess.h"
 #include <QApplication>
 
@@ -35,10 +36,18 @@ Chess::Chess(QWidget *parent)
             &QPushButton::clicked,
             this,
             &Chess::startGame);
-    connect(ui->lesson1,
+//    connect(ui->lesson1,
+//            &QPushButton::clicked,
+//            this,
+//            &Chess::lesson1);
+
+
+
+    ui->windows->addWidget(new Puzzle);
+    connect(ui->puzzle1,
             &QPushButton::clicked,
             this,
-            &Chess::lesson1);
+            &Chess::puzzle1);
 }
 
 void Chess::styleChessboard() {
@@ -69,12 +78,16 @@ Chess::~Chess()
     delete ui;
 }
 
-void Chess::startGame(){
+void Chess::startGame() {
     ui->windows->setCurrentIndex(1);
 }
 
-void Chess::lesson1(){
-    ui->windows->setCurrentIndex(2);
+//void Chess::lesson1() {
+//    ui->windows->setCurrentIndex(2);
+//}
+
+void Chess::puzzle1() {
+    ui->windows->setCurrentIndex(3);
 }
 
 
