@@ -3,6 +3,8 @@
 
 #include "qimage.h"
 #include <QObject>
+#include <QPushButton>
+#include <QLabel>
 
 class Piece : public QObject
 {
@@ -11,6 +13,8 @@ public:
     explicit Piece(QObject *parent = nullptr);
 
     QImage pieceImage;
+
+    void setKnight(QPushButton* space);
 
 private:
 
