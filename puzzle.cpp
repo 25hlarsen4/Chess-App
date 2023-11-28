@@ -24,7 +24,20 @@ void Puzzle::paintEvent(QPaintEvent *) {
 
     painter.drawImage(target, background);
 
-    // just draw the first piece as a test
-    QRect pieceTarget(50, 50, 80, 80);
-    painter.drawImage(pieceTarget, piecePositions[qMakePair('a', 1)]->pieceImage);
+    // a1 maps to 50, 50
+    x = 50;
+    y = 50;
+    for (char letter = 'a'; letter < 'i'; letter++) {
+        for (int num = 1; num < 9; num++) {
+            QPair<char, int> chessCoords = qMakePair(letter, num);
+            if (piecePositions.contains(chessCoords)) {
+                QRect pieceTarget(x, y, 75, 75);
+                painter.drawImage(pieceTarget, piecePositions[chessCoords]->pieceImage);
+            }
+            x += 58;
+        }
+        // reset x
+        x = 50;
+        y += 58;
+    }
 }
