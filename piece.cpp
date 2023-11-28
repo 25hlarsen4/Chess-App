@@ -1,8 +1,11 @@
 #include "piece.h"
 
-Piece::Piece(QObject *parent)
-    : QObject{parent}
+Piece::Piece(PieceType pt, QObject *parent)
+    : QObject{parent},
+    pieceType(pt)
 {
     // all pieces are just knights for now
-    pieceImage = QImage(":/backgrounds/Images/knight.png");
+    if (pt == KNIGHT) {
+        pieceImage = QImage(":/backgrounds/Images/knight.png");
+    }
 }

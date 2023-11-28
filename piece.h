@@ -8,7 +8,20 @@ class Piece : public QObject
 {
     Q_OBJECT
 public:
-    explicit Piece(QObject *parent = nullptr);
+
+    enum PieceType
+    {
+        KING,
+        QUEEN,
+        ROOK,
+        BISHOP,
+        KNIGHT,
+        PAWN
+    };
+
+    explicit Piece(PieceType, QObject *parent = nullptr);
+
+    PieceType pieceType;
 
     QImage pieceImage;
 
