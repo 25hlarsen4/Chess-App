@@ -1,6 +1,7 @@
 #include "puzzle.h"
 #include "qpainter.h"
 
+// have enum specifying which puzzle to create
 Puzzle::Puzzle(QWidget *parent)
     : QWidget{parent}
 {
@@ -9,7 +10,7 @@ Puzzle::Puzzle(QWidget *parent)
     // just fully populate board with pieces for now
     for (char letter = 'a'; letter < 'i'; letter++) {
         for (int num = 1; num < 9; num++) {
-            piecePositions[qMakePair(letter, num)] = new Piece(Piece::KNIGHT);
+            piecePositions[qMakePair(letter, num)] = new Piece(Piece::BLACK_KNIGHT);
         }
     }
 }
@@ -25,19 +26,19 @@ void Puzzle::paintEvent(QPaintEvent *) {
     painter.drawImage(target, background);
 
     // a1 maps to 50, 50
-    x = 50;
-    y = 50;
+    x = 59;
+    y = 59;
     for (char letter = 'a'; letter < 'i'; letter++) {
         for (int num = 1; num < 9; num++) {
             QPair<char, int> chessCoords = qMakePair(letter, num);
             if (piecePositions.contains(chessCoords)) {
-                QRect pieceTarget(x, y, 75, 75);
+                QRect pieceTarget(x, y, 60, 60);
                 painter.drawImage(pieceTarget, piecePositions[chessCoords]->pieceImage);
             }
             x += 58;
         }
         // reset x
-        x = 50;
+        x = 59;
         y += 58;
     }
 }
