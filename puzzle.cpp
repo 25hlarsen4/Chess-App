@@ -10,11 +10,11 @@ Puzzle::Puzzle(QWidget *parent)
     createBoard();
 
     // just fully populate board with pieces for now
-//    for (int letter = 97; letter < 105; letter++) {
-//        for (int num = 1; num < 9; num++) {
-//            piecePositions[qMakePair(letter, num)] = new Piece;
-//        }
-//    }
+    for (int letter = 97; letter < 105; letter++) {
+        for (int num = 1; num < 9; num++) {
+            piecePositions[qMakePair(letter, num)] = new Piece;
+        }
+    }
 }
 
 void Puzzle::paintEvent(QPaintEvent *) {
