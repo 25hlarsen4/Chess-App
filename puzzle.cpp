@@ -2,6 +2,7 @@
 #include "puzzle.h"
 #include "qpainter.h"
 
+// have enum specifying which puzzle to create
 Puzzle::Puzzle(QWidget *parent)
     : QWidget{parent}
 {
@@ -10,9 +11,9 @@ Puzzle::Puzzle(QWidget *parent)
     createBoard();
 
     // just fully populate board with pieces for now
-    for (int letter = 97; letter < 105; letter++) {
+    for (char letter = 'a'; letter < 'i'; letter++) {
         for (int num = 1; num < 9; num++) {
-            piecePositions[qMakePair(letter, num)] = new Piece;
+            piecePositions[qMakePair(letter, num)] = new Piece(Piece::BLACK_KNIGHT);
         }
     }
 }
@@ -57,7 +58,7 @@ void Puzzle::createBoard(){
 
             space->setFixedSize(70,70);
 
-            Piece piece;
+            Piece piece(Piece::BLACK_KNIGHT);
 
             if(i == 0 && j == 0)
                 piece.setKnight(space);
@@ -77,7 +78,7 @@ void Puzzle::setPiece(QPushButton *space){
 
 }
 void Puzzle::selectSpace(){
-    Piece piece;
+    Piece piece(Piece::BLACK_KNIGHT);
     QPushButton *selectedSpace = qobject_cast<QPushButton*>(sender());
     piece.setKnight(selectedSpace);
 }
