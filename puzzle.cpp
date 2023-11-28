@@ -54,7 +54,7 @@ void Puzzle::createBoard(){
             space->setProperty("col", j);
 
             if((i + j) % 2 == 0) space->setStyleSheet("background-color: white;");
-            else space->setStyleSheet("background-color: dark-gray;");
+            else space->setStyleSheet("background-color: brown;");
 
             space->setFixedSize(70,70);
 
