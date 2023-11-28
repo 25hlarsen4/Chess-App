@@ -7,9 +7,9 @@ Puzzle::Puzzle(QWidget *parent)
     background = QImage(":/backgrounds/Images/blankBoard.jpg");
 
     // just fully populate board with pieces for now
-    for (int letter = 97; letter < 105; letter++) {
+    for (char letter = 'a'; letter < 'i'; letter++) {
         for (int num = 1; num < 9; num++) {
-            piecePositions[qMakePair(letter, num)] = new Piece;
+            piecePositions[qMakePair(letter, num)] = new Piece(Piece::KNIGHT);
         }
     }
 }
