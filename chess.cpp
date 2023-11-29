@@ -2,6 +2,7 @@
 
 #include "chess.h"
 #include "puzzle.h"
+#include "piece.h"
 #include "ui_chess.h"
 #include <QApplication>
 
@@ -41,9 +42,9 @@ Chess::Chess(QWidget *parent)
 //            this,
 //            &Chess::lesson1);
 
-
-
-    ui->windows->addWidget(new Puzzle);
+    Puzzle* puzz = new Puzzle(Puzzle::Puzzle1);
+//    Puzzle* puzz = new Puzzle;
+    ui->windows->addWidget(puzz);
     connect(ui->puzzle1,
             &QPushButton::clicked,
             this,
