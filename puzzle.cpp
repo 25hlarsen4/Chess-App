@@ -3,10 +3,12 @@
 #include "qpainter.h"
 
 // have enum specifying which puzzle to create
-Puzzle::Puzzle(QWidget *parent)
+Puzzle::Puzzle(QList<QPair<int, int>> moves, QWidget *parent)
     : QWidget{parent}
 {
     background = QImage(":/backgrounds/Images/blankBoard.jpg");
+
+    correctClickSequence = moves;
 
     createBoard();
 
@@ -16,6 +18,10 @@ Puzzle::Puzzle(QWidget *parent)
             piecePositions[qMakePair(letter, num)] = new Piece(Piece::BLACK_KNIGHT);
         }
     }
+
+    currSequenceIndex = 0;
+    selecting = true;
+    moving = false;
 }
 
 void Puzzle::paintEvent(QPaintEvent *) {
@@ -58,13 +64,14 @@ void Puzzle::createBoard(){
 
             space->setFixedSize(70,70);
 
-            Piece piece(Piece::BLACK_KNIGHT);
+            Piece* piece = new Piece(Piece::BLACK_KNIGHT);
 
             if(i == 0 && j == 0)
-                piece.setKnight(space);
+                piece->setKnight(space);
 
 
             connect(space, &QPushButton::clicked, this, &Puzzle::selectSpace);
+            spacePieceMap[space] = piece;
 
             layout->addWidget(space, i, j);
             setLayout(layout);
@@ -78,7 +85,30 @@ void Puzzle::setPiece(QPushButton *space){
 
 }
 void Puzzle::selectSpace(){
-    Piece piece(Piece::BLACK_KNIGHT);
     QPushButton *selectedSpace = qobject_cast<QPushButton*>(sender());
-    piece.setKnight(selectedSpace);
+
+    if (selecting) {
+        // only select if there's a piece in the space
+        if (spacePieceMap.contains(selectedSpace)) {
+            selectedPiece = spacePieceMap[selectedSpace];
+
+            QPair<int, int> piecePos = qMakePair(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt());
+//            potentialLocations = selectedPiece.getPotentialLocations(piecePos, piecePositions);
+            selecting = false;
+            moving = true;
+            currSequenceIndex++;
+        }
+    }
+    else if (moving) {
+        QPair<int, int> clickPos = qMakePair(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt());
+
+        // if a valid move
+        if (potentialLocations.contains(clickPos)) {
+            // check that it's also the right move for the puzzle
+            if (clickPos == correctClickSequence[currSequenceIndex]) {
+                // accept the move and update accordingly
+                currSequenceIndex++;
+            }
+        }
+    }
 }
