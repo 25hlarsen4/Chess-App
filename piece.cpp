@@ -55,12 +55,15 @@ Piece::Piece(PieceType pt, bool newPawn, QObject *parent)
 
 }
 
-void Piece::setKnight(QPushButton *space){
-    QLabel *pieceLabel = new QLabel(space);
+void Piece::setPiece(QPushButton *space){
+    pieceLabel = new QLabel(space);
     pieceLabel->setPixmap(pieceImage);
     pieceLabel->setScaledContents(true);
     pieceLabel->setGeometry(0, 0, space->width(), space->height());
     pieceLabel->show();
+}
+void Piece::hide(){
+    pieceLabel->hide();
 }
 
 QList<QPair<int, int>> Piece::getPossibleLocations(QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard){

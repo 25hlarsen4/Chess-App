@@ -32,10 +32,13 @@ public:
     PieceType pieceType;
 
     QPixmap pieceImage;
+    QLabel *pieceLabel;
 
     bool freshPawn;
 
-    void setKnight(QPushButton* space);
+    void setPiece(QPushButton* space);
+    void hide();
+
     QList<QPair<int, int>> getPossibleLocations(QPair<int, int>, QHash<QPair<int, int>, Piece*>);
 
 

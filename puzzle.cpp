@@ -58,10 +58,7 @@ void Puzzle::createBoard(){
 
             space->setFixedSize(70,70);
 
-            Piece piece(Piece::BLACK_KNIGHT);
 
-            if(i == 0 && j == 0)
-                piece.setKnight(space);
 
 
             connect(space, &QPushButton::clicked, this, &Puzzle::selectSpace);
@@ -80,5 +77,4 @@ void Puzzle::setPiece(QPushButton *space){
 void Puzzle::selectSpace(){
     Piece piece(Piece::BLACK_KNIGHT);
     QPushButton *selectedSpace = qobject_cast<QPushButton*>(sender());
-    piece.setKnight(selectedSpace);
 }
