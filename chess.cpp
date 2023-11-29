@@ -49,6 +49,8 @@ Chess::Chess(QWidget *parent)
             &QPushButton::clicked,
             this,
             &Chess::puzzle1);
+    ui->windows->setCurrentIndex(0);
+
 }
 
 void Chess::styleChessboard() {
