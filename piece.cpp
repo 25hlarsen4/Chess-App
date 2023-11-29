@@ -248,7 +248,7 @@ bool Piece::blackPiece(Piece* piece){
     return false;
 }
 
-bool Piece::checkPiece(int nextX, int nextY, bool black, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> validLocations){
+bool Piece::checkPiece(int nextX, int nextY, bool black, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> &validLocations){
     if(checkInbounds(nextY, nextX)){
         QPair<int, int> nextLocation(nextY, nextX);
         if(gameBoard.contains(nextLocation)){
@@ -271,7 +271,7 @@ bool Piece::checkPiece(int nextX, int nextY, bool black, QHash<QPair<int, int>, 
     return false;
 }
 
-void Piece::rookMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> validLocations){
+void Piece::rookMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> &validLocations){
     // Search Right
     int offsetX = 1;
     int offsetY = 0;
@@ -304,7 +304,7 @@ void Piece::rookMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
     }
 }
 
-void Piece::bishopMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> validLocations){
+void Piece::bishopMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> &validLocations){
     // Search Up and Right
     int offsetX = 1;
     int offsetY = 1;
