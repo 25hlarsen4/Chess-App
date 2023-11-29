@@ -1,10 +1,10 @@
 #ifndef PIECE_H
 #define PIECE_H
 
-#include "qimage.h"
 #include <QObject>
 #include <QPushButton>
 #include <QLabel>
+#include <cstdlib>
 
 class Piece : public QObject
 {
@@ -27,16 +27,18 @@ public:
         BLACK_PAWN
     };
 
-    explicit Piece(PieceType, QObject *parent = nullptr);
+    explicit Piece(PieceType, bool newPawn = false, QObject *parent = nullptr);
 
     PieceType pieceType;
 
     QPixmap pieceImage;
 
+    bool freshPawn;
+
     void setKnight(QPushButton* space);
 
 private:
-
+    bool checkValidMove(QPair<int, int>, QPair<int, int>);
 
 signals:
 
