@@ -339,4 +339,3 @@ void Piece::bishopMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int
         offsetY--;
     }
 }
-

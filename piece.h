@@ -36,9 +36,10 @@ public:
     bool freshPawn;
 
     void setKnight(QPushButton* space);
+    QList<QPair<int, int>> getPossibleLocations(QPair<int, int>, QHash<QPair<int, int>, Piece*>);
+
 
 private:
-    QList<QPair<int, int>> getPossibleLocations(QPair<int, int>, QHash<QPair<int, int>, Piece*>);
     bool checkInbounds(int, int);
     bool whitePiece(Piece*);
     bool blackPiece(Piece*);
