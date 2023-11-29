@@ -11,13 +11,15 @@ class Puzzle : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Puzzle(QList<QPair<int, int>>, QWidget *parent = nullptr);
+    // correct moves, piece set up
+    explicit Puzzle(QList<QPair<int, int>>, QHash<QPair<int, int>, Piece::PieceType>, QWidget *parent = nullptr);
 
 private:
     QImage background;
 
-    QHash<QPushButton*, Piece*> spacePieceMap;
-    QHash<QPair<char, int>, Piece*> piecePositions;
+    QHash<QPair<int, int>, Piece::PieceType> boardSetUp;
+//    QHash<QPushButton*, Piece*> spacePieceMap;
+    QHash<QPair<int, int>, Piece*> piecePositions;
     QList<QPair<int, int>> correctClickSequence;
     QList<QPair<int, int>> potentialLocations;
 
@@ -25,14 +27,18 @@ private:
     bool selecting;
     bool moving;
     Piece* selectedPiece;
+    QPair<int, int> prevPiecePos;
 
     void paintEvent(QPaintEvent *);
     void createBoard();
-    void setPiece(QPushButton *space);
+    void setPiece(QPushButton *space, Piece*);
 
 signals:
+    void hideLabel(QLabel*);
+
 public slots:
     void selectSpace();
+    void onHideLabel(QLabel*);
 
 };
 

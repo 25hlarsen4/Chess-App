@@ -3,21 +3,15 @@
 #include "qpainter.h"
 
 // have enum specifying which puzzle to create
-Puzzle::Puzzle(QList<QPair<int, int>> moves, QWidget *parent)
+Puzzle::Puzzle(QList<QPair<int, int>> moves, QHash<QPair<int, int>, Piece::PieceType> pieceSetUp, QWidget *parent)
     : QWidget{parent}
 {
     background = QImage(":/backgrounds/Images/blankBoard.jpg");
 
     correctClickSequence = moves;
+    boardSetUp = pieceSetUp;
 
     createBoard();
-
-    // just fully populate board with pieces for now
-    for (char letter = 'a'; letter < 'i'; letter++) {
-        for (int num = 1; num < 9; num++) {
-            piecePositions[qMakePair(letter, num)] = new Piece(Piece::BLACK_KNIGHT);
-        }
-    }
 
     currSequenceIndex = 0;
     selecting = true;
@@ -59,19 +53,19 @@ void Puzzle::createBoard(){
             space->setProperty("row", i);
             space->setProperty("col", j);
 
+            if (boardSetUp.contains(qMakePair(i, j))) {
+                Piece* piece = new Piece(boardSetUp[qMakePair(i, j)]);
+                // piece->setPiece(space);      (have piece have qlabel member)
+//                spacePieceMap[space] = piece;
+                piecePositions[qMakePair(i, j)] = piece;
+            }
+
             if((i + j) % 2 == 0) space->setStyleSheet("background-color: white;");
             else space->setStyleSheet("background-color: brown;");
 
             space->setFixedSize(70,70);
 
-            Piece* piece = new Piece(Piece::BLACK_KNIGHT);
-
-            if(i == 0 && j == 0)
-                piece->setKnight(space);
-
-
             connect(space, &QPushButton::clicked, this, &Puzzle::selectSpace);
-            spacePieceMap[space] = piece;
 
             layout->addWidget(space, i, j);
             setLayout(layout);
@@ -79,21 +73,32 @@ void Puzzle::createBoard(){
         }
     }
 }
-void Puzzle::setPiece(QPushButton *space){
 
+void Puzzle::setPiece(QPushButton* space, Piece* piece){
+//    QLabel *pieceLabel = new QLabel(space);
+//    pieceLabel->setPixmap(piece->pieceImage);
+//    pieceLabel->setScaledContents(true);
+//    pieceLabel->setGeometry(0, 0, space->width(), space->height());
+//    pieceLabel->show();
 
-
+//    connect(this, &Puzzle::hideLabel, this, &Puzzle::onHideLabel);
 }
+
+//void onHideLabel(QLabel* label) {
+//    label->hide();
+//}
+
 void Puzzle::selectSpace(){
     QPushButton *selectedSpace = qobject_cast<QPushButton*>(sender());
+    QPair<int, int> buttonCoords = qMakePair(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt());
 
     if (selecting) {
         // only select if there's a piece in the space
-        if (spacePieceMap.contains(selectedSpace)) {
-            selectedPiece = spacePieceMap[selectedSpace];
+        if (piecePositions.contains(buttonCoords)) {
+            selectedPiece = piecePositions[buttonCoords];
 
-            QPair<int, int> piecePos = qMakePair(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt());
-//            potentialLocations = selectedPiece.getPotentialLocations(piecePos, piecePositions);
+            prevPiecePos = buttonCoords;
+//            potentialLocations = selectedPiece.getPotentialLocations(prevPiecePos, piecePositions);
             selecting = false;
             moving = true;
             currSequenceIndex++;
@@ -106,8 +111,21 @@ void Puzzle::selectSpace(){
         if (potentialLocations.contains(clickPos)) {
             // check that it's also the right move for the puzzle
             if (clickPos == correctClickSequence[currSequenceIndex]) {
-                // accept the move and update accordingly
-                currSequenceIndex++;
+                // hide where the piece used to be (should always contain just check just in case)
+                if (piecePositions.contains(prevPiecePos)) {
+                    // call piece.hide() on the corresponding piece
+                    Piece* piece = piecePositions[prevPiecePos];
+//                    piece.hide();
+
+                    // accept the move and update accordingly
+                    // update map, setPiece label
+                    piecePositions.remove(prevPiecePos);
+                    piecePositions[clickPos] = piece;
+
+//                    piece->setPiece(selectedSpace);
+
+                    currSequenceIndex++;
+                }
             }
         }
     }

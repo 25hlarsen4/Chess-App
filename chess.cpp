@@ -2,6 +2,7 @@
 
 #include "chess.h"
 #include "puzzle.h"
+#include "piece.h"
 #include "ui_chess.h"
 #include <QApplication>
 
@@ -42,8 +43,16 @@ Chess::Chess(QWidget *parent)
 //            &Chess::lesson1);
 
 
+    // added stuff
+    QHash<QPair<int, int>, Piece::PieceType> pieceSetUp;
+    pieceSetUp[qMakePair(1, 1)] = Piece::BLACK_BISHOP;
+    pieceSetUp[qMakePair(1, 2)] = Piece::BLACK_PAWN;
+    QList<QPair<int, int>> moves;
+    moves.append(qMakePair(1, 1));
+    moves.append(qMakePair(2, 2));
 
-    ui->windows->addWidget(new Puzzle);
+
+    ui->windows->addWidget(new Puzzle(moves, pieceSetUp));
     connect(ui->puzzle1,
             &QPushButton::clicked,
             this,
