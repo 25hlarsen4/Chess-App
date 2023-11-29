@@ -63,31 +63,67 @@ void Piece::setKnight(QPushButton *space){
     pieceLabel->show();
 }
 
-bool Piece::checkValidMove(QPair<int, int> currLocation, QPair<int, int> nextLocation){
+bool Piece::checkValidMove(QPair<int,int> currLocation, QPair<int, int> nextLocation){
     // Check in bounds
-    if(nextLocation.first < 1 ||
-        nextLocation.first > 8 ||
-        nextLocation.second < 1 ||
-        nextLocation.second > 8){
+    if((nextLocation.first < 1) ||
+        (nextLocation.first > 8) ||
+        (nextLocation.second < 1) ||
+        (nextLocation.second > 8)){
         return false;
     }
-    // Check if move valid for piece
+
     if (pieceType == BLACK_KNIGHT) {
+        return ((nextLocation.first == currLocation.first + 2 &&
+                 nextLocation.second == currLocation.first + 1) ||
+                (nextLocation.first == currLocation.first + 2 &&
+                 nextLocation.second == currLocation.first - 1) ||
+                (nextLocation.first == currLocation.first + 1 &&
+                 nextLocation.second == currLocation.first + 2) ||
+                (nextLocation.first == currLocation.first + 1 &&
+                 nextLocation.second == currLocation.first - 2) ||
+                (nextLocation.first == currLocation.first - 2 &&
+                 nextLocation.second == currLocation.first + 1) ||
+                (nextLocation.first == currLocation.first - 2 &&
+                 nextLocation.second == currLocation.first - 1) ||
+                (nextLocation.first == currLocation.first - 1 &&
+                 nextLocation.second == currLocation.first + 2) ||
+                (nextLocation.first == currLocation.first - 1 &&
+                 nextLocation.second == currLocation.first - 2));
+
     }
 
     else if (pieceType == BLACK_BISHOP) {
+        return abs(nextLocation.first - currLocation.first) == abs(nextLocation.second - currLocation.second);
     }
 
     else if (pieceType == BLACK_ROOK) {
+        return (nextLocation.first == currLocation.first && nextLocation.second != currLocation.second) ||
+               (nextLocation.second == currLocation.second && nextLocation.first != currLocation.first);
     }
 
     else if (pieceType == BLACK_PAWN) {
+        if(nextLocation.second == currLocation.second){
+            if(freshPawn){
+                return (nextLocation.first == currLocation.first + 1) || (nextLocation.first == currLocation.first + 2);
+            }else{
+                return nextLocation.first == currLocation.first + 1;
+            }
+        }
     }
 
     else if (pieceType == BLACK_KING) {
+        return ((nextLocation.first == currLocation.first ||
+                 nextLocation.first == currLocation.first - 1 ||
+                 nextLocation.first == currLocation.first + 1) &&
+                (nextLocation.second == currLocation.second ||
+                 nextLocation.second == currLocation.second - 1 ||
+                 nextLocation.second == currLocation.second + 1));
     }
 
     else if (pieceType == BLACK_QUEEN) {
+        return (abs(nextLocation.first - currLocation.first) == abs(nextLocation.second - currLocation.second)) ||
+               (nextLocation.first == currLocation.first && nextLocation.second != currLocation.second) ||
+               (nextLocation.second == currLocation.second && nextLocation.first != currLocation.first);
     }
 
     else if (pieceType == WHITE_KNIGHT) {
@@ -144,4 +180,3 @@ bool Piece::checkValidMove(QPair<int, int> currLocation, QPair<int, int> nextLoc
     }
     return false;
 }
-
