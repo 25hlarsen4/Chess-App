@@ -38,7 +38,13 @@ public:
     void setKnight(QPushButton* space);
 
 private:
-    bool checkValidMove(QPair<int, int>, QPair<int, int>);
+    QList<QPair<int, int>> getPossibleLocations(QPair<int, int>, QHash<QPair<int, int>, Piece*>);
+    bool checkInbounds(int, int);
+    bool whitePiece(Piece*);
+    bool blackPiece(Piece*);
+    bool checkPiece(int, int, bool, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>);
+    void rookMoves(bool, QPair<int,int>, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>);
+    void bishopMoves(bool, QPair<int,int>, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>);
 
 signals:
 
