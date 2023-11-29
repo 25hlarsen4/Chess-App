@@ -2,20 +2,48 @@
 #include "puzzle.h"
 #include "qpainter.h"
 
+Puzzle::Puzzle(QWidget *parent)
+    : QWidget{parent}
+{
+
+}
+
 // have enum specifying which puzzle to create
-Puzzle::Puzzle(QList<QPair<int, int>> moves, QHash<QPair<int, int>, Piece::PieceType> pieceSetUp, QWidget *parent)
+Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     : QWidget{parent}
 {
     background = QImage(":/backgrounds/Images/blankBoard.jpg");
 
-    correctClickSequence = moves;
-    boardSetUp = pieceSetUp;
-
-    createBoard();
-
+    puzzleType = pt;
     currSequenceIndex = 0;
     selecting = true;
     moving = false;
+
+    if (puzzleType == Puzzle1) {
+        setUpPuzzle1();
+    }
+
+    else if (puzzleType == Puzzle2) {
+        setUpPuzzle2();
+    }
+
+    else if (puzzleType == Puzzle3) {
+        setUpPuzzle3();
+    }
+
+    else if (puzzleType == Puzzle4) {
+        setUpPuzzle4();
+    }
+
+    else if (puzzleType == Puzzle5) {
+        setUpPuzzle5();
+    }
+
+    else if (puzzleType == Puzzle6) {
+        setUpPuzzle6();
+    }
+
+    createBoard();
 }
 
 void Puzzle::paintEvent(QPaintEvent *) {
@@ -53,13 +81,6 @@ void Puzzle::createBoard(){
             space->setProperty("row", i);
             space->setProperty("col", j);
 
-            if (boardSetUp.contains(qMakePair(i, j))) {
-                Piece* piece = new Piece(boardSetUp[qMakePair(i, j)]);
-                // piece->setPiece(space);      (have piece have qlabel member)
-//                spacePieceMap[space] = piece;
-                piecePositions[qMakePair(i, j)] = piece;
-            }
-
             if((i + j) % 2 == 0) space->setStyleSheet("background-color: white;");
             else space->setStyleSheet("background-color: brown;");
 
@@ -70,23 +91,19 @@ void Puzzle::createBoard(){
             layout->addWidget(space, i, j);
             setLayout(layout);
 
+
+            // now set the pieces and correct moves
+
+            if (boardSetUp.contains(qMakePair(i, j))) {
+                Piece* piece = new Piece(boardSetUp[qMakePair(i, j)]);
+                // piece->setPiece(space);      (have piece have qlabel member)
+                piecePositions[qMakePair(i, j)] = piece;
+            }
+
         }
     }
 }
 
-void Puzzle::setPiece(QPushButton* space, Piece* piece){
-//    QLabel *pieceLabel = new QLabel(space);
-//    pieceLabel->setPixmap(piece->pieceImage);
-//    pieceLabel->setScaledContents(true);
-//    pieceLabel->setGeometry(0, 0, space->width(), space->height());
-//    pieceLabel->show();
-
-//    connect(this, &Puzzle::hideLabel, this, &Puzzle::onHideLabel);
-}
-
-//void onHideLabel(QLabel* label) {
-//    label->hide();
-//}
 
 void Puzzle::selectSpace(){
     QPushButton *selectedSpace = qobject_cast<QPushButton*>(sender());
@@ -98,7 +115,7 @@ void Puzzle::selectSpace(){
             selectedPiece = piecePositions[buttonCoords];
 
             prevPiecePos = buttonCoords;
-//            potentialLocations = selectedPiece.getPotentialLocations(prevPiecePos, piecePositions);
+//            potentialLocations = selectedPiece.getPossibleLocations(prevPiecePos, piecePositions);
             selecting = false;
             moving = true;
             currSequenceIndex++;
@@ -129,4 +146,29 @@ void Puzzle::selectSpace(){
             }
         }
     }
+}
+
+
+void Puzzle::setUpPuzzle1() {
+    boardSetUp[qMakePair(1, 1)] = Piece::BLACK_BISHOP;
+    boardSetUp[qMakePair(1, 1)] = Piece::BLACK_PAWN;
+
+    correctClickSequence.append(qMakePair(1, 1));
+    correctClickSequence.append(qMakePair(2, 2));
+}
+
+void Puzzle::setUpPuzzle2() {
+
+}
+void Puzzle::setUpPuzzle3() {
+
+}
+void Puzzle::setUpPuzzle4() {
+
+}
+void Puzzle::setUpPuzzle5() {
+
+}
+void Puzzle::setUpPuzzle6() {
+
 }

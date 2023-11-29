@@ -11,8 +11,22 @@ class Puzzle : public QWidget
 {
     Q_OBJECT
 public:
+    enum PuzzleType
+    {
+        Puzzle1,
+        Puzzle2,
+        Puzzle3,
+        Puzzle4,
+        Puzzle5,
+        Puzzle6
+    };
+
+    explicit Puzzle(QWidget *parent = nullptr);
+
     // correct moves, piece set up
-    explicit Puzzle(QList<QPair<int, int>>, QHash<QPair<int, int>, Piece::PieceType>, QWidget *parent = nullptr);
+    explicit Puzzle(PuzzleType, QWidget *parent = nullptr);
+
+    PuzzleType puzzleType;
 
 private:
     QImage background;
@@ -33,12 +47,17 @@ private:
     void createBoard();
     void setPiece(QPushButton *space, Piece*);
 
+    void setUpPuzzle1();
+    void setUpPuzzle2();
+    void setUpPuzzle3();
+    void setUpPuzzle4();
+    void setUpPuzzle5();
+    void setUpPuzzle6();
+
 signals:
-    void hideLabel(QLabel*);
 
 public slots:
     void selectSpace();
-    void onHideLabel(QLabel*);
 
 };
 
