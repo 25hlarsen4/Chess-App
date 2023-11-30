@@ -61,6 +61,8 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::puzzle1);
 
+    Lesson* less2 = new Lesson(Lesson::Lesson2);
+    ui->windows->addWidget(less2);
     connect(ui->lesson2,
             &QPushButton::clicked,
             this,
@@ -74,6 +76,8 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::puzzle2);
 
+    Lesson* less3 = new Lesson(Lesson::Lesson3);
+    ui->windows->addWidget(less3);
     connect(ui->lesson3,
             &QPushButton::clicked,
             this,
@@ -87,6 +91,8 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::puzzle3);
 
+    Lesson* less4 = new Lesson(Lesson::Lesson4);
+    ui->windows->addWidget(less4);
     connect(ui->lesson4,
             &QPushButton::clicked,
             this,
@@ -100,6 +106,8 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::puzzle4);
 
+    Lesson* less5 = new Lesson(Lesson::Lesson5);
+    ui->windows->addWidget(less5);
     connect(ui->lesson5,
             &QPushButton::clicked,
             this,
@@ -113,6 +121,8 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::puzzle5);
 
+    Lesson* less6 = new Lesson(Lesson::Lesson6);
+    ui->windows->addWidget(less6);
     connect(ui->lesson6,
             &QPushButton::clicked,
             this,
