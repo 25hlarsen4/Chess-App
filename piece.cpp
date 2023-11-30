@@ -122,10 +122,10 @@ QList<QPair<int, int>> Piece::getPossibleLocations(QPair<int,int> currLocation, 
 }
 
 bool Piece::checkInbounds(int nextY, int nextX){
-    if((nextY < 1) ||
-       (nextY > 8) ||
-       (nextX < 1) ||
-       (nextX > 8)){
+    if((nextY < 0) ||
+       (nextY > 7) ||
+       (nextX < 0) ||
+       (nextX > 7)){
         return false;
     }
     return true;
