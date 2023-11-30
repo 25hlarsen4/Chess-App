@@ -51,7 +51,7 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson1);
 
     Puzzle* puzz1 = new Puzzle(Puzzle::Puzzle1);
-    connect(puzz, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
+    connect(puzz1, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
 //    Puzzle* puzz = new Puzzle;
     ui->windows->addWidget(puzz1);
     connect(ui->puzzle1,
@@ -152,6 +152,9 @@ void Chess::styleChessboard() {
                     square->setStyleSheet("background-color: rgb(209, 139, 71);");
                 }
 
+            }
+        }
+    }
 }
 
 Chess::~Chess()
