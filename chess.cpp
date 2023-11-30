@@ -175,47 +175,47 @@ void Chess::lesson1() {
 }
 
 void Chess::puzzle1() {
-    ui->windows->setCurrentIndex(3);
-}
-
-void Chess::lesson2() {
     ui->windows->setCurrentIndex(4);
 }
 
-void Chess::puzzle2() {
-    ui->windows->setCurrentIndex(5);
+void Chess::lesson2() {
+    ui->windows->setCurrentIndex(3);
 }
 
-void Chess::lesson3() {
+void Chess::puzzle2() {
     ui->windows->setCurrentIndex(6);
 }
 
-void Chess::puzzle3() {
-    ui->windows->setCurrentIndex(7);
+void Chess::lesson3() {
+    ui->windows->setCurrentIndex(5);
 }
 
-void Chess::lesson4() {
+void Chess::puzzle3() {
     ui->windows->setCurrentIndex(8);
 }
 
-void Chess::puzzle4() {
-    ui->windows->setCurrentIndex(9);
+void Chess::lesson4() {
+    ui->windows->setCurrentIndex(7);
 }
 
-void Chess::lesson5() {
+void Chess::puzzle4() {
     ui->windows->setCurrentIndex(10);
 }
 
-void Chess::puzzle5() {
-    ui->windows->setCurrentIndex(11);
+void Chess::lesson5() {
+    ui->windows->setCurrentIndex(9);
 }
 
-void Chess::lesson6() {
+void Chess::puzzle5() {
     ui->windows->setCurrentIndex(12);
 }
 
+void Chess::lesson6() {
+    ui->windows->setCurrentIndex(11);
+}
+
 void Chess::puzzle6() {
-    ui->windows->setCurrentIndex(13);
+    ui->windows->setCurrentIndex(14);
 }
 
 
