@@ -151,10 +151,10 @@ void Puzzle::selectSpace(){
     }
     qDebug() << "row: " << selectedSpace->property("row").toInt();
     qDebug() << "col: " << selectedSpace->property("col").toInt();
+
     if (selecting) {
         // only select if there's a piece in the space
         if (piecePositions.contains(buttonCoords)) {
-
 
             setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt(), "rgb(0,255,0)");
 
@@ -162,14 +162,15 @@ void Puzzle::selectSpace(){
 
             prevPiecePos = buttonCoords;
             potentialLocations = selectedPiece->getPossibleLocations(prevPiecePos, piecePositions);
-            selecting = false;
-            moving = true;
-            currSequenceIndex++;
 
             for(auto& location : potentialLocations){
                 qDebug() << "potential locations: " << location.first << ", " << location.second;
                 setButtonBackgroundColor(location.first, location.second, "rgb(0,255,0)");
             }
+
+            selecting = false;
+            moving = true;
+            currSequenceIndex++;
         }
     }
     else if (moving) {
@@ -207,13 +208,9 @@ void Puzzle::selectSpace(){
                         qDebug() << "puzzle complete";
                     }
                     piece->setPiece(selectedSpace);
-//                    for(auto& location : potentialLocations){
-//                        setButtonBackgroundColor(location.first, location.second, "");
-//                    }
-//                    setButtonBackgroundColor(prevPiecePos.first, prevPiecePos.second, "");
                 }
             }
-        }
+        }else selecting = true;
     }
 }
 
