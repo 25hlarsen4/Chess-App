@@ -195,7 +195,15 @@ void Puzzle::selectSpace(){
                     setButtonBackgroundColor(prevPiecePos.first, prevPiecePos.second, "");
 
 
+                    qDebug() << piecePositions;
+
+                    moving = false;
+                    selecting = true;
                     currSequenceIndex++;
+                    if (currSequenceIndex == correctClickSequence.size()) {
+                        // we're done, send success signal
+                        qDebug() << "puzzle complete";
+                    }
                 }
             }
         }
@@ -227,10 +235,12 @@ void Puzzle::setButtonBackgroundColor(int row, int col, QString color){
 
 void Puzzle::setUpPuzzle1() {
     boardSetUp[qMakePair(1, 1)] = Piece::BLACK_BISHOP;
-    boardSetUp[qMakePair(2, 1)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(2, 2)] = Piece::WHITE_PAWN;
 
     correctClickSequence.append(qMakePair(1, 1));
     correctClickSequence.append(qMakePair(2, 2));
+    correctClickSequence.append(qMakePair(2, 2));
+    correctClickSequence.append(qMakePair(3, 3));
 }
 
 void Puzzle::setUpPuzzle2() {
