@@ -62,6 +62,7 @@ void Piece::setPiece(QPushButton *space){
     pieceLabel->setGeometry(0, 0, space->width(), space->height());
     pieceLabel->show();
 }
+
 void Piece::hide(){
     pieceLabel->hide();
 }
@@ -69,25 +70,11 @@ void Piece::hide(){
 QList<QPair<int, int>> Piece::getPossibleLocations(QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard){
     QList<QPair<int, int>> validLocations;
     if (pieceType == BLACK_KNIGHT) {
-        checkPiece(currLocation.first + 2, currLocation.second + 1, true, gameBoard, validLocations);
-        checkPiece(currLocation.first + 2, currLocation.second - 1, true, gameBoard, validLocations);
-        checkPiece(currLocation.first - 2, currLocation.second + 1, true, gameBoard, validLocations);
-        checkPiece(currLocation.first - 2, currLocation.second - 1, true, gameBoard, validLocations);
-        checkPiece(currLocation.first + 1, currLocation.second + 2, true, gameBoard, validLocations);
-        checkPiece(currLocation.first + 1, currLocation.second - 2, true, gameBoard, validLocations);
-        checkPiece(currLocation.first - 1, currLocation.second + 2, true, gameBoard, validLocations);
-        checkPiece(currLocation.first - 1, currLocation.second - 2, true, gameBoard, validLocations);
+        knightMoves(true, currLocation, gameBoard, validLocations);
     }
 
     else if (pieceType == WHITE_KNIGHT) {
-        checkPiece(currLocation.first + 2, currLocation.second + 1, false, gameBoard, validLocations);
-        checkPiece(currLocation.first + 2, currLocation.second - 1, false, gameBoard, validLocations);
-        checkPiece(currLocation.first - 2, currLocation.second + 1, false, gameBoard, validLocations);
-        checkPiece(currLocation.first - 2, currLocation.second - 1, false, gameBoard, validLocations);
-        checkPiece(currLocation.first + 1, currLocation.second + 2, false, gameBoard, validLocations);
-        checkPiece(currLocation.first + 1, currLocation.second - 2, false, gameBoard, validLocations);
-        checkPiece(currLocation.first - 1, currLocation.second + 2, false, gameBoard, validLocations);
-        checkPiece(currLocation.first - 1, currLocation.second - 2, false, gameBoard, validLocations);
+        knightMoves(false, currLocation, gameBoard, validLocations);
     }
 
     else if (pieceType == BLACK_BISHOP) {
@@ -107,99 +94,19 @@ QList<QPair<int, int>> Piece::getPossibleLocations(QPair<int,int> currLocation, 
     }
 
     else if (pieceType == BLACK_PAWN) {
-        // Pawn gets custom logic (yay)
-        if(freshPawn){
-            // Check two moves
-            if(checkInbounds(currLocation.first - 2, currLocation.second)){
-                QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second);
-                if(!gameBoard.contains(nextLocation)){
-                    validLocations.append(nextLocation);
-                }
-            }
-        }
-        // Check One Move
-        if(checkInbounds(currLocation.first - 1, currLocation.second)){
-            QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second);
-            if(!gameBoard.contains(nextLocation)){
-                validLocations.append(nextLocation);
-            }
-        }
-        // Check diagonal capture
-        if(checkInbounds(currLocation.first - 1, currLocation.second - 1)){
-            QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second - 1);
-            if(gameBoard.contains(nextLocation)){
-                if(whitePiece(gameBoard[nextLocation])){
-                    validLocations.append(nextLocation);
-                }
-            }
-        }
-        if(checkInbounds(currLocation.first - 1, currLocation.second + 1)){
-            QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second + 1);
-            if(gameBoard.contains(nextLocation)){
-                if(whitePiece(gameBoard[nextLocation])){
-                    validLocations.append(nextLocation);
-                }
-            }
-        }
+        pawnMoves(true, currLocation, gameBoard, validLocations);
     }
 
     else if (pieceType == WHITE_PAWN) {
-        // Pawn gets custom logic (yay)
-        if(freshPawn){
-            // Check two moves
-            if(checkInbounds(currLocation.first - 2, currLocation.second)){
-                QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second);
-                if(!gameBoard.contains(nextLocation)){
-                    validLocations.append(nextLocation);
-                }
-            }
-        }
-        // Check One Move
-        if(checkInbounds(currLocation.first - 1, currLocation.second)){
-            QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second);
-            if(!gameBoard.contains(nextLocation)){
-                validLocations.append(nextLocation);
-            }
-        }
-        // Check diagonal capture
-        if(checkInbounds(currLocation.first - 1, currLocation.second - 1)){
-            QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second - 1);
-            if(gameBoard.contains(nextLocation)){
-                if(blackPiece(gameBoard[nextLocation])){
-                    validLocations.append(nextLocation);
-                }
-            }
-        }
-        if(checkInbounds(currLocation.first - 1, currLocation.second + 1)){
-            QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second + 1);
-            if(gameBoard.contains(nextLocation)){
-                if(blackPiece(gameBoard[nextLocation])){
-                    validLocations.append(nextLocation);
-                }
-            }
-        }
+        pawnMoves(false, currLocation, gameBoard, validLocations);
     }
 
     else if (pieceType == BLACK_KING) {
-        checkPiece(currLocation.first + 1, currLocation.second, true, gameBoard, validLocations);
-        checkPiece(currLocation.first + 1, currLocation.second + 1, true, gameBoard, validLocations);
-        checkPiece(currLocation.first + 1, currLocation.second - 1, true, gameBoard, validLocations);
-        checkPiece(currLocation.first - 1, currLocation.second, true, gameBoard, validLocations);
-        checkPiece(currLocation.first - 1, currLocation.second + 1, true, gameBoard, validLocations);
-        checkPiece(currLocation.first - 1, currLocation.second - 1, true, gameBoard, validLocations);
-        checkPiece(currLocation.first, currLocation.second + 1, true, gameBoard, validLocations);
-        checkPiece(currLocation.first, currLocation.second - 1, true, gameBoard, validLocations);
+        kingMoves(true, currLocation, gameBoard, validLocations);
     }
 
     else if (pieceType == WHITE_KING) {
-        checkPiece(currLocation.first + 1, currLocation.second, false, gameBoard, validLocations);
-        checkPiece(currLocation.first + 1, currLocation.second + 1, false, gameBoard, validLocations);
-        checkPiece(currLocation.first + 1, currLocation.second - 1, false, gameBoard, validLocations);
-        checkPiece(currLocation.first - 1, currLocation.second, false, gameBoard, validLocations);
-        checkPiece(currLocation.first - 1, currLocation.second + 1, false, gameBoard, validLocations);
-        checkPiece(currLocation.first - 1, currLocation.second - 1, false, gameBoard, validLocations);
-        checkPiece(currLocation.first, currLocation.second + 1, false, gameBoard, validLocations);
-        checkPiece(currLocation.first, currLocation.second - 1, false, gameBoard, validLocations);
+        kingMoves(false, currLocation, gameBoard, validLocations);
     }
 
     else if (pieceType == BLACK_QUEEN) {
@@ -340,5 +247,76 @@ void Piece::bishopMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int
         clear = checkPiece(currLocation.first + offsetY, currLocation.second + offsetX, black, gameBoard, validLocations);
         offsetX--;
         offsetY--;
+    }
+}
+
+void Piece::knightMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> &validLocations){
+    checkPiece(currLocation.first + 2, currLocation.second + 1, black, gameBoard, validLocations);
+    checkPiece(currLocation.first + 2, currLocation.second - 1, black, gameBoard, validLocations);
+    checkPiece(currLocation.first - 2, currLocation.second + 1, black, gameBoard, validLocations);
+    checkPiece(currLocation.first - 2, currLocation.second - 1, black, gameBoard, validLocations);
+    checkPiece(currLocation.first + 1, currLocation.second + 2, black, gameBoard, validLocations);
+    checkPiece(currLocation.first + 1, currLocation.second - 2, black, gameBoard, validLocations);
+    checkPiece(currLocation.first - 1, currLocation.second + 2, black, gameBoard, validLocations);
+    checkPiece(currLocation.first - 1, currLocation.second - 2, black, gameBoard, validLocations);
+}
+
+void Piece::kingMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> &validLocations){
+    checkPiece(currLocation.first + 1, currLocation.second, black, gameBoard, validLocations);
+    checkPiece(currLocation.first + 1, currLocation.second + 1, black, gameBoard, validLocations);
+    checkPiece(currLocation.first + 1, currLocation.second - 1, black, gameBoard, validLocations);
+    checkPiece(currLocation.first - 1, currLocation.second, black, gameBoard, validLocations);
+    checkPiece(currLocation.first - 1, currLocation.second + 1, black, gameBoard, validLocations);
+    checkPiece(currLocation.first - 1, currLocation.second - 1, black, gameBoard, validLocations);
+    checkPiece(currLocation.first, currLocation.second + 1, black, gameBoard, validLocations);
+    checkPiece(currLocation.first, currLocation.second - 1, black, gameBoard, validLocations);
+}
+
+void Piece::pawnMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> &validLocations){
+    // Pawn gets custom logic (yay)
+    if(freshPawn){
+        // Check two moves
+        if(checkInbounds(currLocation.first - 2, currLocation.second)){
+            QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second);
+            if(!gameBoard.contains(nextLocation)){
+                validLocations.append(nextLocation);
+            }
+        }
+    }
+    // Check One Move
+    if(checkInbounds(currLocation.first - 1, currLocation.second)){
+        QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second);
+        if(!gameBoard.contains(nextLocation)){
+            validLocations.append(nextLocation);
+        }
+    }
+    // Check diagonal capture
+    if(checkInbounds(currLocation.first - 1, currLocation.second - 1)){
+        QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second - 1);
+        if(gameBoard.contains(nextLocation)){
+            if(black){
+                if(whitePiece(gameBoard[nextLocation])){
+                    validLocations.append(nextLocation);
+                }
+            }else{
+                if(blackPiece(gameBoard[nextLocation])){
+                    validLocations.append(nextLocation);
+                }
+            }
+        }
+    }
+    if(checkInbounds(currLocation.first - 1, currLocation.second + 1)){
+        QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second + 1);
+        if(gameBoard.contains(nextLocation)){
+            if(black){
+                if(whitePiece(gameBoard[nextLocation])){
+                    validLocations.append(nextLocation);
+                }
+            }else{
+                if(blackPiece(gameBoard[nextLocation])){
+                    validLocations.append(nextLocation);
+                }
+            }
+        }
     }
 }
