@@ -88,7 +88,7 @@ void Puzzle::createBoard(){
     vLayout->addWidget(menuBarBackground);
 
     //The board
-    QGridLayout *layout = new QGridLayout();
+    layout = new QGridLayout();
     layout->setHorizontalSpacing(0);
     layout->setVerticalSpacing(0);
     // Vertical spacers
@@ -136,12 +136,14 @@ void Puzzle::createBoard(){
 
 void Puzzle::selectSpace(){
     QPushButton *selectedSpace = qobject_cast<QPushButton*>(sender());
-
     QPair<int, int> buttonCoords = qMakePair(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt());
 
     if (selecting) {
         // only select if there's a piece in the space
         if (piecePositions.contains(buttonCoords)) {
+
+            setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("row").toInt());
+
             selectedPiece = piecePositions[buttonCoords];
 
             prevPiecePos = buttonCoords;
@@ -149,6 +151,10 @@ void Puzzle::selectSpace(){
             selecting = false;
             moving = true;
             currSequenceIndex++;
+
+            for(auto& location : potentialLocations){
+                setButtonBackgroundColor(location.first, location.second);
+            }
         }
     }
     else if (moving) {
@@ -181,6 +187,23 @@ void Puzzle::selectSpace(){
 void Puzzle::onGoBackButtonClicked(){
     qDebug() << "Go Back button was clicked in Puzzle";
     emit goBackButtonClicked();
+}
+void Puzzle::setButtonBackgroundColor(int row, int col){
+
+    for (int i = 0; i < layout->count(); ++i) {
+
+        if(QPushButton *button = qobject_cast<QPushButton*>(layout->itemAt(i)->widget())){
+
+            if(button->property("row").toInt() == row && button->property("col").toInt() == col){
+
+                button->setStyleSheet("background-color: rgb(0,255,0);");
+
+            }
+
+        }
+
+    }
+
 }
 
 

@@ -43,9 +43,12 @@ private:
     Piece* selectedPiece;
     QPair<int, int> prevPiecePos;
 
+    QGridLayout *layout;
+
     void paintEvent(QPaintEvent *);
     void createBoard();
     void setPiece(QPushButton *space, Piece*);
+    void setButtonBackgroundColor(int row, int col);
 
     void setUpPuzzle1();
     void setUpPuzzle2();
