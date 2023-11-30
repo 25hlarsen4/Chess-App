@@ -273,9 +273,9 @@ void Piece::kingMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
 }
 
 void Piece::pawnMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> &validLocations){
-    int direction = 1;
+    int direction = -1;
     if(black){
-        direction = -1;
+        direction = 1;
     }
     // Pawn gets custom logic (yay)
     if(freshPawn){
