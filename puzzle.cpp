@@ -142,7 +142,7 @@ void Puzzle::selectSpace(){
         // only select if there's a piece in the space
         if (piecePositions.contains(buttonCoords)) {
 
-            setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("row").toInt());
+            setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("row").toInt(), "rgb(0,255,0)");
 
             selectedPiece = piecePositions[buttonCoords];
 
@@ -153,7 +153,7 @@ void Puzzle::selectSpace(){
             currSequenceIndex++;
 
             for(auto& location : potentialLocations){
-                setButtonBackgroundColor(location.first, location.second);
+                setButtonBackgroundColor(location.first, location.second, "rgb(0,255,0)");
             }
         }
     }
@@ -163,6 +163,8 @@ void Puzzle::selectSpace(){
         // if a valid move
         if (potentialLocations.contains(clickPos)) {
             // check that it's also the right move for the puzzle
+            qDebug() << currSequenceIndex;
+            qDebug() << "correctClickSequence: " << correctClickSequence.size();
             if (clickPos == correctClickSequence[currSequenceIndex]) {
                 // hide where the piece used to be (should always contain just check just in case)
                 if (piecePositions.contains(prevPiecePos)) {
@@ -176,6 +178,11 @@ void Puzzle::selectSpace(){
                     piecePositions[clickPos] = piece;
 
                     piece->setPiece(selectedSpace);
+                    for(auto& location : potentialLocations){
+                        setButtonBackgroundColor(location.first, location.second, "");
+                    }
+                    setButtonBackgroundColor(prevPiecePos.first, prevPiecePos.second, "");
+
 
                     currSequenceIndex++;
                 }
@@ -188,7 +195,7 @@ void Puzzle::onGoBackButtonClicked(){
     qDebug() << "Go Back button was clicked in Puzzle";
     emit goBackButtonClicked();
 }
-void Puzzle::setButtonBackgroundColor(int row, int col){
+void Puzzle::setButtonBackgroundColor(int row, int col, QString color){
 
     for (int i = 0; i < layout->count(); ++i) {
 
@@ -196,7 +203,7 @@ void Puzzle::setButtonBackgroundColor(int row, int col){
 
             if(button->property("row").toInt() == row && button->property("col").toInt() == col){
 
-                button->setStyleSheet("background-color: rgb(0,255,0);");
+                button->setStyleSheet(QString("background-color: %1;").arg(color));
 
             }
 
