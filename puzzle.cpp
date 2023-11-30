@@ -99,13 +99,13 @@ void Puzzle::createBoard(){
     layout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum), 0, 8, 8, 0);
     layout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum), 0, 0, 8, 0);
 
-    for(int i = 0; i < 8; i++){
-        for(int j = 0; j < 8; j++){
+    for(int i = 7; i >= 0; i--){
+        for(int j = 7; j >= 0; j--){
 
             QPushButton *space = new QPushButton(this);
 
-            space->setProperty("row", i);
-            space->setProperty("col", j);
+            space->setProperty("row", j);
+            space->setProperty("col", i);
 
             if((i + j) % 2 == 0) space->setStyleSheet("background-color: white;");
             else space->setStyleSheet("background-color: brown;");
@@ -114,7 +114,7 @@ void Puzzle::createBoard(){
 
             connect(space, &QPushButton::clicked, this, &Puzzle::selectSpace);
 
-            layout->addWidget(space, i, j);
+            layout->addWidget(space, j, i);
             //setLayout(layout);
 
 
@@ -137,10 +137,16 @@ void Puzzle::createBoard(){
 void Puzzle::selectSpace(){
     QPushButton *selectedSpace = qobject_cast<QPushButton*>(sender());
     QPair<int, int> buttonCoords = qMakePair(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt());
-
+    for(auto& location : potentialLocations){
+        setButtonBackgroundColor(location.first, location.second, "");
+    }
+    setButtonBackgroundColor(prevPiecePos.first, prevPiecePos.second, "");
+    qDebug() << "row: " << selectedSpace->property("row").toInt();
+    qDebug() << "col: " << selectedSpace->property("col").toInt();
     if (selecting) {
         // only select if there's a piece in the space
         if (piecePositions.contains(buttonCoords)) {
+
 
             setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("row").toInt(), "rgb(0,255,0)");
 
