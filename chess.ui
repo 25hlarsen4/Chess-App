@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="startPage">
      <widget class="QPushButton" name="startButton">
@@ -205,7 +205,7 @@
        <item row="5" column="1">
         <widget class="QPushButton" name="puzzle6">
          <property name="text">
-          <string>Puzzle 5</string>
+          <string>Puzzle 6</string>
          </property>
         </widget>
        </item>
