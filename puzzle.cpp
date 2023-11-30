@@ -62,7 +62,33 @@ void Puzzle::paintEvent(QPaintEvent *) {
 }
 void Puzzle::createBoard(){
 
-    QGridLayout *layout = new QGridLayout(this);
+    QVBoxLayout *vLayout = new QVBoxLayout(); // the layout that contains the menu bar and the board
+
+    // The menu bar
+    QWidget *menuBarBackground = new QWidget(); // menu bar background
+    menuBarBackground->setStyleSheet("background-color: white;");
+
+    QHBoxLayout *menubarLayout = new QHBoxLayout(menuBarBackground); // menu bar
+
+    QPushButton* goBackButton = new QPushButton(); //goBackButton
+    goBackButton->setMinimumSize(50, 50);
+    goBackButton->setMaximumSize(50, 50);
+    goBackButton->setStyleSheet("QPushButton { background-color: white; color: black; border: none; }");
+    QPixmap pieceImage(":/backgrounds/Images/back.png");
+    QPixmap scaledPieceImage = pieceImage.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    goBackButton->setIcon(QIcon(scaledPieceImage));
+    goBackButton->setIconSize(QSize(50, 50));
+    goBackButton->show();
+    connect(goBackButton, &QPushButton::clicked, this, &Puzzle::onGoBackButtonClicked); // calls the slot to emit signal to update view in the control class
+
+    menubarLayout->addWidget(goBackButton);
+    menubarLayout->addStretch();
+    menuBarBackground->setLayout(menubarLayout);
+
+    vLayout->addWidget(menuBarBackground);
+
+    //The board
+    QGridLayout *layout = new QGridLayout();
     layout->setHorizontalSpacing(0);
     layout->setVerticalSpacing(0);
     // Vertical spacers
@@ -89,7 +115,7 @@ void Puzzle::createBoard(){
             connect(space, &QPushButton::clicked, this, &Puzzle::selectSpace);
 
             layout->addWidget(space, i, j);
-            setLayout(layout);
+            //setLayout(layout);
 
 
             // now set the pieces and correct moves
@@ -102,6 +128,9 @@ void Puzzle::createBoard(){
 
         }
     }
+
+    vLayout->addLayout(layout);
+    this->setLayout(vLayout);
 }
 
 
@@ -147,6 +176,11 @@ void Puzzle::selectSpace(){
             }
         }
     }
+}
+
+void Puzzle::onGoBackButtonClicked(){
+    qDebug() << "Go Back button was clicked in Puzzle";
+    emit goBackButtonClicked();
 }
 
 

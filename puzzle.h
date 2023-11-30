@@ -55,9 +55,11 @@ private:
     void setUpPuzzle6();
 
 signals:
+    void goBackButtonClicked();
 
 public slots:
     void selectSpace();
+    void onGoBackButtonClicked();
 
 };
 
