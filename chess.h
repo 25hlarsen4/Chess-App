@@ -21,7 +21,23 @@ private:
     Ui::Chess *ui;
     void startGame();
     void styleChessboard();
+
     void lesson1();
     void puzzle1();
+
+    void lesson2();
+    void puzzle2();
+
+    void lesson3();
+    void puzzle3();
+
+    void lesson4();
+    void puzzle4();
+
+    void lesson5();
+    void puzzle5();
+
+    void lesson6();
+    void puzzle6();
 };
 #endif // CHESS_H
