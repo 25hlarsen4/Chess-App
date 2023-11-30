@@ -48,7 +48,7 @@ private:
     void paintEvent(QPaintEvent *);
     void createBoard();
     void setPiece(QPushButton *space, Piece*);
-    void setButtonBackgroundColor(int row, int col);
+    void setButtonBackgroundColor(int row, int col, QString color);
 
     void setUpPuzzle1();
     void setUpPuzzle2();
