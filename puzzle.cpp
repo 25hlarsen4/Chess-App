@@ -107,8 +107,17 @@ void Puzzle::createBoard(){
             space->setProperty("row", j);
             space->setProperty("col", i);
 
-            if((i + j) % 2 == 0) space->setStyleSheet("background-color: white;");
-            else space->setStyleSheet("background-color: brown;");
+
+            if((i + j) % 2 == 0){
+
+                space->setStyleSheet("background-color: white;");
+                space->setProperty("color", "white");
+            }
+            else {
+                space->setStyleSheet("background-color: brown;");
+                space->setProperty("color", "brown");
+            }
+            allButtons.append(space);
 
             space->setFixedSize(70,70);
 
@@ -137,10 +146,9 @@ void Puzzle::createBoard(){
 void Puzzle::selectSpace(){
     QPushButton *selectedSpace = qobject_cast<QPushButton*>(sender());
     QPair<int, int> buttonCoords = qMakePair(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt());
-    for(auto& location : potentialLocations){
-        setButtonBackgroundColor(location.first, location.second, "");
+    for(auto& button : allButtons){
+        setButtonBackgroundColor(button->property("row").toInt(), button->property("col").toInt(), button->property("color").toString());
     }
-    setButtonBackgroundColor(prevPiecePos.first, prevPiecePos.second, "");
     qDebug() << "row: " << selectedSpace->property("row").toInt();
     qDebug() << "col: " << selectedSpace->property("col").toInt();
     if (selecting) {
@@ -159,6 +167,7 @@ void Puzzle::selectSpace(){
             currSequenceIndex++;
 
             for(auto& location : potentialLocations){
+                qDebug() << "potential locations: " << location.first << ", " << location.second;
                 setButtonBackgroundColor(location.first, location.second, "rgb(0,255,0)");
             }
         }
@@ -188,13 +197,6 @@ void Puzzle::selectSpace(){
                     // this will replace if need be (if capturing)
                     piecePositions.insert(clickPos, piece);
 
-                    piece->setPiece(selectedSpace);
-                    for(auto& location : potentialLocations){
-                        setButtonBackgroundColor(location.first, location.second, "");
-                    }
-                    setButtonBackgroundColor(prevPiecePos.first, prevPiecePos.second, "");
-
-
                     qDebug() << piecePositions;
 
                     moving = false;
@@ -204,6 +206,11 @@ void Puzzle::selectSpace(){
                         // we're done, send success signal
                         qDebug() << "puzzle complete";
                     }
+                    piece->setPiece(selectedSpace);
+//                    for(auto& location : potentialLocations){
+//                        setButtonBackgroundColor(location.first, location.second, "");
+//                    }
+//                    setButtonBackgroundColor(prevPiecePos.first, prevPiecePos.second, "");
                 }
             }
         }

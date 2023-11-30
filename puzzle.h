@@ -36,6 +36,7 @@ private:
     QHash<QPair<int, int>, Piece*> piecePositions;
     QList<QPair<int, int>> correctClickSequence;
     QList<QPair<int, int>> potentialLocations;
+    QList<QPushButton*> allButtons;
 
     int currSequenceIndex;
     bool selecting;
