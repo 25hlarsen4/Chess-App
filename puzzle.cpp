@@ -164,16 +164,21 @@ void Puzzle::selectSpace(){
         if (potentialLocations.contains(clickPos)) {
             // check that it's also the right move for the puzzle
             if (clickPos == correctClickSequence[currSequenceIndex]) {
-                // hide where the piece used to be (should always contain just check just in case)
                 if (piecePositions.contains(prevPiecePos)) {
-                    // call piece.hide() on the corresponding piece
                     Piece* piece = piecePositions[prevPiecePos];
                     piece->hide();
 
                     // accept the move and update accordingly
                     // update map, setPiece label
                     piecePositions.remove(prevPiecePos);
-                    piecePositions[clickPos] = piece;
+
+                    // hide piece if we're capturing one
+                    if (piecePositions.contains(clickPos)) {
+                        piecePositions[clickPos]->hide();
+                        // should we delete the piece here?
+                    }
+                    // this will replace if need be (if capturing)
+                    piecePositions.insert(clickPos, piece);
 
                     piece->setPiece(selectedSpace);
 
