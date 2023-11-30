@@ -43,9 +43,12 @@ private:
     Piece* selectedPiece;
     QPair<int, int> prevPiecePos;
 
+    QGridLayout *layout;
+
     void paintEvent(QPaintEvent *);
     void createBoard();
     void setPiece(QPushButton *space, Piece*);
+    void setButtonBackgroundColor(int row, int col, QString color);
 
     void setUpPuzzle1();
     void setUpPuzzle2();
@@ -55,9 +58,11 @@ private:
     void setUpPuzzle6();
 
 signals:
+    void goBackButtonClicked();
 
 public slots:
     void selectSpace();
+    void onGoBackButtonClicked();
 
 };
 

@@ -37,9 +37,6 @@ Chess::Chess(QWidget *parent)
 
     ui->windows->setCurrentIndex(0);
 
-    styleChessboard();
-
-
     // Make connections from model to view
     connect(ui->startButton,
             &QPushButton::clicked,
@@ -54,6 +51,7 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson1);
 
     Puzzle* puzz1 = new Puzzle(Puzzle::Puzzle1);
+    connect(puzz, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
 //    Puzzle* puzz = new Puzzle;
     ui->windows->addWidget(puzz1);
     connect(ui->puzzle1,
@@ -154,11 +152,6 @@ void Chess::styleChessboard() {
                     square->setStyleSheet("background-color: rgb(209, 139, 71);");
                 }
 
-                // Set fixed size for squares, you can adjust this as needed
-                square->setFixedSize(70, 70);
-            }
-        }
-    }
 }
 
 Chess::~Chess()
@@ -173,7 +166,7 @@ void Chess::startGame() {
 void Chess::lesson1() {
     ui->windows->setCurrentIndex(2);
 }
-
+          
 void Chess::puzzle1() {
     ui->windows->setCurrentIndex(4);
 }
