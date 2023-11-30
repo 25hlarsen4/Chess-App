@@ -120,10 +120,10 @@ void Puzzle::createBoard(){
 
             // now set the pieces and correct moves
 
-            if (boardSetUp.contains(qMakePair(i, j))) {
-                Piece* piece = new Piece(boardSetUp[qMakePair(i, j)]);
+            if (boardSetUp.contains(qMakePair(j, i))) {
+                Piece* piece = new Piece(boardSetUp[qMakePair(j, i)]);
                 piece->setPiece(space);      //(have piece have qlabel member)
-                piecePositions[qMakePair(i, j)] = piece;
+                piecePositions[qMakePair(j, i)] = piece;
             }
 
         }
@@ -148,7 +148,7 @@ void Puzzle::selectSpace(){
         if (piecePositions.contains(buttonCoords)) {
 
 
-            setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("row").toInt(), "rgb(0,255,0)");
+            setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt(), "rgb(0,255,0)");
 
             selectedPiece = piecePositions[buttonCoords];
 
@@ -236,6 +236,7 @@ void Puzzle::setButtonBackgroundColor(int row, int col, QString color){
 void Puzzle::setUpPuzzle1() {
     boardSetUp[qMakePair(1, 1)] = Piece::BLACK_BISHOP;
     boardSetUp[qMakePair(2, 2)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(3, 4)] = Piece::BLACK_PAWN;
 
     correctClickSequence.append(qMakePair(1, 1));
     correctClickSequence.append(qMakePair(2, 2));

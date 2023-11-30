@@ -280,8 +280,8 @@ void Piece::pawnMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
     // Pawn gets custom logic (yay)
     if(freshPawn){
         // Check two moves
-        if(checkInbounds(currLocation.first + direction*2, currLocation.second)){
-            QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second);
+        if(checkInbounds(currLocation.first + direction * 2, currLocation.second)){
+            QPair<int, int> nextLocation(currLocation.first + direction * 2, currLocation.second);
             if(!gameBoard.contains(nextLocation)){
                 validLocations.append(nextLocation);
             }
@@ -289,14 +289,14 @@ void Piece::pawnMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
     }
     // Check One Move
     if(checkInbounds(currLocation.first + direction, currLocation.second)){
-        QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second);
+        QPair<int, int> nextLocation(currLocation.first + direction, currLocation.second);
         if(!gameBoard.contains(nextLocation)){
             validLocations.append(nextLocation);
         }
     }
     // Check diagonal capture
     if(checkInbounds(currLocation.first + direction, currLocation.second - 1)){
-        QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second - 1);
+        QPair<int, int> nextLocation(currLocation.first + direction, currLocation.second - 1);
         if(gameBoard.contains(nextLocation)){
             if(black){
                 if(whitePiece(gameBoard[nextLocation])){
@@ -310,7 +310,7 @@ void Piece::pawnMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
         }
     }
     if(checkInbounds(currLocation.first + direction, currLocation.second + 1)){
-        QPair<int, int> nextLocation(currLocation.first - 1, currLocation.second + 1);
+        QPair<int, int> nextLocation(currLocation.first + direction, currLocation.second + 1);
         if(gameBoard.contains(nextLocation)){
             if(black){
                 if(whitePiece(gameBoard[nextLocation])){
