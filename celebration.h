@@ -19,7 +19,7 @@ private slots:
     void updateWorld();
 
 signals:
-    void ballOutOfBoundSignal();
+    void ballOutOfBoundSignal(b2Body *ball);
 
 private:
     b2World *world;
@@ -27,9 +27,13 @@ private:
     QTimer *timer;
     const float32 scale = 50.0f; // Pixels per meter
     const int updateInterval = 16; // Timer interval in ms (about 60 FPS)
-    float ballRadius = 1.0f;
+    float ballRadius = 10.0f;
 
-    void createBall();
+    b2Body* createBall();
+    void refreshBall(b2Body *ball);
+    std::vector<b2Body*> balls;
+
+    QPixmap backgroundPixmap;
 };
 
 #endif // CELEBRATION_H
