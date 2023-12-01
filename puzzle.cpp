@@ -92,12 +92,12 @@ void Puzzle::createBoard(){
     layout->setHorizontalSpacing(0);
     layout->setVerticalSpacing(0);
     // Vertical spacers
-    layout->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding), 0, 8, 8, 0);
-    layout->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding), 0, 0, 8, 0);
+    layout->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding), 0, 8, 1, 1);
+    layout->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding), 0, 8, 1, 1);
 
     // Horizontal spacers
-    layout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum), 0, 8, 8, 0);
-    layout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum), 0, 0, 8, 0);
+    layout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum), 0, 8, 1, 1);
+    layout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum), 0, 8, 1, 1);
 
     for(int i = 7; i >= 0; i--){
         for(int j = 7; j >= 0; j--){
@@ -149,8 +149,6 @@ void Puzzle::selectSpace(){
     for(auto& button : allButtons){
         setButtonBackgroundColor(button->property("row").toInt(), button->property("col").toInt(), button->property("color").toString());
     }
-    qDebug() << "row: " << selectedSpace->property("row").toInt();
-    qDebug() << "col: " << selectedSpace->property("col").toInt();
 
     if (selecting) {
         // only select if there's a piece in the space
@@ -179,8 +177,6 @@ void Puzzle::selectSpace(){
         // if a valid move
         if (potentialLocations.contains(clickPos)) {
             // check that it's also the right move for the puzzle
-            qDebug() << currSequenceIndex;
-            qDebug() << "correctClickSequence: " << correctClickSequence.size();
             if (clickPos == correctClickSequence[currSequenceIndex]) {
                 if (piecePositions.contains(prevPiecePos)) {
                     Piece* piece = piecePositions[prevPiecePos];
@@ -197,8 +193,6 @@ void Puzzle::selectSpace(){
                     }
                     // this will replace if need be (if capturing)
                     piecePositions.insert(clickPos, piece);
-
-                    qDebug() << piecePositions;
 
                     moving = false;
                     selecting = true;
