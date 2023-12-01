@@ -1,6 +1,7 @@
 // should do control stuffs, .ui file -> veiw stuffs
 
 #include "chess.h"
+#include "celebration.h"
 #include "puzzle.h"
 #include "lesson.h"
 #include "piece.h"
@@ -43,6 +44,8 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::startGame);
 
+    celebration* celebrationWidget = new celebration(this);
+    setCentralWidget(celebrationWidget);
     Lesson* less1 = new Lesson(Lesson::Lesson1);
     ui->windows->addWidget(less1);
     connect(ui->lesson1,
