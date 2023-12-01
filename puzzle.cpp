@@ -146,13 +146,14 @@ void Puzzle::createBoard(){
 void Puzzle::selectSpace(){
     QPushButton *selectedSpace = qobject_cast<QPushButton*>(sender());
     QPair<int, int> buttonCoords = qMakePair(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt());
+
     for(auto& button : allButtons){
         setButtonBackgroundColor(button->property("row").toInt(), button->property("col").toInt(), button->property("color").toString());
     }
 
     if (selecting) {
-        // only select if there's a piece in the space
-        if (piecePositions.contains(buttonCoords)) {
+        // only select if there's a piece in the space & it's the correct selection
+        if (piecePositions.contains(buttonCoords) && buttonCoords == correctClickSequence[currSequenceIndex]) {
 
             setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt(), "rgb(0,255,0)");
 
@@ -172,12 +173,10 @@ void Puzzle::selectSpace(){
         }
     }
     else if (moving) {
-        QPair<int, int> clickPos = qMakePair(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt());
-
         // if a valid move
-        if (potentialLocations.contains(clickPos)) {
+        if (potentialLocations.contains(buttonCoords)) {
             // check that it's also the right move for the puzzle
-            if (clickPos == correctClickSequence[currSequenceIndex]) {
+            if (buttonCoords == correctClickSequence[currSequenceIndex]) {
                 if (piecePositions.contains(prevPiecePos)) {
                     Piece* piece = piecePositions[prevPiecePos];
                     piece->hide();
@@ -187,12 +186,12 @@ void Puzzle::selectSpace(){
                     piecePositions.remove(prevPiecePos);
 
                     // hide piece if we're capturing one
-                    if (piecePositions.contains(clickPos)) {
-                        piecePositions[clickPos]->hide();
+                    if (piecePositions.contains(buttonCoords)) {
+                        piecePositions[buttonCoords]->hide();
                         // should we delete the piece here?
                     }
                     // this will replace if need be (if capturing)
-                    piecePositions.insert(clickPos, piece);
+                    piecePositions.insert(buttonCoords, piece);
 
                     moving = false;
                     selecting = true;
@@ -204,7 +203,17 @@ void Puzzle::selectSpace(){
                     piece->setPiece(selectedSpace);
                 }
             }
-        }else selecting = true;
+            else {
+                moving = false;
+                selecting = true;
+                currSequenceIndex--;
+            }
+        }
+        else {
+            moving = false;
+            selecting = true;
+            currSequenceIndex--;
+        }
     }
 }
 
