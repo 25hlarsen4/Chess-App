@@ -156,8 +156,8 @@ bool Piece::blackPiece(Piece* piece){
 }
 
 bool Piece::checkPiece(int nextX, int nextY, bool black, QHash<QPair<int, int>, Piece*> gameBoard, QList<QPair<int, int>> &validLocations){
-    if(checkInbounds(nextY, nextX)){
-        QPair<int, int> nextLocation(nextY, nextX);
+    if(checkInbounds(nextX, nextY)){
+        QPair<int, int> nextLocation(nextX, nextY);
         if(gameBoard.contains(nextLocation)){
             if(black){
                 if(whitePiece(gameBoard[nextLocation])){
