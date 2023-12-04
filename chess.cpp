@@ -134,6 +134,39 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::puzzle6);
 
+    // Disable all puzzles
+    ui->puzzle1->setEnabled(false);
+    ui->puzzle2->setEnabled(false);
+    ui->puzzle3->setEnabled(false);
+    ui->puzzle4->setEnabled(false);
+    ui->puzzle5->setEnabled(false);
+    ui->puzzle6->setEnabled(false);
+    // Connect finishing lessons to opening puzzles
+    connect(less1,
+            &Lesson::lessonFinished,
+            this,
+            &Chess::enablePuzzle);
+    connect(less2,
+            &Lesson::lessonFinished,
+            this,
+            &Chess::enablePuzzle);
+    connect(less3,
+            &Lesson::lessonFinished,
+            this,
+            &Chess::enablePuzzle);
+    connect(less4,
+            &Lesson::lessonFinished,
+            this,
+            &Chess::enablePuzzle);
+    connect(less5,
+            &Lesson::lessonFinished,
+            this,
+            &Chess::enablePuzzle);
+    connect(less6,
+            &Lesson::lessonFinished,
+            this,
+            &Chess::enablePuzzle);
+
 }
 
 void Chess::styleChessboard() {
@@ -167,7 +200,7 @@ void Chess::startGame() {
 }
 
 void Chess::lesson1() {
-    ui->windows->setCurrentIndex(2);
+    ui->windows->setCurrentIndex(3);
 }
           
 void Chess::puzzle1() {
@@ -212,6 +245,23 @@ void Chess::lesson6() {
 
 void Chess::puzzle6() {
     ui->windows->setCurrentIndex(14);
+}
+
+void Chess::enablePuzzle(int index){
+    if(index == 1){
+        ui->puzzle1->setEnabled(true);
+    }else if(index == 2){
+        ui->puzzle2->setEnabled(true);
+    }else if(index == 3){
+        ui->puzzle3->setEnabled(true);
+    }else if(index == 4){
+        ui->puzzle4->setEnabled(true);
+    }else if(index == 5){
+        ui->puzzle5->setEnabled(true);
+    }else if(index == 6){
+        ui->puzzle6->setEnabled(true);
+    }
+    ui->windows->setCurrentIndex(1);
 }
 
 

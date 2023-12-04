@@ -38,6 +38,19 @@ Lesson::Lesson(LessonType pt, QWidget *parent)
 }
 
 void Lesson::setUpLesson1() {
+    nextButton = new QPushButton(this);
+    nextButton->setStyleSheet("QPushButton{background-color: brown;"
+                                "border-width: 6px; border-radius: 20px;"
+                                "border: 2px black;}"
+                                "QPushButton::hover{background-color: rgb(50, 255, 50)}");
+    nextButton->setGeometry(675,525,100,50);
+    nextButton->setText("Next");
+    nextButton->show();
+    // Move this to the constructor once all lessons are set up
+    connect(nextButton,
+            &QAbstractButton::clicked,
+            this,
+            &Lesson::nextClicked);
 }
 
 void Lesson::setUpLesson2() {
@@ -54,4 +67,30 @@ void Lesson::setUpLesson5() {
 }
 void Lesson::setUpLesson6() {
 
+}
+
+void Lesson::nextClicked(){
+    if (lessonType == Lesson1) {
+        emit lessonFinished(1);
+    }
+
+    else if (lessonType == Lesson2) {
+        emit lessonFinished(2);
+    }
+
+    else if (lessonType == Lesson3) {
+        emit lessonFinished(3);
+    }
+
+    else if (lessonType == Lesson4) {
+        emit lessonFinished(4);
+    }
+
+    else if (lessonType == Lesson5) {
+        emit lessonFinished(5);
+    }
+
+    else if (lessonType == Lesson6) {
+        emit lessonFinished(6);
+    }
 }

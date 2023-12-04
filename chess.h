@@ -39,5 +39,7 @@ private:
 
     void lesson6();
     void puzzle6();
+
+    void enablePuzzle(int);
 };
 #endif // CHESS_H
