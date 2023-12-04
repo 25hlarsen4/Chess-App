@@ -52,6 +52,7 @@ Chess::Chess(QWidget *parent)
 
     Puzzle* puzz1 = new Puzzle(Puzzle::Puzzle1);
     connect(puzz1, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
+    connect(puzz1, &Puzzle::puzzleComplete, this, &Chess::updateFeedbackLabel);
 //    Puzzle* puzz = new Puzzle;
     ui->windows->addWidget(puzz1);
     connect(ui->puzzle1,
@@ -212,6 +213,9 @@ void Chess::lesson6() {
 
 void Chess::puzzle6() {
     ui->windows->setCurrentIndex(14);
+}
+void Chess::updateFeedbackLabel(){
+    ui->feedbackLabel->text() = "complete";
 }
 
 

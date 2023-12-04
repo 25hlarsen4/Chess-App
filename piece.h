@@ -38,6 +38,7 @@ public:
 
     void setPiece(QPushButton* space);
     void hide();
+    void show();
 
     QList<QPair<int, int>> getPossibleLocations(QPair<int, int>, QHash<QPair<int, int>, Piece*>);
 

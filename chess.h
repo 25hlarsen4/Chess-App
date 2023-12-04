@@ -39,5 +39,7 @@ private:
 
     void lesson6();
     void puzzle6();
+public slots:
+    void updateFeedbackLabel();
 };
 #endif // CHESS_H

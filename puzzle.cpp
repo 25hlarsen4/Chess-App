@@ -1,6 +1,8 @@
 
 #include "puzzle.h"
 #include "qpainter.h"
+#include <QTimer>
+#include <memory>
 
 Puzzle::Puzzle(QWidget *parent)
     : QWidget{parent}
@@ -82,10 +84,15 @@ void Puzzle::createBoard(){
     connect(goBackButton, &QPushButton::clicked, this, &Puzzle::onGoBackButtonClicked); // calls the slot to emit signal to update view in the control class
 
     menubarLayout->addWidget(goBackButton);
+    feedbackLabel = new QLabel();
+
+    menubarLayout->addWidget(feedbackLabel);
     menubarLayout->addStretch();
     menuBarBackground->setLayout(menubarLayout);
 
     vLayout->addWidget(menuBarBackground);
+
+
 
     //The board
     layout = new QGridLayout();
@@ -153,60 +160,98 @@ void Puzzle::selectSpace(){
 
     if (selecting) {
         // only select if there's a piece in the space & it's the correct selection
-        if (piecePositions.contains(buttonCoords) && buttonCoords == correctClickSequence[currSequenceIndex]) {
+        if (piecePositions.contains(buttonCoords) && playerPieces.contains(buttonCoords)) {
 
             setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt(), "rgb(0,255,0)");
 
             selectedPiece = piecePositions[buttonCoords];
-
             prevPiecePos = buttonCoords;
             potentialLocations = selectedPiece->getPossibleLocations(prevPiecePos, piecePositions);
 
             for(auto& location : potentialLocations){
-                qDebug() << "potential locations: " << location.first << ", " << location.second;
                 setButtonBackgroundColor(location.first, location.second, "rgb(0,255,0)");
             }
 
             selecting = false;
             moving = true;
             currSequenceIndex++;
+
         }
     }
     else if (moving) {
         // if a valid move
         if (potentialLocations.contains(buttonCoords)) {
             // check that it's also the right move for the puzzle
-            if (buttonCoords == correctClickSequence[currSequenceIndex]) {
-                if (piecePositions.contains(prevPiecePos)) {
-                    Piece* piece = piecePositions[prevPiecePos];
-                    piece->hide();
+            if (piecePositions.contains(prevPiecePos)) {
+                Piece* piece = piecePositions[prevPiecePos];
+                piece->hide();
 
-                    // accept the move and update accordingly
-                    // update map, setPiece label
-                    piecePositions.remove(prevPiecePos);
+                // accept the move and update accordingly
+                // update map, setPiece label
+                piecePositions.remove(prevPiecePos);
+                playerPieces.remove(prevPiecePos);
 
-                    // hide piece if we're capturing one
-                    if (piecePositions.contains(buttonCoords)) {
-                        piecePositions[buttonCoords]->hide();
-                        // should we delete the piece here?
-                    }
-                    // this will replace if need be (if capturing)
-                    piecePositions.insert(buttonCoords, piece);
-
-                    moving = false;
-                    selecting = true;
-                    currSequenceIndex++;
-                    if (currSequenceIndex == correctClickSequence.size()) {
-                        // we're done, send success signal
-                        qDebug() << "puzzle complete";
-                    }
-                    piece->setPiece(selectedSpace);
+                // hide piece if we're capturing one
+                if (piecePositions.contains(buttonCoords)) {
+                    piecePositions[buttonCoords]->hide();
+                    // should we delete the piece here?
                 }
-            }
-            else {
-                moving = false;
-                selecting = true;
-                currSequenceIndex--;
+                // this will replace if need be (if capturing)
+                piecePositions.insert(buttonCoords, piece);
+                playerPieces.insert(buttonCoords,piece->pieceType);
+
+
+                piece->setPiece(selectedSpace);
+
+                if (buttonCoords == correctClickSequence[currSequenceIndex]) {
+
+                    currSequenceIndex++;
+
+                    feedbackLabel->setText("Correct move!");
+                    feedbackLabel->setStyleSheet("background-color: green; color: white");
+
+                    if (currSequenceIndex == correctClickSequence.size()) {
+
+                        feedbackLabel->setText("Puzzle Complete!");
+                    }else{
+                        nextMove();
+
+                        moving = false;
+                        selecting = true;
+
+                    }
+
+
+
+                }else{
+
+                    feedbackLabel->setText("Incorrect move!");
+                    feedbackLabel->setStyleSheet("background-color: red; color: white");
+
+                    piecePositions.remove(buttonCoords);
+                    playerPieces.remove(buttonCoords);
+
+                    piecePositions.insert(prevPiecePos, piece);
+                    playerPieces.insert(prevPiecePos,piece->pieceType);
+
+
+                    QTimer::singleShot(2000, this, [this, piece] {
+                        piece->hide();
+
+
+                        for(QPushButton* button : allButtons){
+                            if(button->property("row") == prevPiecePos.first && button->property("col") == prevPiecePos.second){
+                                piece->setPiece(button);
+                            }
+                        }
+                        feedbackLabel->setText("");
+                        feedbackLabel->setStyleSheet("");
+
+                    });
+
+                }
+
+
             }
         }
         else {
@@ -241,14 +286,35 @@ void Puzzle::setButtonBackgroundColor(int row, int col, QString color){
 
 
 void Puzzle::setUpPuzzle1() {
-    boardSetUp[qMakePair(1, 1)] = Piece::BLACK_BISHOP;
-    boardSetUp[qMakePair(2, 2)] = Piece::WHITE_PAWN;
-    boardSetUp[qMakePair(3, 4)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 1)] = Piece::BLACK_KNIGHT;
+    boardSetUp[qMakePair(2, 2)] = Piece::BLACK_KING;
+    boardSetUp[qMakePair(3, 0)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(3, 2)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(4, 1)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(2, 6)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(4, 7)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(4, 6)] = Piece::BLACK_ROOK;
 
-    correctClickSequence.append(qMakePair(1, 1));
-    correctClickSequence.append(qMakePair(2, 2));
-    correctClickSequence.append(qMakePair(2, 2));
-    correctClickSequence.append(qMakePair(3, 3));
+    boardSetUp[qMakePair(6, 1)] = Piece::WHITE_KING;
+    boardSetUp[qMakePair(4, 2)] = Piece::WHITE_KNIGHT;
+    boardSetUp[qMakePair(1, 7)] = Piece::WHITE_ROOK;
+    boardSetUp[qMakePair(3, 6)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(4, 0)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(5, 1)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 2)] = Piece::WHITE_PAWN;
+
+    playerPieces[qMakePair(6, 1)] = Piece::WHITE_KING;
+    playerPieces[qMakePair(4, 2)] = Piece::WHITE_KNIGHT;
+    playerPieces[qMakePair(1, 7)] = Piece::WHITE_ROOK;
+    playerPieces[qMakePair(3, 6)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(4, 0)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(5, 1)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 2)] = Piece::WHITE_PAWN;
+
+    correctClickSequence.append(qMakePair(4, 2));
+    correctClickSequence.append(qMakePair(3, 4));
+    correctClickSequence.append(qMakePair(3, 4));
+    correctClickSequence.append(qMakePair(4, 6));
 }
 
 void Puzzle::setUpPuzzle2() {
@@ -264,5 +330,26 @@ void Puzzle::setUpPuzzle5() {
 
 }
 void Puzzle::setUpPuzzle6() {
+
+}
+void Puzzle::nextMove(){
+    feedbackLabel->setText("Correct move!");
+    feedbackLabel->setStyleSheet("background-color: green; color: white;");
+
+    if(puzzleType == Puzzle1){
+
+        Piece* piece = piecePositions[qMakePair(2,2)];
+        piece->hide();
+
+        piecePositions.remove(qMakePair(2,2));
+
+        for(QPushButton* button : allButtons){
+            if(button->property("row") == 2 && button->property("col") == 1){
+                    piece->setPiece(button);
+            }
+        }
+
+        piecePositions.insert(qMakePair(2,1), piece);
+    }
 
 }
