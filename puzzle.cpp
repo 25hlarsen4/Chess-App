@@ -249,6 +249,10 @@ void Puzzle::selectSpace(){
 
                     });
 
+                    moving = false;
+                    selecting = true;
+                    currSequenceIndex--;
+
                 }
 
 
