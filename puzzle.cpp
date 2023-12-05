@@ -18,6 +18,7 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
 
     puzzleType = pt;
     currSequenceIndex = 0;
+    computerMovesIndex = 0;
     selecting = true;
     moving = false;
 
@@ -288,7 +289,10 @@ void Puzzle::setButtonBackgroundColor(int row, int col, QString color){
 
 }
 
-
+/**
+ * @brief Puzzle::setUpPuzzle1
+ * This method sets up the chess board and moves for a fork puzzle.
+ */
 void Puzzle::setUpPuzzle1() {
     boardSetUp[qMakePair(1, 1)] = Piece::BLACK_KNIGHT;
     boardSetUp[qMakePair(2, 2)] = Piece::BLACK_KING;
@@ -319,15 +323,176 @@ void Puzzle::setUpPuzzle1() {
     correctClickSequence.append(qMakePair(3, 4));
     correctClickSequence.append(qMakePair(3, 4));
     correctClickSequence.append(qMakePair(4, 6));
-}
 
+    computerMoves.append(qMakePair(2,2));
+    computerMoves.append(qMakePair(2,1));
+}
+/**
+ * @brief Puzzle::setUpPuzzle2
+ * This method sets up the chess board and moves for a pinned queen puzzle.
+ * the puzzle came from
+ * "https://www.google.com/search?q=pinned+queen+puzzles+chess&rlz=1C1CHBF_enUS1043US1043&oq=pinned+&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzIGCAEQRRhAMgYIAhBFGDkyBwgDEAAYgAQyBwgEEAAYgAQyBwgFEAAYgAQyBwgGEAAYgAQyBwgHEAAYgATSAQgxNDU0ajFqOagCALACAA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:d30812a0,vid:XIlYJjRLc_A,st:0"
+ */
 void Puzzle::setUpPuzzle2() {
 
-}
-void Puzzle::setUpPuzzle3() {
+    boardSetUp[qMakePair(0, 0)] = Piece::BLACK_ROOK;
+    boardSetUp[qMakePair(0, 2)] = Piece::BLACK_BISHOP;
+    boardSetUp[qMakePair(0, 4)] = Piece::BLACK_KING;
+    boardSetUp[qMakePair(0, 5)] = Piece::BLACK_QUEEN;
+    boardSetUp[qMakePair(1, 4)] = Piece::BLACK_BISHOP;
+    boardSetUp[qMakePair(2, 2)] = Piece::BLACK_KNIGHT;
+    boardSetUp[qMakePair(1, 0)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 1)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 2)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 3)] = Piece::BLACK_PAWN;
+
+    boardSetUp[qMakePair(0, 6)] = Piece::WHITE_QUEEN;
+    boardSetUp[qMakePair(5, 5)] = Piece::WHITE_KNIGHT;
+    boardSetUp[qMakePair(7, 0)] = Piece::WHITE_ROOK;
+    boardSetUp[qMakePair(7, 4)] = Piece::WHITE_ROOK;
+    boardSetUp[qMakePair(7, 1)] = Piece::WHITE_KNIGHT;
+    boardSetUp[qMakePair(7, 6)] = Piece::WHITE_KING;
+    boardSetUp[qMakePair(2, 5)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 0)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 1)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 2)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 5)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 6)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 7)] = Piece::WHITE_PAWN;
+
+    playerPieces[qMakePair(0, 6)] = Piece::WHITE_QUEEN;
+    playerPieces[qMakePair(5, 5)] = Piece::WHITE_KNIGHT;
+    playerPieces[qMakePair(7, 0)] = Piece::WHITE_ROOK;
+    playerPieces[qMakePair(7, 4)] = Piece::WHITE_ROOK;
+    playerPieces[qMakePair(7, 1)] = Piece::WHITE_KNIGHT;
+    playerPieces[qMakePair(7, 6)] = Piece::WHITE_KING;
+    playerPieces[qMakePair(2, 5)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 0)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 1)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 2)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 5)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 6)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 7)] = Piece::WHITE_PAWN;
+
+    correctClickSequence.append(qMakePair(7, 4));
+    correctClickSequence.append(qMakePair(1, 4));
+    correctClickSequence.append(qMakePair(2, 5));
+    correctClickSequence.append(qMakePair(1, 5));
+    correctClickSequence.append(qMakePair(0, 6));
+    correctClickSequence.append(qMakePair(0, 5));
+
+    computerMoves.append(qMakePair(2,2));
+    computerMoves.append(qMakePair(1,4));
+    computerMoves.append(qMakePair(0,4));
+    computerMoves.append(qMakePair(0,3));
 
 }
+
+/**
+ * @brief Puzzle::setUpPuzzle3
+ * smother mate puzzle
+ * got the puzzle from "https://lichess.org/study/oJ4jLe50/iGOCuCaa" - Sveshnikov - Ivanov, 1976
+ */
+void Puzzle::setUpPuzzle3() {
+
+    boardSetUp[qMakePair(0, 0)] = Piece::BLACK_ROOK;
+    boardSetUp[qMakePair(2, 4)] = Piece::BLACK_BISHOP;
+    boardSetUp[qMakePair(0, 5)] = Piece::BLACK_KING;
+    boardSetUp[qMakePair(3, 7)] = Piece::BLACK_QUEEN;
+    boardSetUp[qMakePair(1, 0)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(2, 1)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 5)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 7)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(2, 6)] = Piece::BLACK_PAWN;
+
+    boardSetUp[qMakePair(4, 5)] = Piece::WHITE_QUEEN;
+    boardSetUp[qMakePair(6, 7)] = Piece::WHITE_KING;
+    boardSetUp[qMakePair(4, 3)] = Piece::WHITE_BISHOP;
+    boardSetUp[qMakePair(2, 2)] = Piece::WHITE_KNIGHT;
+    boardSetUp[qMakePair(6, 0)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 5)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 6)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(5, 7)] = Piece::WHITE_PAWN;
+
+    playerPieces[qMakePair(4, 5)] = Piece::WHITE_QUEEN;
+    playerPieces[qMakePair(6, 7)] = Piece::WHITE_KING;
+    playerPieces[qMakePair(4, 3)] = Piece::WHITE_BISHOP;
+    playerPieces[qMakePair(2, 2)] = Piece::WHITE_KNIGHT;
+    playerPieces[qMakePair(6, 0)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 5)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 6)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(5, 7)] = Piece::WHITE_PAWN;
+
+
+
+    correctClickSequence.append(qMakePair(4, 5));
+    correctClickSequence.append(qMakePair(2, 3));
+    correctClickSequence.append(qMakePair(2, 2));
+    correctClickSequence.append(qMakePair(1, 4));
+    correctClickSequence.append(qMakePair(1, 4));
+    correctClickSequence.append(qMakePair(2, 6));
+    correctClickSequence.append(qMakePair(2, 3));
+    correctClickSequence.append(qMakePair(0, 5));
+    correctClickSequence.append(qMakePair(2, 6));
+    correctClickSequence.append(qMakePair(1, 4));
+
+    computerMoves.append(qMakePair(0,5));
+    computerMoves.append(qMakePair(0,6));
+    computerMoves.append(qMakePair(0,6));
+    computerMoves.append(qMakePair(0,5));
+    computerMoves.append(qMakePair(0,5));
+    computerMoves.append(qMakePair(0,6));
+    computerMoves.append(qMakePair(0,0));
+    computerMoves.append(qMakePair(0,5));
+
+}
+
+/**
+ * @brief Puzzle::setUpPuzzle4
+ * overloading puzzle
+ */
 void Puzzle::setUpPuzzle4() {
+
+    boardSetUp[qMakePair(0, 7)] = Piece::BLACK_KING;
+    boardSetUp[qMakePair(0, 3)] = Piece::BLACK_QUEEN;
+    boardSetUp[qMakePair(6, 5)] = Piece::BLACK_ROOK;
+    boardSetUp[qMakePair(1, 0)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 1)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 6)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 7)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(6, 7)] = Piece::BLACK_PAWN;
+
+    boardSetUp[qMakePair(7, 7)] = Piece::WHITE_KING;
+    boardSetUp[qMakePair(4, 6)] = Piece::WHITE_QUEEN;
+    boardSetUp[qMakePair(4, 4)] = Piece::WHITE_ROOK;
+    boardSetUp[qMakePair(4, 5)] = Piece::WHITE_BISHOP;
+    boardSetUp[qMakePair(3, 2)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(4, 1)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(5, 2)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 0)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 6)] = Piece::WHITE_PAWN;
+
+    playerPieces[qMakePair(7, 7)] = Piece::WHITE_KING;
+    playerPieces[qMakePair(4, 6)] = Piece::WHITE_QUEEN;
+    playerPieces[qMakePair(4, 4)] = Piece::WHITE_ROOK;
+    playerPieces[qMakePair(4, 5)] = Piece::WHITE_BISHOP;
+    playerPieces[qMakePair(3, 2)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(4, 1)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(5, 2)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 0)] = Piece::WHITE_PAWN;
+    playerPieces[qMakePair(6, 6)] = Piece::WHITE_PAWN;
+
+    correctClickSequence.append(qMakePair(4, 4));
+    correctClickSequence.append(qMakePair(1, 4));
+    correctClickSequence.append(qMakePair(4, 6));
+    correctClickSequence.append(qMakePair(0, 2));
+    correctClickSequence.append(qMakePair(0, 2));
+    correctClickSequence.append(qMakePair(0, 5));
+
+    computerMoves.append(qMakePair(0,3));
+    computerMoves.append(qMakePair(1,4));
+    computerMoves.append(qMakePair(1,4));
+    computerMoves.append(qMakePair(0,5));
 
 }
 void Puzzle::setUpPuzzle5() {
@@ -337,23 +502,23 @@ void Puzzle::setUpPuzzle6() {
 
 }
 void Puzzle::nextMove(){
+
     feedbackLabel->setText("Correct move!");
     feedbackLabel->setStyleSheet("background-color: green; color: white;");
 
-    if(puzzleType == Puzzle1){
+    Piece* piece = piecePositions[computerMoves[computerMovesIndex]];
+    piece->hide();
+    piecePositions.remove(computerMoves[computerMovesIndex]);
 
-        Piece* piece = piecePositions[qMakePair(2,2)];
-        piece->hide();
+    computerMovesIndex++;
 
-        piecePositions.remove(qMakePair(2,2));
-
-        for(QPushButton* button : allButtons){
-            if(button->property("row") == 2 && button->property("col") == 1){
-                    piece->setPiece(button);
-            }
+    for(QPushButton* button : allButtons){
+        if(button->property("row") == computerMoves[computerMovesIndex].first && button->property("col") == computerMoves[computerMovesIndex].second){
+            piece->setPiece(button);
         }
-
-        piecePositions.insert(qMakePair(2,1), piece);
     }
 
+    piecePositions.insert(computerMoves[computerMovesIndex], piece);
+
+    computerMovesIndex++;
 }

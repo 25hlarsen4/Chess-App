@@ -37,13 +37,17 @@ private:
     QHash<QPair<int, int>, Piece*> piecePositions;
     QList<QPair<int, int>> correctClickSequence;
     QList<QPair<int, int>> potentialLocations;
+    QList<QPair<int, int>> computerMoves;
     QList<QPushButton*> allButtons;
 
     QLabel* feedbackLabel;
 
     int currSequenceIndex;
+    int computerMovesIndex;
+
     bool selecting;
     bool moving;
+
     Piece* selectedPiece;
     QPair<int, int> prevPiecePos;
 
@@ -60,6 +64,8 @@ private:
     void setUpPuzzle4();
     void setUpPuzzle5();
     void setUpPuzzle6();
+
+    void setPlayerPieces();
 
     void nextMove();
 
