@@ -109,16 +109,12 @@ void Puzzle::createBoard(){
 
     QHBoxLayout* rowsAndBoard = new QHBoxLayout();
     QVBoxLayout* spaceForRows = new QVBoxLayout();
-    int rowLabel = 8;
-    for (int i = 115; i < 676; i+=75) {
+    for (int i = 1; i < 9; i++) {
         QLabel* lab = new QLabel(this);
-        lab->setGeometry(5, i, 10, 10);
         lab->setStyleSheet("QLabel { color: white; }");
-        lab->setText(QString::number(rowLabel));
+        lab->setText(QString::number(i));
         lab->show();
         spaceForRows->addWidget(lab);
-
-        rowLabel--;
     }
 
     QWidget *controlsRestrictorWidget = new QWidget();
