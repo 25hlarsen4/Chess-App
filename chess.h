@@ -39,12 +39,8 @@ private:
 
     void lesson6();
     void puzzle6();
-<<<<<<< HEAD
 
     void enablePuzzle(int);
-=======
-public slots:
-    void updateFeedbackLabel();
->>>>>>> refs/heads/Bracken
+
 };
 #endif // CHESS_H
