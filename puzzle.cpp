@@ -48,28 +48,6 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
 
     createBoard();
 
-    // creat row and column labels
-    int rowLabel = 8;
-    for (int i = 115; i < 676; i+=65) {
-        QLabel* lab = new QLabel(this);
-        lab->setGeometry(5, i, 10, 10);
-        lab->setStyleSheet("QLabel { color: white; }");
-        lab->setText(QString::number(rowLabel));
-        lab->show();
-
-        rowLabel--;
-    }
-
-    int colLabel = 97;
-    for (int i = 45; i < 565; i+=65) {
-        QLabel* lab = new QLabel(this);
-        lab->setGeometry(i, 607, 15, 15);
-        lab->setStyleSheet("QLabel { color: white; }");
-        lab->setText(QChar(colLabel));
-        lab->show();
-
-        colLabel++;
-    }
 
     QPushButton* helpButton = new QPushButton(this);
     helpButton->setGeometry(600, 100, 150, 25);
@@ -131,12 +109,30 @@ void Puzzle::createBoard(){
 
     QHBoxLayout* rowsAndBoard = new QHBoxLayout();
     QVBoxLayout* spaceForRows = new QVBoxLayout();
-    // just add blank label so the layout shows up
-    spaceForRows->addWidget(new QLabel(this));
+    int rowLabel = 8;
+    for (int i = 115; i < 676; i+=75) {
+        QLabel* lab = new QLabel(this);
+        lab->setGeometry(5, i, 10, 10);
+        lab->setStyleSheet("QLabel { color: white; }");
+        lab->setText(QString::number(rowLabel));
+        lab->show();
+        spaceForRows->addWidget(lab);
 
+        rowLabel--;
+    }
+
+    QWidget *controlsRestrictorWidget = new QWidget();
     QHBoxLayout* spaceForCols = new QHBoxLayout();
-    // just add blank label so the layout shows up
-    spaceForCols->addWidget(new QLabel(this));
+    for (int i = 97; i < 105; i++) {
+        QLabel* lab = new QLabel(this);
+        lab->setStyleSheet("QLabel { color: white; }");
+        lab->setAlignment(Qt::AlignCenter);
+        lab->setText(QChar(i));
+        lab->show();
+        spaceForCols->addWidget(lab);
+    }
+    controlsRestrictorWidget->setLayout(spaceForCols);
+    controlsRestrictorWidget->setMaximumWidth(530);
 
 
 
@@ -194,7 +190,7 @@ void Puzzle::createBoard(){
     rowsAndBoard->addLayout(spaceForRows);
     rowsAndBoard->addLayout(layout);
     vLayout->addLayout(rowsAndBoard);
-    vLayout->addLayout(spaceForCols);
+    vLayout->addWidget(controlsRestrictorWidget);
     this->setLayout(vLayout);
 }
 
