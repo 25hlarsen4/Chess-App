@@ -47,6 +47,19 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     }
 
     createBoard();
+
+    QPushButton* helpButton = new QPushButton(this);
+    helpButton->setGeometry(600, 100, 150, 25);
+    helpButton->setText("Stuck? Click to reveal move.");
+    helpButton->setStyleSheet("QPushButton { background-color: red; color: black; border: none; }");
+    helpButton->show();
+    connect(helpButton, &QPushButton::clicked, this, &Puzzle::onHelpButtonClicked);
+
+    revealedMove = new QLabel(this);
+    revealedMove->setStyleSheet("QLabel { background-color: white; color: black; border: none; }");
+    revealedMove->setGeometry(600, 130, 160, 25);
+    revealedMove->setText("");
+    revealedMove->show();
 }
 
 void Puzzle::paintEvent(QPaintEvent *) {
@@ -162,6 +175,8 @@ void Puzzle::selectSpace(){
     if (selecting) {
         // only select if there's a piece in the space & it's the correct selection
         if (piecePositions.contains(buttonCoords) && playerPieces.contains(buttonCoords)) {
+            // clear help message if there was one
+            revealedMove->setText("");
 
             setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt(), "rgb(0,255,0)");
 
@@ -184,6 +199,9 @@ void Puzzle::selectSpace(){
         if (potentialLocations.contains(buttonCoords)) {
             // check that it's also the right move for the puzzle
             if (piecePositions.contains(prevPiecePos)) {
+                // clear help message if there was one
+                revealedMove->setText("");
+
                 Piece* piece = piecePositions[prevPiecePos];
                 piece->hide();
 
@@ -282,11 +300,53 @@ void Puzzle::setButtonBackgroundColor(int row, int col, QString color){
                 button->setStyleSheet(QString("background-color: %1;").arg(color));
 
             }
-
         }
+    }
+}
 
+
+void Puzzle::onHelpButtonClicked() {
+    QPair<int, int> pieceCoords;
+    if (selecting) {
+        pieceCoords = correctClickSequence[currSequenceIndex];
+    }
+    else if (moving) {
+        pieceCoords = correctClickSequence[currSequenceIndex - 1];
     }
 
+    QString helpMessage;
+
+    Piece* piece = piecePositions[pieceCoords];
+
+    QString pieceType;
+    if (piece->pieceType == Piece::BLACK_QUEEN || piece->pieceType == Piece::WHITE_QUEEN) {
+        pieceType = "queen";
+    }
+    else if (piece->pieceType == Piece::BLACK_KING || piece->pieceType == Piece::WHITE_KING) {
+        pieceType = "king";
+    }
+    else if (piece->pieceType == Piece::BLACK_ROOK || piece->pieceType == Piece::WHITE_ROOK) {
+        pieceType = "rook";
+    }
+    else if (piece->pieceType == Piece::BLACK_BISHOP || piece->pieceType == Piece::WHITE_BISHOP) {
+        pieceType = "bishop";
+    }
+    else if (piece->pieceType == Piece::BLACK_KNIGHT || piece->pieceType == Piece::WHITE_KNIGHT) {
+        pieceType = "knight";
+    }
+    else if (piece->pieceType == Piece::BLACK_PAWN || piece->pieceType == Piece::WHITE_PAWN) {
+        pieceType = "pawn";
+    }
+
+
+    if (selecting) {
+        helpMessage = "Select " + pieceType + " on " + QChar(97 + pieceCoords.second) + QString::number(pieceCoords.first + 1);
+    }
+    else if (moving) {
+        helpMessage = "Move " + pieceType + " to " + QChar(97 + correctClickSequence[currSequenceIndex].second) + QString::number(correctClickSequence[currSequenceIndex].first + 1);
+    }
+
+    revealedMove->setText(helpMessage);
 }
 
 /**

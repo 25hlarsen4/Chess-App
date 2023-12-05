@@ -53,6 +53,8 @@ private:
 
     QGridLayout *layout;
 
+    QLabel* revealedMove;
+
     void paintEvent(QPaintEvent *);
     void createBoard();
     void setPiece(QPushButton *space, Piece*);
@@ -76,6 +78,7 @@ signals:
 public slots:
     void selectSpace();
     void onGoBackButtonClicked();
+    void onHelpButtonClicked();
 
 };
 
