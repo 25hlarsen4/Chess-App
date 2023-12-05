@@ -28,6 +28,8 @@ public:
 
     PuzzleType puzzleType;
 
+    void mousePressEvent(QMouseEvent * e);
+
 private:
     QImage background;
 
