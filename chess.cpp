@@ -67,6 +67,7 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson2);
 
     Puzzle* puzz2 = new Puzzle(Puzzle::Puzzle2);
+    connect(puzz2, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
     //    Puzzle* puzz = new Puzzle;
     ui->windows->addWidget(puzz2);
     connect(ui->puzzle2,
@@ -82,6 +83,7 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson3);
 
     Puzzle* puzz3 = new Puzzle(Puzzle::Puzzle3);
+    connect(puzz3, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
     //    Puzzle* puzz = new Puzzle;
     ui->windows->addWidget(puzz3);
     connect(ui->puzzle3,
@@ -97,6 +99,7 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson4);
 
     Puzzle* puzz4 = new Puzzle(Puzzle::Puzzle4);
+    connect(puzz4, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
     //    Puzzle* puzz = new Puzzle;
     ui->windows->addWidget(puzz4);
     connect(ui->puzzle4,
@@ -112,6 +115,7 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson5);
 
     Puzzle* puzz5 = new Puzzle(Puzzle::Puzzle5);
+    connect(puzz5, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
     //    Puzzle* puzz = new Puzzle;
     ui->windows->addWidget(puzz5);
     connect(ui->puzzle5,
@@ -127,6 +131,7 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson6);
 
     Puzzle* puzz6 = new Puzzle(Puzzle::Puzzle6);
+    connect(puzz6, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
     //    Puzzle* puzz = new Puzzle;
     ui->windows->addWidget(puzz6);
     connect(ui->puzzle6,
