@@ -287,6 +287,33 @@ void Puzzle::selectSpace(){
 
 void Puzzle::onGoBackButtonClicked(){
     qDebug() << "Go Back button was clicked in Puzzle";
+
+    if (puzzleType == Puzzle1) {
+        setUpPuzzle1();
+    }
+
+    else if (puzzleType == Puzzle2) {
+        setUpPuzzle2();
+    }
+
+    else if (puzzleType == Puzzle3) {
+        setUpPuzzle3();
+    }
+
+    else if (puzzleType == Puzzle4) {
+        setUpPuzzle4();
+    }
+
+    else if (puzzleType == Puzzle5) {
+        setUpPuzzle5();
+    }
+
+    else if (puzzleType == Puzzle6) {
+        setUpPuzzle6();
+    }
+    currSequenceIndex = 0;
+    computerMovesIndex = 0;
+
     emit goBackButtonClicked();
 }
 void Puzzle::setButtonBackgroundColor(int row, int col, QString color){
@@ -354,6 +381,11 @@ void Puzzle::onHelpButtonClicked() {
  * This method sets up the chess board and moves for a fork puzzle.
  */
 void Puzzle::setUpPuzzle1() {
+
+    boardSetUp.clear();
+    correctClickSequence.clear();
+    computerMoves.clear();
+
     boardSetUp[qMakePair(1, 1)] = Piece::BLACK_KNIGHT;
     boardSetUp[qMakePair(2, 2)] = Piece::BLACK_KING;
     boardSetUp[qMakePair(3, 0)] = Piece::BLACK_PAWN;
@@ -520,10 +552,102 @@ void Puzzle::setUpPuzzle4() {
     computerMoves.append(qMakePair(0,5));
 
 }
+
+/**
+ * @brief Puzzle::setUpPuzzle5
+ * doubling pinned king. end game puzzle.
+ */
 void Puzzle::setUpPuzzle5() {
+
+    boardSetUp[qMakePair(0, 3)] = Piece::BLACK_KING;
+    boardSetUp[qMakePair(0, 0)] = Piece::BLACK_ROOK;
+    boardSetUp[qMakePair(0, 7)] = Piece::BLACK_ROOK;
+    boardSetUp[qMakePair(2, 4)] = Piece::BLACK_BISHOP;
+    boardSetUp[qMakePair(4, 1)] = Piece::BLACK_BISHOP;
+    boardSetUp[qMakePair(1, 3)] = Piece::BLACK_KNIGHT;
+    boardSetUp[qMakePair(4, 4)] = Piece::BLACK_KNIGHT;
+    boardSetUp[qMakePair(1, 0)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 1)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(2, 2)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 5)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 6)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(1, 7)] = Piece::BLACK_PAWN;
+
+    boardSetUp[qMakePair(7, 2)] = Piece::WHITE_KING;
+    boardSetUp[qMakePair(7, 3)] = Piece::WHITE_ROOK;
+    boardSetUp[qMakePair(7, 7)] = Piece::WHITE_ROOK;
+    boardSetUp[qMakePair(4, 5)] = Piece::WHITE_BISHOP;
+    boardSetUp[qMakePair(6, 4)] = Piece::WHITE_BISHOP;
+    boardSetUp[qMakePair(4, 0)] = Piece::WHITE_KNIGHT;
+    boardSetUp[qMakePair(7, 6)] = Piece::WHITE_KNIGHT;
+    boardSetUp[qMakePair(6, 0)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 1)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 2)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 6)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 7)] = Piece::WHITE_PAWN;
+
+    setPlayerPieces();
+
+    correctClickSequence.append(qMakePair(7, 3));
+    correctClickSequence.append(qMakePair(4, 3));
+    correctClickSequence.append(qMakePair(4, 3));
+    correctClickSequence.append(qMakePair(4, 1));
+    correctClickSequence.append(qMakePair(4, 1));
+    correctClickSequence.append(qMakePair(1, 1));
+    correctClickSequence.append(qMakePair(4, 5));
+    correctClickSequence.append(qMakePair(1, 2));
+    correctClickSequence.append(qMakePair(1, 1));
+    correctClickSequence.append(qMakePair(1, 0));
+    correctClickSequence.append(qMakePair(1, 0));
+    correctClickSequence.append(qMakePair(0, 0));
+    correctClickSequence.append(qMakePair(0, 0));
+    correctClickSequence.append(qMakePair(7, 7));
+
+    computerMoves.append(qMakePair(4, 4));
+    computerMoves.append(qMakePair(6, 5));
+    computerMoves.append(qMakePair(6, 5));
+    computerMoves.append(qMakePair(7, 7));
+    computerMoves.append(qMakePair(7, 7));
+    computerMoves.append(qMakePair(6, 5));
+    computerMoves.append(qMakePair(0, 3));
+    computerMoves.append(qMakePair(0, 2));
+    computerMoves.append(qMakePair(4, 2));
+    computerMoves.append(qMakePair(2, 0));
+    computerMoves.append(qMakePair(0, 2));
+    computerMoves.append(qMakePair(1, 2));
 
 }
 void Puzzle::setUpPuzzle6() {
+    boardSetUp[qMakePair(1, 0)] = Piece::BLACK_KING;
+    boardSetUp[qMakePair(1, 3)] = Piece::BLACK_ROOK;
+    boardSetUp[qMakePair(2, 1)] = Piece::BLACK_ROOK;
+    boardSetUp[qMakePair(1, 5)] = Piece::BLACK_BISHOP;
+    boardSetUp[qMakePair(1, 6)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(2, 5)] = Piece::BLACK_PAWN;
+    boardSetUp[qMakePair(2, 7)] = Piece::BLACK_PAWN;
+
+    boardSetUp[qMakePair(7, 7)] = Piece::WHITE_KING;
+    boardSetUp[qMakePair(4, 2)] = Piece::WHITE_ROOK;
+    boardSetUp[qMakePair(3, 2)] = Piece::WHITE_KNIGHT;
+    boardSetUp[qMakePair(4, 3)] = Piece::WHITE_KNIGHT;
+    boardSetUp[qMakePair(5, 4)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(5, 7)] = Piece::WHITE_PAWN;
+    boardSetUp[qMakePair(6, 6)] = Piece::WHITE_PAWN;
+
+    setPlayerPieces();
+
+    correctClickSequence.append(qMakePair(4, 2));
+    correctClickSequence.append(qMakePair(4, 0));
+    correctClickSequence.append(qMakePair(3, 2));
+    correctClickSequence.append(qMakePair(1, 3));
+    correctClickSequence.append(qMakePair(1, 3));
+    correctClickSequence.append(qMakePair(2, 1));
+
+    computerMoves.append(qMakePair(1, 0));
+    computerMoves.append(qMakePair(0, 1));
+    computerMoves.append(qMakePair(0, 1));
+    computerMoves.append(qMakePair(1, 1));
+
 
 }
 void Puzzle::nextMove(){
@@ -535,13 +659,16 @@ void Puzzle::nextMove(){
 
     computerMovesIndex++;
 
-        for(QPushButton* button : allButtons){
-            if(button->property("row") == computerMoves[computerMovesIndex].first && button->property("col") == computerMoves[computerMovesIndex].second){
+    for(QPushButton* button : allButtons){
+        if(button->property("row") == computerMoves[computerMovesIndex].first
+            && button->property("col") == computerMoves[computerMovesIndex].second){
+
             QTimer::singleShot(2000, this, [this, piece, button] {
                 piece->hide();
                 piece->setPiece(button);
             });
         }
+
     }
 
     piecePositions.remove(computerMoves[computerMovesIndex]);
