@@ -472,17 +472,19 @@ void Puzzle::nextMove(){
     feedbackLabel->setStyleSheet("background-color: green; color: white;");
 
     Piece* piece = piecePositions[computerMoves[computerMovesIndex]];
-    piece->hide();
-    piecePositions.remove(computerMoves[computerMovesIndex]);
 
     computerMovesIndex++;
 
     for(QPushButton* button : allButtons){
         if(button->property("row") == computerMoves[computerMovesIndex].first && button->property("col") == computerMoves[computerMovesIndex].second){
-            piece->setPiece(button);
+            QTimer::singleShot(2000, this, [this, piece, button] {
+                piece->hide();
+                piece->setPiece(button);
+            });
         }
     }
 
+    piecePositions.remove(computerMoves[computerMovesIndex]);
     piecePositions.insert(computerMoves[computerMovesIndex], piece);
 
     computerMovesIndex++;
