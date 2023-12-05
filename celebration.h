@@ -1,3 +1,4 @@
+// a view class for the celebration screen
 #ifndef CELEBRATION_H
 #define CELEBRATION_H
 
@@ -27,7 +28,6 @@ private:
     QTimer *timer;
     const float32 scale = 50.0f; // Pixels per meter
     const int updateInterval = 16; // Timer interval in ms (about 60 FPS)
-    float ballRadius = 10.0f;
 
     b2Body* createBall();
     void refreshBall(b2Body *ball);
@@ -35,5 +35,6 @@ private:
 
     QPixmap backgroundPixmap;
 };
+
 
 #endif // CELEBRATION_H

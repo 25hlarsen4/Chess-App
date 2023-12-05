@@ -38,28 +38,33 @@ celebration::~celebration() {
 void celebration::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
 
-    // Fill the background with white color
+    // Fill the background
     painter.drawPixmap(rect(), backgroundPixmap.scaled(size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 
-    painter.setBrush(Qt::blue);
-
-    for (b2Body* ball : balls) {
+    for (size_t i = 0; i < balls.size(); ++i) {
+        b2Body* ball = balls[i];
         b2Vec2 position = ball->GetPosition();
         float x = position.x * scale;
-        float y = position.y * scale; // Note: Box2D's origin is at the bottom-left corner, so y might need to be inverted
+        float y = position.y * scale;
 
-        if (x > width()+50 || y > height()+50 || x < -50 || y < -50) { // Adjust the bounds check as needed
+        // Set the brush color based on the ball index
+        if (i == 0) {
+            painter.setBrush(Qt::red); // First ball red
+        } else {
+            painter.setBrush(Qt::blue); // Second ball blue
+        }
+
+        if (x > width() + 50 || y > height() + 50 || x < -50 || y < -50) { // Adjust the bounds check as needed
             emit ballOutOfBoundSignal(ball);
         } else {
-            painter.drawEllipse(QPointF(x, y), 40, 40); // Draw the ball
+            painter.drawEllipse(QPointF(x, y), 50, 50); // Draw the ball
         }
     }
 }
 
 void celebration::updateWorld() {
-    world->Step(1.0f / 60.0f, 6, 2); // Update the Box2D world
-
-    update(); // Trigger a repaint to draw the new positions of the balls
+    world->Step(1.0f / 60.0f, 6, 2);
+    update();
 }
 
 
@@ -69,7 +74,7 @@ b2Body* celebration::createBall() {
     ballBodyDef.type = b2_dynamicBody;
     b2Body* newBall = world->CreateBody(&ballBodyDef);
     b2CircleShape ballCircle;
-    ballCircle.m_radius = 1.0f; // Radius of 1 meter
+    ballCircle.m_radius = 1.0f;
     b2FixtureDef ballFixtureDef;
     ballFixtureDef.shape = &ballCircle;
     ballFixtureDef.density = 1.0f;
@@ -88,7 +93,7 @@ void celebration::refreshBall(b2Body* ball) {
     ball->SetTransform(b2Vec2(random / scale, 0.0f), 0.0f); // Reset position
 
     // Set the initial velocity for a 45-degree drop
-    float initialVelocityMagnitude = 7.0f; // Adjust this value as needed
+    float initialVelocityMagnitude = 5.0f; // Adjust this value as needed
     if (random > 400){
         ball->SetLinearVelocity(b2Vec2(-initialVelocityMagnitude, initialVelocityMagnitude));
     }
