@@ -172,6 +172,31 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::enablePuzzle);
 
+    // Connect puzzle completion
+    connect(puzz1,
+            &Puzzle::puzzleComplete,
+            this,
+            &Chess::completePuzzle);
+    connect(puzz2,
+            &Puzzle::puzzleComplete,
+            this,
+            &Chess::completePuzzle);
+    connect(puzz3,
+            &Puzzle::puzzleComplete,
+            this,
+            &Chess::completePuzzle);
+    connect(puzz4,
+            &Puzzle::puzzleComplete,
+            this,
+            &Chess::completePuzzle);
+    connect(puzz5,
+            &Puzzle::puzzleComplete,
+            this,
+            &Chess::completePuzzle);
+    connect(puzz6,
+            &Puzzle::puzzleComplete,
+            this,
+            &Chess::completePuzzle);
 }
 
 void Chess::styleChessboard() {
@@ -275,6 +300,20 @@ void Chess::enablePuzzle(int index){
     ui->windows->setCurrentIndex(1);
 }
 
-
+void Chess::completePuzzle(int index){
+    if(index == 1){
+        ui->puzzle1->setStyleSheet("background-color: rgb(50, 255, 50);");
+    }else if(index == 2){
+        ui->puzzle2->setStyleSheet("background-color: rgb(50, 255, 50);");
+    }else if(index == 3){
+        ui->puzzle3->setStyleSheet("background-color: rgb(50, 255, 50);");
+    }else if(index == 4){
+        ui->puzzle4->setStyleSheet("background-color: rgb(50, 255, 50);");
+    }else if(index == 5){
+        ui->puzzle5->setStyleSheet("background-color: rgb(50, 255, 50);");
+    }else if(index == 6){
+        ui->puzzle6->setStyleSheet("background-color: rgb(50, 255, 50);");
+    }
+}
 
 

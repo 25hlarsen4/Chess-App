@@ -41,6 +41,7 @@ private:
     void puzzle6();
 
     void enablePuzzle(int);
+    void completePuzzle(int);
 
 };
 #endif // CHESS_H

@@ -73,7 +73,7 @@ private:
 
 signals:
     void goBackButtonClicked();
-    void puzzleComplete();
+    void puzzleComplete(int);
 
 public slots:
     void selectSpace();

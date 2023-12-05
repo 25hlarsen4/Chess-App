@@ -232,6 +232,29 @@ void Puzzle::selectSpace(){
                     if (currSequenceIndex == correctClickSequence.size()) {
 
                         feedbackLabel->setText("Puzzle Complete!");
+                        if (puzzleType == Puzzle1) {
+                            emit puzzleComplete(1);
+                        }
+
+                        else if (puzzleType == Puzzle2) {
+                            emit puzzleComplete(2);
+                        }
+
+                        else if (puzzleType == Puzzle3) {
+                            emit puzzleComplete(3);
+                        }
+
+                        else if (puzzleType == Puzzle4) {
+                            emit puzzleComplete(4);
+                        }
+
+                        else if (puzzleType == Puzzle5) {
+                            emit puzzleComplete(5);
+                        }
+
+                        else if (puzzleType == Puzzle6) {
+                            emit puzzleComplete(6);
+                        }
                     }else{
                         nextMove();
 
