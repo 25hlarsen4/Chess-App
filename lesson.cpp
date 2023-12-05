@@ -151,44 +151,30 @@ void Lesson::setUpLesson4() {
     title->setStyleSheet("QLabel { background-color: brown; }");
     setStyleSheet("font-weight: bold;");
     title->setGeometry(50,25,700,100);
-    title->setText("EN PASSANT MATE");
+    title->setText("OVERLOADING");
     title->setFont(QFont("Arial", 25));
     title->setAlignment(Qt::AlignCenter);
     title->show();
 
     QLabel *mainInfo = new QLabel(this);
     mainInfo->setStyleSheet("QLabel { background-color: white; }");
-    mainInfo->setGeometry(30,205,300,200);
+    mainInfo->setGeometry(50,200,300,200);
     mainInfo->setWordWrap(true);
-    mainInfo->setText("Capturing en passant (in passing) describes a pawn capturing an enemy pawn on the same rank and an adjacent file that has just made an initial two-square advance. It is permitted only on the turn immediately after the two-square advance. If this is the case, the capturing pawn can move diagonally forward to the square that the enemy pawn passed, capturing the enemy pawn as if it had moved only one square.");
+    mainInfo->setText("Overloading is a chess tactic in which a defensive piece is given an additional defensive assignment which it cannot complete without abandoning its original defensive assignment.");
     mainInfo->show();
 
-    QLabel *image1 = new QLabel(this);
-    image1->setPixmap(QPixmap(":/examples/Images/enPassant1.jpg"));
-    image1->setScaledContents(true);
-    image1->setStyleSheet("QLabel { background-color: white; }");
-    image1->setGeometry(360,205,200,200);
-    image1->show();
-
-    QLabel *image2 = new QLabel(this);
-    image2->setPixmap(QPixmap(":/examples/Images/enPassant2.jpg"));
-    image2->setScaledContents(true);
-    image2->setStyleSheet("QLabel { background-color: white; }");
-    image2->setGeometry(580,230,75,150);
-    image2->show();
-
-    QLabel *image3 = new QLabel(this);
-    image3->setPixmap(QPixmap(":/examples/Images/enPassant3.jpg"));
-    image3->setScaledContents(true);
-    image3->setStyleSheet("QLabel { background-color: white; }");
-    image3->setGeometry(680,230,75,150);
-    image3->show();
+    QLabel *imageToDisplay = new QLabel(this);
+    imageToDisplay->setPixmap(QPixmap(":/examples/Images/overloadingEx.jpg"));
+    imageToDisplay->setScaledContents(true);
+    imageToDisplay->setStyleSheet("QLabel { background-color: white; }");
+    imageToDisplay->setGeometry(420,150,300,300);
+    imageToDisplay->show();
 
     QLabel *funFactOrTip = new QLabel(this);
     funFactOrTip->setStyleSheet("QLabel { background-color: white; }");
     funFactOrTip->setGeometry(25,470,750,50);
     funFactOrTip->setWordWrap(true);
-    funFactOrTip->setText("In the example above of the famous Gundersen vs. Faul game, an en passant capture allowed for an en passant mate. The black pawn on g7 made an initial two-square advance, allowing the white pawn on h5 to simultaneously capture the black pawn en passant and check the king.");
+    funFactOrTip->setText("In the example above, the white rook on f1 is preventing the black queen from giving checkmate by capturing the pawn on f3. Therefore black can win immediately with Re1, further pinning the white rook against the king and overloading the rook.");
     funFactOrTip->show();
 }
 void Lesson::setUpLesson5() {
