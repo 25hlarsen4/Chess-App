@@ -18,4 +18,5 @@
         <file>Images/whiteKing.png</file>
         <file>Images/whiteQueen.png</file>
     </qresource>
+    <qresource prefix="/examples"/>
 </RCC>
