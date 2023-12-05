@@ -4,6 +4,7 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QPushButton>
 
 class Lesson : public QWidget
 {
@@ -26,6 +27,10 @@ public:
 
     LessonType lessonType;
 
+signals:
+    void lessonFinished(int);
+
+
 private:
     void setUpLesson1();
     void setUpLesson2();
@@ -33,6 +38,8 @@ private:
     void setUpLesson4();
     void setUpLesson5();
     void setUpLesson6();
+    QPushButton *nextButton;
+    void nextClicked();
 };
 
 
