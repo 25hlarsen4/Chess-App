@@ -7,6 +7,7 @@
 #include "piece.h"
 #include "ui_chess.h"
 #include <QApplication>
+#include <QMessageBox>
 
 Chess::Chess(QWidget *parent)
     : QMainWindow(parent)
@@ -44,8 +45,6 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::startGame);
 
-    celebration* celebrationWidget = new celebration(this);
-    setCentralWidget(celebrationWidget);
     Lesson* less1 = new Lesson(Lesson::Lesson1);
     ui->windows->addWidget(less1);
     connect(ui->lesson1,
@@ -200,27 +199,15 @@ Chess::Chess(QWidget *parent)
             &Puzzle::puzzleComplete,
             this,
             &Chess::completePuzzle);
-}
 
-void Chess::styleChessboard() {
-    for (char row = 'a'; row <= 'h'; ++row) {
-        for (int col = 1; col <= 8; ++col) {
-            QString squareName = QString("%1%2").arg(row).arg(col);
-            QPushButton *square = this->findChild<QPushButton *>(squareName);
-
-            if (square) {
-                // Corrected logic for color determination
-                bool isLightSquare = (row - 'a' + col) % 2 == 1; // Change here
-
-                if (isLightSquare) {
-                    square->setStyleSheet("background-color: rgb(255, 206, 158);");
-                } else {
-                    square->setStyleSheet("background-color: rgb(209, 139, 71);");
-                }
-
-            }
-        }
-    }
+    // For the celebration screen
+    celebration* celebrationScreen = new celebration();
+    ui->windows->addWidget(celebrationScreen);
+    connect(this, &Chess::completePuzzleSignal, this, &Chess::showCelebrationScreen);
+    celebrationPopUpBox.setText("Well Done!");
+    celebrationPopUpOk = celebrationPopUpBox.addButton("OK", QMessageBox::AcceptRole);
+    celebrationGoBackMenu = celebrationPopUpBox.addButton("Go Back to Menu", QMessageBox::RejectRole);
+    connect(celebrationGoBackMenu, &QPushButton::clicked, this, &Chess::startGame);
 }
 
 Chess::~Chess()
@@ -280,6 +267,13 @@ void Chess::puzzle6() {
     ui->windows->setCurrentIndex(14);
 }
 
+void Chess::showCelebrationScreen(){
+    ui->windows->setCurrentIndex(15);
+    QTimer::singleShot(2000, this, [this]() {
+        celebrationPopUpBox.exec();
+    });
+}
+
 void Chess::enablePuzzle(int index){
     if(index == 1){
         ui->puzzle1->setEnabled(true);
@@ -306,17 +300,23 @@ void Chess::enablePuzzle(int index){
 void Chess::completePuzzle(int index){
     if(index == 1){
         ui->puzzle1->setStyleSheet("background-color: rgb(50, 255, 50);");
+        connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle1);
     }else if(index == 2){
         ui->puzzle2->setStyleSheet("background-color: rgb(50, 255, 50);");
+        connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle2);
     }else if(index == 3){
         ui->puzzle3->setStyleSheet("background-color: rgb(50, 255, 50);");
+        connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle3);
     }else if(index == 4){
         ui->puzzle4->setStyleSheet("background-color: rgb(50, 255, 50);");
+        connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle4);
     }else if(index == 5){
         ui->puzzle5->setStyleSheet("background-color: rgb(50, 255, 50);");
+        connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle5);
     }else if(index == 6){
         ui->puzzle6->setStyleSheet("background-color: rgb(50, 255, 50);");
+        connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle6);
     }
+
+    emit completePuzzleSignal();
 }
-
-

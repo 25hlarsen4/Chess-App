@@ -1,6 +1,7 @@
 #ifndef CHESS_H
 #define CHESS_H
 
+#include "QtWidgets/qmessagebox.h"
 #include <QMainWindow>
 #include <QHBoxLayout>
 #include <map>
@@ -42,6 +43,14 @@ private:
 
     void enablePuzzle(int);
     void completePuzzle(int);
+
+    QMessageBox celebrationPopUpBox;
+    QPushButton *celebrationPopUpOk;
+    QPushButton *celebrationGoBackMenu;
+    void showCelebrationScreen();
+
+signals:
+    void completePuzzleSignal();
 
 };
 #endif // CHESS_H

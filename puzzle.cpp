@@ -309,7 +309,6 @@ void Puzzle::selectSpace(){
 }
 
 void Puzzle::onGoBackButtonClicked(){
-    qDebug() << "Go Back button was clicked in Puzzle";
 
     if (puzzleType == Puzzle1) {
         setUpPuzzle1();

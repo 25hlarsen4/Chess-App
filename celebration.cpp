@@ -54,7 +54,7 @@ void celebration::paintEvent(QPaintEvent *event) {
             painter.setBrush(Qt::blue); // Second ball blue
         }
 
-        if (x > width() + 50 || y > height() + 50 || x < -50 || y < -50) { // Adjust the bounds check as needed
+        if (x > width() + 50 || y > height() + 50 || x < -50 || y < -50) { // if ball is out of screen
             emit ballOutOfBoundSignal(ball);
         } else {
             painter.drawEllipse(QPointF(x, y), 50, 50); // Draw the ball
@@ -78,7 +78,7 @@ b2Body* celebration::createBall() {
     b2FixtureDef ballFixtureDef;
     ballFixtureDef.shape = &ballCircle;
     ballFixtureDef.density = 1.0f;
-    ballFixtureDef.restitution = 0.7f; // Bouncy
+    ballFixtureDef.restitution = 0.7f;
     newBall->CreateFixture(&ballFixtureDef);
 
     refreshBall(newBall);
