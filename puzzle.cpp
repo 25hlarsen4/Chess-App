@@ -1,4 +1,4 @@
-
+#include <QMouseEvent>
 #include "puzzle.h"
 #include "qpainter.h"
 #include <QTimer>
@@ -47,6 +47,7 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     }
 
     createBoard();
+
 
     QPushButton* helpButton = new QPushButton(this);
     helpButton->setGeometry(600, 100, 150, 25);
@@ -106,6 +107,29 @@ void Puzzle::createBoard(){
 
     vLayout->addWidget(menuBarBackground);
 
+    QHBoxLayout* rowsAndBoard = new QHBoxLayout();
+    QVBoxLayout* spaceForRows = new QVBoxLayout();
+    for (int i = 1; i < 9; i++) {
+        QLabel* lab = new QLabel(this);
+        lab->setStyleSheet("QLabel { color: white; }");
+        lab->setText(QString::number(i));
+        lab->show();
+        spaceForRows->addWidget(lab);
+    }
+
+    QWidget *controlsRestrictorWidget = new QWidget();
+    QHBoxLayout* spaceForCols = new QHBoxLayout();
+    for (int i = 97; i < 105; i++) {
+        QLabel* lab = new QLabel(this);
+        lab->setStyleSheet("QLabel { color: white; }");
+        lab->setAlignment(Qt::AlignCenter);
+        lab->setText(QChar(i));
+        lab->show();
+        spaceForCols->addWidget(lab);
+    }
+    controlsRestrictorWidget->setLayout(spaceForCols);
+    controlsRestrictorWidget->setMaximumWidth(530);
+
 
 
     //The board
@@ -140,7 +164,7 @@ void Puzzle::createBoard(){
             }
             allButtons.append(space);
 
-            space->setFixedSize(70,70);
+            space->setFixedSize(65,65);
 
             connect(space, &QPushButton::clicked, this, &Puzzle::selectSpace);
 
@@ -159,8 +183,16 @@ void Puzzle::createBoard(){
         }
     }
 
-    vLayout->addLayout(layout);
+    rowsAndBoard->addLayout(spaceForRows);
+    rowsAndBoard->addLayout(layout);
+    vLayout->addLayout(rowsAndBoard);
+    vLayout->addWidget(controlsRestrictorWidget);
     this->setLayout(vLayout);
+}
+
+void Puzzle::mousePressEvent(QMouseEvent * e) {
+    qDebug() << e->pos().x();
+    qDebug() << e->pos().y();
 }
 
 
@@ -389,10 +421,10 @@ void Puzzle::onHelpButtonClicked() {
 
 
     if (selecting) {
-        helpMessage = "Select " + pieceType + " on " + QChar(97 + pieceCoords.second) + QString::number(pieceCoords.first + 1);
+        helpMessage = "Select " + pieceType + " on " + QChar(97 + pieceCoords.second) + QString::number(8 - pieceCoords.first);
     }
     else if (moving) {
-        helpMessage = "Move " + pieceType + " to " + QChar(97 + correctClickSequence[currSequenceIndex].second) + QString::number(correctClickSequence[currSequenceIndex].first + 1);
+        helpMessage = "Move " + pieceType + " to " + QChar(97 + correctClickSequence[currSequenceIndex].second) + QString::number(8 - correctClickSequence[currSequenceIndex].first);
     }
 
     revealedMove->setText(helpMessage);
