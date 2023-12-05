@@ -162,12 +162,10 @@ bool Piece::checkPiece(int nextX, int nextY, bool black, QHash<QPair<int, int>, 
             if(black){
                 if(whitePiece(gameBoard[nextLocation])){
                     validLocations.append(nextLocation);
-                    return true;
                 }
             }else{
                 if(blackPiece(gameBoard[nextLocation])){
                     validLocations.append(nextLocation);
-                    return true;
                 }
             }
         }else{
@@ -197,12 +195,14 @@ void Piece::rookMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
     }
     // Left
     offsetX = -1;
+    offsetY = 0;
     clear = true;
     while(clear){
         clear = checkPiece(currLocation.first + offsetY, currLocation.second + offsetX, black, gameBoard, validLocations);
         offsetX--;
     }
     // Search Up
+    offsetX = 0;
     offsetY = 1;
     clear = true;
     while(clear){
