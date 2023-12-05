@@ -208,7 +208,7 @@ void Chess::puzzle1() {
 }
 
 void Chess::lesson2() {
-    ui->windows->setCurrentIndex(3);
+    ui->windows->setCurrentIndex(5);
 }
 
 void Chess::puzzle2() {
@@ -216,7 +216,7 @@ void Chess::puzzle2() {
 }
 
 void Chess::lesson3() {
-    ui->windows->setCurrentIndex(5);
+    ui->windows->setCurrentIndex(7);
 }
 
 void Chess::puzzle3() {
@@ -224,7 +224,7 @@ void Chess::puzzle3() {
 }
 
 void Chess::lesson4() {
-    ui->windows->setCurrentIndex(7);
+    ui->windows->setCurrentIndex(9);
 }
 
 void Chess::puzzle4() {
@@ -232,7 +232,7 @@ void Chess::puzzle4() {
 }
 
 void Chess::lesson5() {
-    ui->windows->setCurrentIndex(9);
+    ui->windows->setCurrentIndex(11);
 }
 
 void Chess::puzzle5() {
@@ -240,7 +240,7 @@ void Chess::puzzle5() {
 }
 
 void Chess::lesson6() {
-    ui->windows->setCurrentIndex(11);
+    ui->windows->setCurrentIndex(13);
 }
 
 void Chess::puzzle6() {
@@ -250,16 +250,22 @@ void Chess::puzzle6() {
 void Chess::enablePuzzle(int index){
     if(index == 1){
         ui->puzzle1->setEnabled(true);
+        ui->lesson1->setStyleSheet("background-color: rgb(50, 255, 50);");
     }else if(index == 2){
         ui->puzzle2->setEnabled(true);
+        ui->lesson2->setStyleSheet("background-color: rgb(50, 255, 50);");
     }else if(index == 3){
         ui->puzzle3->setEnabled(true);
+        ui->lesson3->setStyleSheet("background-color: rgb(50, 255, 50);");
     }else if(index == 4){
         ui->puzzle4->setEnabled(true);
+        ui->lesson4->setStyleSheet("background-color: rgb(50, 255, 50);");
     }else if(index == 5){
         ui->puzzle5->setEnabled(true);
+        ui->lesson5->setStyleSheet("background-color: rgb(50, 255, 50);");
     }else if(index == 6){
         ui->puzzle6->setEnabled(true);
+        ui->lesson6->setStyleSheet("background-color: rgb(50, 255, 50);");
     }
     ui->windows->setCurrentIndex(1);
 }
