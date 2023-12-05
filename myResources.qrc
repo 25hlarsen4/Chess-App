@@ -3,6 +3,7 @@
         <file>Images/chessboardbackground.png</file>
         <file>Images/blankBoard.jpg</file>
         <file>Images/back.png</file>
+        <file>Images/welldone.jpeg</file>
     </qresource>
     <qresource prefix="/pieces">
         <file>Images/blackKnight.png</file>
