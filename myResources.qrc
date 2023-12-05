@@ -25,5 +25,6 @@
         <file>Images/enPassant1.jpg</file>
         <file>Images/enPassant2.jpg</file>
         <file>Images/enPassant3.jpg</file>
+        <file>Images/overloadingEx.jpg</file>
     </qresource>
 </RCC>
