@@ -106,6 +106,14 @@ void Puzzle::createBoard(){
 
     vLayout->addWidget(menuBarBackground);
 
+    QHBoxLayout* rowsAndBoard = new QHBoxLayout();
+    QVBoxLayout* spaceForRows = new QVBoxLayout();
+//    QLabel* lab = new QLabel(this);
+//    goBackButton->setStyleSheet("QLabel { background-color: white; color: black; border: none; }");
+//    lab->setText("A");
+//    lab->show();
+    spaceForRows->addWidget(new QLabel(this));
+
 
 
     //The board
@@ -159,7 +167,9 @@ void Puzzle::createBoard(){
         }
     }
 
-    vLayout->addLayout(layout);
+    rowsAndBoard->addLayout(spaceForRows);
+    rowsAndBoard->addLayout(layout);
+    vLayout->addLayout(rowsAndBoard);
     this->setLayout(vLayout);
 }
 
@@ -390,10 +400,10 @@ void Puzzle::onHelpButtonClicked() {
 
 
     if (selecting) {
-        helpMessage = "Select " + pieceType + " on " + QChar(97 + pieceCoords.second) + QString::number(pieceCoords.first + 1);
+        helpMessage = "Select " + pieceType + " on " + QChar(97 + pieceCoords.second) + QString::number(8 - pieceCoords.first);
     }
     else if (moving) {
-        helpMessage = "Move " + pieceType + " to " + QChar(97 + correctClickSequence[currSequenceIndex].second) + QString::number(correctClickSequence[currSequenceIndex].first + 1);
+        helpMessage = "Move " + pieceType + " to " + QChar(97 + correctClickSequence[currSequenceIndex].second) + QString::number(8 - correctClickSequence[currSequenceIndex].first);
     }
 
     revealedMove->setText(helpMessage);
