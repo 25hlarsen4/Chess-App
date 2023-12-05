@@ -39,13 +39,14 @@ public:
     void setPiece(QPushButton* space);
     void hide();
     void show();
+    bool whitePiece(Piece*);
 
     QList<QPair<int, int>> getPossibleLocations(QPair<int, int>, QHash<QPair<int, int>, Piece*>);
 
 
 private:
     bool checkInbounds(int, int);
-    bool whitePiece(Piece*);
+
     bool blackPiece(Piece*);
     bool checkPiece(int, int, bool, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>&);
     void rookMoves(bool, QPair<int,int>, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>&);

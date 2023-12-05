@@ -311,13 +311,7 @@ void Puzzle::setUpPuzzle1() {
     boardSetUp[qMakePair(5, 1)] = Piece::WHITE_PAWN;
     boardSetUp[qMakePair(6, 2)] = Piece::WHITE_PAWN;
 
-    playerPieces[qMakePair(6, 1)] = Piece::WHITE_KING;
-    playerPieces[qMakePair(4, 2)] = Piece::WHITE_KNIGHT;
-    playerPieces[qMakePair(1, 7)] = Piece::WHITE_ROOK;
-    playerPieces[qMakePair(3, 6)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(4, 0)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(5, 1)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 2)] = Piece::WHITE_PAWN;
+    setPlayerPieces();
 
     correctClickSequence.append(qMakePair(4, 2));
     correctClickSequence.append(qMakePair(3, 4));
@@ -360,19 +354,7 @@ void Puzzle::setUpPuzzle2() {
     boardSetUp[qMakePair(6, 6)] = Piece::WHITE_PAWN;
     boardSetUp[qMakePair(6, 7)] = Piece::WHITE_PAWN;
 
-    playerPieces[qMakePair(0, 6)] = Piece::WHITE_QUEEN;
-    playerPieces[qMakePair(5, 5)] = Piece::WHITE_KNIGHT;
-    playerPieces[qMakePair(7, 0)] = Piece::WHITE_ROOK;
-    playerPieces[qMakePair(7, 4)] = Piece::WHITE_ROOK;
-    playerPieces[qMakePair(7, 1)] = Piece::WHITE_KNIGHT;
-    playerPieces[qMakePair(7, 6)] = Piece::WHITE_KING;
-    playerPieces[qMakePair(2, 5)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 0)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 1)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 2)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 5)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 6)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 7)] = Piece::WHITE_PAWN;
+    setPlayerPieces();
 
     correctClickSequence.append(qMakePair(7, 4));
     correctClickSequence.append(qMakePair(1, 4));
@@ -414,16 +396,7 @@ void Puzzle::setUpPuzzle3() {
     boardSetUp[qMakePair(6, 6)] = Piece::WHITE_PAWN;
     boardSetUp[qMakePair(5, 7)] = Piece::WHITE_PAWN;
 
-    playerPieces[qMakePair(4, 5)] = Piece::WHITE_QUEEN;
-    playerPieces[qMakePair(6, 7)] = Piece::WHITE_KING;
-    playerPieces[qMakePair(4, 3)] = Piece::WHITE_BISHOP;
-    playerPieces[qMakePair(2, 2)] = Piece::WHITE_KNIGHT;
-    playerPieces[qMakePair(6, 0)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 5)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 6)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(5, 7)] = Piece::WHITE_PAWN;
-
-
+    setPlayerPieces();
 
     correctClickSequence.append(qMakePair(4, 5));
     correctClickSequence.append(qMakePair(2, 3));
@@ -472,15 +445,7 @@ void Puzzle::setUpPuzzle4() {
     boardSetUp[qMakePair(6, 0)] = Piece::WHITE_PAWN;
     boardSetUp[qMakePair(6, 6)] = Piece::WHITE_PAWN;
 
-    playerPieces[qMakePair(7, 7)] = Piece::WHITE_KING;
-    playerPieces[qMakePair(4, 6)] = Piece::WHITE_QUEEN;
-    playerPieces[qMakePair(4, 4)] = Piece::WHITE_ROOK;
-    playerPieces[qMakePair(4, 5)] = Piece::WHITE_BISHOP;
-    playerPieces[qMakePair(3, 2)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(4, 1)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(5, 2)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 0)] = Piece::WHITE_PAWN;
-    playerPieces[qMakePair(6, 6)] = Piece::WHITE_PAWN;
+    setPlayerPieces();
 
     correctClickSequence.append(qMakePair(4, 4));
     correctClickSequence.append(qMakePair(1, 4));
@@ -521,4 +486,19 @@ void Puzzle::nextMove(){
     piecePositions.insert(computerMoves[computerMovesIndex], piece);
 
     computerMovesIndex++;
+}
+
+void Puzzle::setPlayerPieces(){
+
+    for(const auto& key : boardSetUp.keys()){
+
+        Piece::PieceType pieceType = boardSetUp[key];
+        Piece* piece = new Piece(pieceType);
+
+        if(piece->whitePiece(piece)){
+            playerPieces[key] = pieceType;
+        }
+
+    }
+
 }
