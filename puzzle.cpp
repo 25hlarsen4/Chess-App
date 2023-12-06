@@ -309,7 +309,7 @@ void Puzzle::selectSpace(){
 
 
                 }else{
-
+                    this->setDisabled(true);
                     feedbackLabel->setText("Incorrect move!");
                     feedbackLabel->setStyleSheet("background-color: red; color: white");
 
@@ -342,7 +342,7 @@ void Puzzle::selectSpace(){
 
                         feedbackLabel->setText("");
                         feedbackLabel->setStyleSheet("");
-
+                        this->setDisabled(false);
                     });
 
                     moving = false;
