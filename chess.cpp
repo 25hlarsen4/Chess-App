@@ -202,11 +202,18 @@ Chess::Chess(QWidget *parent)
 
     // For the celebration screen
     celebration* celebrationScreen = new celebration();
+    celebrationPopUpBox.setStyleSheet("QMessageBox{background-color: tan;"
+                                      "border-width: 6px; border-radius: 20px;"
+                                      "border: 2px black; text-align:center;}"
+                                      "QPushButton{background-color: rgb(210, 70, 51);"
+                                      "border-width: 1px; border-radius: 2px;"
+                                      "border: 1px black;}"
+                                      "QPushButton::hover{background-color: rgb(128, 0, 32)}");
     ui->windows->addWidget(celebrationScreen);
     connect(this, &Chess::completePuzzleSignal, this, &Chess::showCelebrationScreen);
     celebrationPopUpBox.setText("Well Done!");
-    celebrationPopUpOk = celebrationPopUpBox.addButton("OK", QMessageBox::AcceptRole);
-    celebrationGoBackMenu = celebrationPopUpBox.addButton("Go Back to Menu", QMessageBox::RejectRole);
+    celebrationPopUpOk = celebrationPopUpBox.addButton("Continue", QMessageBox::AcceptRole);
+    celebrationGoBackMenu = celebrationPopUpBox.addButton("Return To Menu", QMessageBox::RejectRole);
     connect(celebrationGoBackMenu, &QPushButton::clicked, this, &Chess::startGame);
 }
 
@@ -281,44 +288,56 @@ void Chess::showCelebrationScreen(){
 void Chess::enablePuzzle(int index){
     if(index == 1){
         ui->puzzle1->setEnabled(true);
-        ui->lesson1->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->lesson1->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }else if(index == 2){
         ui->puzzle2->setEnabled(true);
-        ui->lesson2->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->lesson2->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }else if(index == 3){
         ui->puzzle3->setEnabled(true);
-        ui->lesson3->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->lesson3->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }else if(index == 4){
         ui->puzzle4->setEnabled(true);
-        ui->lesson4->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->lesson4->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }else if(index == 5){
         ui->puzzle5->setEnabled(true);
-        ui->lesson5->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->lesson5->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }else if(index == 6){
         ui->puzzle6->setEnabled(true);
-        ui->lesson6->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->lesson6->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }
     ui->windows->setCurrentIndex(1);
 }
 
 void Chess::completePuzzle(int index){
     if(index == 1){
-        ui->puzzle1->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->puzzle1->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle1);
     }else if(index == 2){
-        ui->puzzle2->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->puzzle2->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle2);
     }else if(index == 3){
-        ui->puzzle3->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->puzzle3->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle3);
     }else if(index == 4){
-        ui->puzzle4->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->puzzle4->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle4);
     }else if(index == 5){
-        ui->puzzle5->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->puzzle5->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle5);
     }else if(index == 6){
-        ui->puzzle6->setStyleSheet("background-color: rgb(50, 255, 50);");
+        ui->puzzle6->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
+                                   "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle6);
     }
 
