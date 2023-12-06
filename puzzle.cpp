@@ -268,6 +268,12 @@ void Puzzle::selectSpace(){
 
                     if (currSequenceIndex == correctClickSequence.size()) {
                         feedbackLabel->setText("Puzzle Complete!");
+
+                        // disable all buttons
+                        for(QPushButton* button : allButtons){
+                            button->blockSignals(true);
+                        }
+
                         if (puzzleType == Puzzle1) {
                             emit puzzleComplete(1);
                         }
@@ -720,6 +726,10 @@ void Puzzle::setUpPuzzle6() {
 
 }
 void Puzzle::nextMove(){
+    // disable all buttons
+    for(QPushButton* button : allButtons){
+        button->blockSignals(true);
+    }
 
     feedbackLabel->setText("Correct move!");
     feedbackLabel->setStyleSheet("background-color: green; color: white;");
@@ -735,6 +745,11 @@ void Puzzle::nextMove(){
             QTimer::singleShot(2000, this, [this, piece, button] {
                 piece->hide();
                 piece->setPiece(button);
+
+                // reenable all buttons
+                for(QPushButton* button : allButtons){
+                    button->blockSignals(false);
+                }
             });
         }
 
