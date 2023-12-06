@@ -109,7 +109,7 @@ void Puzzle::createBoard(){
 
     QHBoxLayout* rowsAndBoard = new QHBoxLayout();
     QVBoxLayout* spaceForRows = new QVBoxLayout();
-    for (int i = 1; i < 9; i++) {
+    for (int i = 8; i > 0; i--) {
         QLabel* lab = new QLabel(this);
         lab->setStyleSheet("QLabel { color: white; }");
         lab->setText(QString::number(i));
@@ -128,7 +128,7 @@ void Puzzle::createBoard(){
         spaceForCols->addWidget(lab);
     }
     controlsRestrictorWidget->setLayout(spaceForCols);
-    controlsRestrictorWidget->setMaximumWidth(530);
+    controlsRestrictorWidget->setMaximumWidth(540);
 
 
 
