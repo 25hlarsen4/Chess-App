@@ -48,17 +48,16 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
 
     createBoard();
 
-
+    // The Hint part on UI
     QPushButton* helpButton = new QPushButton(this);
-    helpButton->setGeometry(600, 100, 150, 25);
+    helpButton->setGeometry(600, 100, 180, 25);
     helpButton->setText("Stuck? Click to reveal move.");
     helpButton->setStyleSheet("QPushButton { background-color: red; color: black; border: none; }");
     helpButton->show();
     connect(helpButton, &QPushButton::clicked, this, &Puzzle::onHelpButtonClicked);
-
     revealedMove = new QLabel(this);
     revealedMove->setStyleSheet("QLabel { background-color: white; color: black; border: none; }");
-    revealedMove->setGeometry(600, 130, 160, 25);
+    revealedMove->setGeometry(600, 130, 180, 25);
     revealedMove->setText("");
     revealedMove->show();
 }
@@ -97,10 +96,9 @@ void Puzzle::createBoard(){
     goBackButton->setIconSize(QSize(50, 50));
     goBackButton->show();
     connect(goBackButton, &QPushButton::clicked, this, &Puzzle::onGoBackButtonClicked); // calls the slot to emit signal to update view in the control class
-
     menubarLayout->addWidget(goBackButton);
-    feedbackLabel = new QLabel();
 
+    feedbackLabel = new QLabel(); // the feedbackLabel
     menubarLayout->addWidget(feedbackLabel);
     menubarLayout->addStretch();
     menuBarBackground->setLayout(menubarLayout);
@@ -130,12 +128,11 @@ void Puzzle::createBoard(){
     controlsRestrictorWidget->setLayout(spaceForCols);
     controlsRestrictorWidget->setMaximumWidth(530);
 
-
-
     //The board
     layout = new QGridLayout();
     layout->setHorizontalSpacing(0);
     layout->setVerticalSpacing(0);
+
     // Vertical spacers
     layout->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding), 0, 8, 1, 1);
     layout->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding), 0, 8, 1, 1);
@@ -169,8 +166,6 @@ void Puzzle::createBoard(){
             connect(space, &QPushButton::clicked, this, &Puzzle::selectSpace);
 
             layout->addWidget(space, j, i);
-            //setLayout(layout);
-
 
             // now set the pieces and correct moves
 
@@ -179,10 +174,10 @@ void Puzzle::createBoard(){
                 piece->setPiece(space);      //(have piece have qlabel member)
                 piecePositions[qMakePair(j, i)] = piece;
             }
-
         }
     }
 
+    // The numbers indicating rows and columns on screen
     rowsAndBoard->addLayout(spaceForRows);
     rowsAndBoard->addLayout(layout);
     vLayout->addLayout(rowsAndBoard);
@@ -264,6 +259,7 @@ void Puzzle::selectSpace(){
                     if (currSequenceIndex == correctClickSequence.size()) {
 
                         feedbackLabel->setText("Puzzle Complete!");
+                        feedbackLabel->setStyleSheet("background-color: orange; color: white");
                         if (puzzleType == Puzzle1) {
                             emit puzzleComplete(1);
                         }
@@ -370,6 +366,7 @@ void Puzzle::onGoBackButtonClicked(){
 
     emit goBackButtonClicked();
 }
+
 void Puzzle::setButtonBackgroundColor(int row, int col, QString color){
 
     for (int i = 0; i < layout->count(); ++i) {
@@ -384,7 +381,6 @@ void Puzzle::setButtonBackgroundColor(int row, int col, QString color){
         }
     }
 }
-
 
 void Puzzle::onHelpButtonClicked() {
     QPair<int, int> pieceCoords;
@@ -706,6 +702,10 @@ void Puzzle::setUpPuzzle6() {
 }
 void Puzzle::nextMove(){
 
+    this->setEnabled(false);
+    QTimer::singleShot(4000, this, [this]() {
+        this->setEnabled(true);
+    });
     feedbackLabel->setText("Correct move!");
     feedbackLabel->setStyleSheet("background-color: green; color: white;");
 
@@ -741,7 +741,5 @@ void Puzzle::setPlayerPieces(){
         if(piece->whitePiece(piece)){
             playerPieces[key] = pieceType;
         }
-
     }
-
 }
