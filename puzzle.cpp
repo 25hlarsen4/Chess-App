@@ -247,9 +247,14 @@ void Puzzle::selectSpace(){
                     piecePositions[buttonCoords]->hide();
                     // should we delete the piece here?
                 }
-                // this will replace if need be (if capturing)
+                // if we're overtaking a piece, save it in case the move is incorrect and must be reset
+                Piece* capturedPiece = nullptr;
+                if (piecePositions.contains(buttonCoords)) {
+                    capturedPiece = piecePositions[buttonCoords];
+                }
+
                 piecePositions.insert(buttonCoords, piece);
-                playerPieces.insert(buttonCoords,piece->pieceType);
+                playerPieces.insert(buttonCoords, piece->pieceType);
 
 
                 piece->setPiece(selectedSpace);
@@ -262,7 +267,6 @@ void Puzzle::selectSpace(){
                     feedbackLabel->setStyleSheet("background-color: green; color: white");
 
                     if (currSequenceIndex == correctClickSequence.size()) {
-
                         feedbackLabel->setText("Puzzle Complete!");
                         if (puzzleType == Puzzle1) {
                             emit puzzleComplete(1);
@@ -308,8 +312,14 @@ void Puzzle::selectSpace(){
                     piecePositions.insert(prevPiecePos, piece);
                     playerPieces.insert(prevPiecePos,piece->pieceType);
 
+                    // won't be null if we captured a piece
+                    if (capturedPiece) {
+                        piecePositions.insert(buttonCoords, capturedPiece);
+                        playerPieces.insert(buttonCoords, capturedPiece->pieceType);
+                    }
 
-                    QTimer::singleShot(2000, this, [this, piece] {
+
+                    QTimer::singleShot(2000, this, [this, piece, capturedPiece, selectedSpace] {
                         piece->hide();
 
 
@@ -318,6 +328,11 @@ void Puzzle::selectSpace(){
                                 piece->setPiece(button);
                             }
                         }
+                        if (capturedPiece) {
+                            qDebug() << "here";
+                            capturedPiece->setPiece(selectedSpace);
+                        }
+
                         feedbackLabel->setText("");
                         feedbackLabel->setStyleSheet("");
 
