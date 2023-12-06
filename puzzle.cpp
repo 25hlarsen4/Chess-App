@@ -49,15 +49,20 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     createBoard();
 
     // The Hint part on UI
+    WhosTurnLabel = new QLabel(this);
+    WhosTurnLabel->setStyleSheet("QLabel { background-color: black; color: white; border: none; }");
+    WhosTurnLabel->setGeometry(600, 100, 180, 50);
+    WhosTurnLabel->setText("  Your Turn");
+    WhosTurnLabel->show();
     QPushButton* helpButton = new QPushButton(this);
-    helpButton->setGeometry(600, 100, 180, 25);
+    helpButton->setGeometry(600, 160, 180, 25);
     helpButton->setText("Stuck? Click to reveal move.");
     helpButton->setStyleSheet("QPushButton { background-color: red; color: black; border: none; }");
     helpButton->show();
     connect(helpButton, &QPushButton::clicked, this, &Puzzle::onHelpButtonClicked);
     revealedMove = new QLabel(this);
     revealedMove->setStyleSheet("QLabel { background-color: white; color: black; border: none; }");
-    revealedMove->setGeometry(600, 130, 180, 25);
+    revealedMove->setGeometry(600, 185, 180, 25);
     revealedMove->setText("");
     revealedMove->show();
 }
@@ -703,8 +708,10 @@ void Puzzle::setUpPuzzle6() {
 void Puzzle::nextMove(){
 
     this->setEnabled(false);
+    WhosTurnLabel->setText("  Opponent's turn");
     QTimer::singleShot(4000, this, [this]() {
         this->setEnabled(true);
+        WhosTurnLabel->setText("  Your turn");
     });
     feedbackLabel->setText("Correct move!");
     feedbackLabel->setStyleSheet("background-color: green; color: white;");

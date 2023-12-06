@@ -56,6 +56,7 @@ private:
     QGridLayout *layout;
 
     QLabel* revealedMove;
+    QLabel* WhosTurnLabel;
 
     void paintEvent(QPaintEvent *);
     void createBoard();
