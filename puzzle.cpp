@@ -308,6 +308,9 @@ void Puzzle::selectSpace(){
                         else if (puzzleType == Puzzle6) {
                             emit puzzleComplete(6);
                         }
+
+                        savePuzzle();
+
                     }else{
                         nextMove();
 
@@ -673,9 +676,6 @@ void Puzzle::setUpPuzzle5() {
     correctClickSequence.append(qMakePair(4, 1));
     correctClickSequence.append(qMakePair(4, 1));
     correctClickSequence.append(qMakePair(1, 1));
-
-
-
     correctClickSequence.append(qMakePair(4, 5));
     correctClickSequence.append(qMakePair(1, 2));
     correctClickSequence.append(qMakePair(6, 4));
@@ -802,5 +802,41 @@ void Puzzle::setPlayerPieces(){
         if(piece->whitePiece(piece)){
             playerPieces[key] = pieceType;
         }
+    }
+}
+void Puzzle::savePuzzle(){
+    qDebug() << "hi";
+    QFile file("fileName.txt");
+
+    if (!file.open(QIODevice::WriteOnly)) {
+        qWarning("Couldn't open save file.");
+    }
+
+    QJsonObject puzzleObject;
+
+    puzzleObject["puzzle"] = puzzleType;
+
+    QJsonDocument jsonDoc(puzzleObject);
+
+    QByteArray jsonData = jsonDoc.toJson();
+
+    file.write(jsonData);
+}
+void Puzzle::loadPuzzle(){
+    QFile file("fileName.txt");
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        qWarning("Couldn't open save file.");
+    }
+
+    QByteArray saveData = file.readAll();
+
+    QJsonDocument jsonDoc(QJsonDocument::fromJson(saveData));
+
+    QJsonObject puzzleObject = jsonDoc.object();
+
+    int puzzleTypeFromJson = puzzleObject["puzzle"].toInt() + 1;
+    for(int i = 1; i <= puzzleTypeFromJson; i++){
+        emit fileLoaded(i);
     }
 }
