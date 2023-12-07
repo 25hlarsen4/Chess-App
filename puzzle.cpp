@@ -319,7 +319,11 @@ void Puzzle::selectSpace(){
 
 
                 }else{
-                    this->setDisabled(true);
+//                    this->setDisabled(true);
+                    // disable all buttons
+                    for(QPushButton* button : allButtons){
+                        button->blockSignals(true);
+                    }
                     feedbackLabel->setText("Incorrect move!");
                     feedbackLabel->setStyleSheet("background-color: red; color: white");
 
@@ -352,7 +356,11 @@ void Puzzle::selectSpace(){
 
                         feedbackLabel->setText("");
                         feedbackLabel->setStyleSheet("");
-                        this->setDisabled(false);
+//                        this->setDisabled(false);
+                        // disable all buttons
+                        for(QPushButton* button : allButtons){
+                            button->blockSignals(false);
+                        }
                     });
 
                     moving = false;
@@ -732,10 +740,18 @@ void Puzzle::setUpPuzzle6() {
 }
 void Puzzle::nextMove(){
 
-    this->setEnabled(false);
+//    this->setEnabled(false);
+    // disable all buttons
+    for(QPushButton* button : allButtons){
+        button->blockSignals(true);
+    }
     WhosTurnLabel->setText("  Opponent's turn");
     QTimer::singleShot(4000, this, [this]() {
-        this->setEnabled(true);
+//        this->setEnabled(true);
+        // disable all buttons
+        for(QPushButton* button : allButtons){
+            button->blockSignals(false);
+        }
         WhosTurnLabel->setText("  Your turn");
     });
     feedbackLabel->setText("Correct move!");
