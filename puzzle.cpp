@@ -81,7 +81,7 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     WhosTurnLabel->setText("  Your Turn");
     WhosTurnLabel->show();
 
-    QPushButton* helpButton = new QPushButton(this);
+    helpButton = new QPushButton(this);
     helpButton->setGeometry(600, 235, 180, 25);
     helpButton->setText("Stuck? Click to reveal move.");
     helpButton->setStyleSheet("QPushButton { background-color: brown; color: white; border: none; }");
@@ -113,15 +113,14 @@ void Puzzle::createBoard(){
     QVBoxLayout *vLayout = new QVBoxLayout(); // the layout that contains the menu bar and the board
 
     // The menu bar
-    QWidget *menuBarBackground = new QWidget(); // menu bar background
+    QWidget *menuBarBackground = new QWidget(this); // menu bar background
     menuBarBackground->setStyleSheet("background-color: rgb(144, 87, 38);");
 
     QHBoxLayout *menubarLayout = new QHBoxLayout(menuBarBackground); // menu bar
 
-    QPushButton* goBackButton = new QPushButton(); //goBackButton
+    QPushButton* goBackButton = new QPushButton(this); //goBackButton
     goBackButton->setMinimumSize(50, 50);
     goBackButton->setMaximumSize(50, 50);
-//    goBackButton->setStyleSheet("QPushButton { background-color: gray; color: black; border: none; }");
     QPixmap pieceImage(":/backgrounds/Images/back.png");
     QPixmap scaledPieceImage = pieceImage.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     goBackButton->setIcon(QIcon(scaledPieceImage));
@@ -130,7 +129,7 @@ void Puzzle::createBoard(){
     connect(goBackButton, &QPushButton::clicked, this, &Puzzle::onGoBackButtonClicked); // calls the slot to emit signal to update view in the control class
     menubarLayout->addWidget(goBackButton);
 
-    feedbackLabel = new QLabel(); // the feedbackLabel
+    feedbackLabel = new QLabel(this); // the feedbackLabel
     menubarLayout->addWidget(feedbackLabel);
     menubarLayout->addStretch();
     menuBarBackground->setLayout(menubarLayout);
@@ -339,6 +338,7 @@ void Puzzle::selectSpace(){
                         for(QPushButton* button : allButtons){
                             button->blockSignals(true);
                         }
+                        helpButton->blockSignals(true);
 
                         if (puzzleType == Puzzle1) {
                             emit puzzleComplete(1);
@@ -377,11 +377,12 @@ void Puzzle::selectSpace(){
 
 
                 }else{
-                    //                    this->setDisabled(true);
                     // disable all buttons
                     for(QPushButton* button : allButtons){
                         button->blockSignals(true);
                     }
+                    helpButton->blockSignals(true);
+
                     feedbackLabel->setText("Incorrect move!");
                     feedbackLabel->setStyleSheet("background-color: red; color: white");
 
@@ -414,11 +415,12 @@ void Puzzle::selectSpace(){
 
                         feedbackLabel->setText("");
                         feedbackLabel->setStyleSheet("");
-                        //                        this->setDisabled(false);
-                        // disable all buttons
+
+                        // reenable all buttons
                         for(QPushButton* button : allButtons){
                             button->blockSignals(false);
                         }
+                        helpButton->blockSignals(false);
                     });
 
                     moving = false;
@@ -802,18 +804,20 @@ void Puzzle::setUpPuzzle6() {
 }
 void Puzzle::nextMove(){
 
-    //    this->setEnabled(false);
     // disable all buttons
     for(QPushButton* button : allButtons){
         button->blockSignals(true);
     }
+    helpButton->blockSignals(true);
+
     WhosTurnLabel->setText("  Opponent's turn");
     QTimer::singleShot(4000, this, [this]() {
-        //        this->setEnabled(true);
-        // disable all buttons
+        // reenable all buttons
         for(QPushButton* button : allButtons){
             button->blockSignals(false);
         }
+        helpButton->blockSignals(false);
+
         WhosTurnLabel->setText("  Your turn");
     });
     feedbackLabel->setText("Correct move!");
@@ -860,7 +864,6 @@ void Puzzle::setPlayerPieces(){
     }
 }
 void Puzzle::savePuzzle(){
-    qDebug() << "hi";
     QFile file("fileName.txt");
 
     if (!file.open(QIODevice::WriteOnly)) {

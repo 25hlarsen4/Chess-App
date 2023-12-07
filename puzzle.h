@@ -47,6 +47,7 @@ private:
     QList<QPushButton*> allButtons;
 
     QLabel* feedbackLabel;
+    QPushButton* helpButton;
 
     int currSequenceIndex;
     int computerMovesIndex;

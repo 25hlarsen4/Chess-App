@@ -291,12 +291,13 @@ void Chess::puzzle6() {
 }
 
 void Chess::showCelebrationScreen(){
-    this->setDisabled(true);
+//    this->setDisabled(true);
     QTimer::singleShot(3000, this, [this]() {
         ui->windows->setCurrentIndex(15);
         QTimer::singleShot(2000, this, [this]() {
+//            qDebug() << "here";
             celebrationPopUpBox.exec();
-            this->setDisabled(false);
+//            this->setDisabled(false);
         });
     });
 }
