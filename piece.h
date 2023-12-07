@@ -27,6 +27,8 @@ public:
         BLACK_PAWN
     };
 
+
+
     explicit Piece(PieceType, bool newPawn = false, QObject *parent = nullptr);
 
     PieceType pieceType;

@@ -363,7 +363,6 @@ void Puzzle::selectSpace(){
                         else if (puzzleType == Puzzle6) {
                             emit puzzleComplete(6);
                         }
-
                         savePuzzle();
 
                     }else{
@@ -811,7 +810,7 @@ void Puzzle::nextMove(){
     helpButton->blockSignals(true);
 
     WhosTurnLabel->setText("  Opponent's turn");
-    QTimer::singleShot(4000, this, [this]() {
+    QTimer::singleShot(1000, this, [this]() {
         // reenable all buttons
         for(QPushButton* button : allButtons){
             button->blockSignals(false);
@@ -823,7 +822,7 @@ void Puzzle::nextMove(){
     feedbackLabel->setText("Correct move!");
     feedbackLabel->setStyleSheet("background-color: green; color: white;");
 
-    QTimer::singleShot(2000, this, [this] {
+    QTimer::singleShot(1000, this, [this] {
 
         Piece* piece = piecePositions[computerMoves[computerMovesIndex]];
         piece->hide();
@@ -865,16 +864,23 @@ void Puzzle::setPlayerPieces(){
 }
 void Puzzle::savePuzzle(){
     QFile file("fileName.txt");
+    QJsonArray puzzles;
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray saveData = file.readAll();
+        QJsonDocument jsonDoc(QJsonDocument::fromJson(saveData));
+        puzzles = jsonDoc.array();
+        puzzles[puzzleType] = true;
+    }else{
+        puzzles = {false, false, false, false, false, false};
+        puzzles[puzzleType] = true;
+    }
+    file.close();
 
     if (!file.open(QIODevice::WriteOnly)) {
         qWarning("Couldn't open save file.");
     }
 
-    QJsonObject puzzleObject;
-
-    puzzleObject["puzzle"] = puzzleType;
-
-    QJsonDocument jsonDoc(puzzleObject);
+    QJsonDocument jsonDoc(puzzles);
 
     QByteArray jsonData = jsonDoc.toJson();
 
@@ -892,10 +898,11 @@ void Puzzle::loadPuzzle(){
 
     QJsonDocument jsonDoc(QJsonDocument::fromJson(saveData));
 
-    QJsonObject puzzleObject = jsonDoc.object();
+    QJsonArray puzzles = jsonDoc.array();
 
-    int puzzleTypeFromJson = puzzleObject["puzzle"].toInt() + 1;
-    for(int i = 1; i <= puzzleTypeFromJson; i++){
-        emit fileLoaded(i);
+    for(int i = 0; i < puzzles.count(); i++){
+        if(puzzles[i] == true){
+            emit fileLoaded(i + 1);
+        }
     }
 }
