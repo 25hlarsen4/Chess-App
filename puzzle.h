@@ -6,6 +6,10 @@
 #include <QPushButton>
 #include <QGridLayout>
 #include <QLabel>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
 
 class Puzzle : public QWidget
 {
@@ -59,6 +63,8 @@ private:
     QLabel* revealedMove;
     QLabel* WhosTurnLabel;
 
+    QList<PuzzleType> completedPuzzles;
+
     void paintEvent(QPaintEvent *);
     void createBoard();
     void setPiece(QPushButton *space, Piece*);
@@ -76,15 +82,18 @@ private:
     void setPlayerPieces();
 
     void nextMove();
+    void savePuzzle();
 
 signals:
     void goBackButtonClicked();
     void puzzleComplete(int);
+    void fileLoaded(int);
 
 public slots:
     void selectSpace();
     void onGoBackButtonClicked();
     void onHelpButtonClicked();
+    void loadPuzzle();
 
 };
 

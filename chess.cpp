@@ -174,6 +174,18 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::enablePuzzle);
 
+    // load in completed puzzles.
+    connect(ui->loadButton,
+            &QPushButton::clicked,
+            puzz1,
+            &Puzzle::loadPuzzle);
+    connect(puzz1,
+            &Puzzle::fileLoaded,
+            this,
+            &Chess::enablePuzzle);
+
+
+
     // Connect puzzle completion
     connect(puzz1,
             &Puzzle::puzzleComplete,
@@ -286,6 +298,7 @@ void Chess::showCelebrationScreen(){
 }
 
 void Chess::enablePuzzle(int index){
+    qDebug() << index;
     if(index == 1){
         ui->puzzle1->setEnabled(true);
         ui->lesson1->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
