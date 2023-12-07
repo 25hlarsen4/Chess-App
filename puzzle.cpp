@@ -50,14 +50,14 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
 
     // The Hint part on UI
     WhosTurnLabel = new QLabel(this);
-    WhosTurnLabel->setStyleSheet("QLabel { background-color: black; color: white; border: none; }");
+    WhosTurnLabel->setStyleSheet("QLabel { background-color: gray; color: white; border: none; }");
     WhosTurnLabel->setGeometry(600, 100, 180, 50);
     WhosTurnLabel->setText("  Your Turn");
     WhosTurnLabel->show();
     QPushButton* helpButton = new QPushButton(this);
     helpButton->setGeometry(600, 160, 180, 25);
     helpButton->setText("Stuck? Click to reveal move.");
-    helpButton->setStyleSheet("QPushButton { background-color: red; color: black; border: none; }");
+    helpButton->setStyleSheet("QPushButton { background-color: brown; color: black; border: none; }");
     helpButton->show();
     connect(helpButton, &QPushButton::clicked, this, &Puzzle::onHelpButtonClicked);
     revealedMove = new QLabel(this);
@@ -87,14 +87,14 @@ void Puzzle::createBoard(){
 
     // The menu bar
     QWidget *menuBarBackground = new QWidget(); // menu bar background
-    menuBarBackground->setStyleSheet("background-color: white;");
+    menuBarBackground->setStyleSheet("background-color: gray;");
 
     QHBoxLayout *menubarLayout = new QHBoxLayout(menuBarBackground); // menu bar
 
     QPushButton* goBackButton = new QPushButton(); //goBackButton
     goBackButton->setMinimumSize(50, 50);
     goBackButton->setMaximumSize(50, 50);
-    goBackButton->setStyleSheet("QPushButton { background-color: white; color: black; border: none; }");
+    goBackButton->setStyleSheet("QPushButton { background-color: gray; color: black; border: none; }");
     QPixmap pieceImage(":/backgrounds/Images/back.png");
     QPixmap scaledPieceImage = pieceImage.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     goBackButton->setIcon(QIcon(scaledPieceImage));
