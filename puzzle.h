@@ -71,6 +71,8 @@ private:
     void setUpPuzzle5();
     void setUpPuzzle6();
 
+    QString getPuzzleTitle();
+
     void setPlayerPieces();
 
     void nextMove();

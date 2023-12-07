@@ -21,8 +21,7 @@ Chess::Chess(QWidget *parent)
     ui->startPage->setStyleSheet("QWidget#startPage{background-image: url(:/backgrounds/Images/chessboardbackground.png);"
                                  "background-repeat: no-repeat; background-position: center}");
 
-    ui->mainPage->setStyleSheet("QWidget#mainPage{background-color:tan}"
-                                "QPushButton{background-color: rgb(210, 70, 51);"
+    ui->mainPage->setStyleSheet("QPushButton{background-color: rgb(210, 70, 51);"
                                 "border-width: 6px; border-radius: 20px;"
                                 "border: 2px black; height: 75;}"
                                 "QPushButton::hover{background-color: rgb(128, 0, 32)}");
@@ -37,6 +36,7 @@ Chess::Chess(QWidget *parent)
                                    "border-width: 6px; border-radius: 20px;}"
                                    "QPushButton::hover{background-color: rgb(255, 255, 51)}");
 
+    ui->windows->setStyleSheet("background-color: tan;");
     ui->windows->setCurrentIndex(0);
 
     // Make connections from model to view

@@ -14,7 +14,7 @@ Puzzle::Puzzle(QWidget *parent)
 Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     : QWidget{parent}
 {
-    background = QImage(":/backgrounds/Images/blankBoard.jpg");
+    //    background = QImage(":/backgrounds/Images/blankBoard.jpg");
 
     puzzleType = pt;
     currSequenceIndex = 0;
@@ -51,22 +51,45 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     correctMove = false;
 
 
+    QLabel* youLabel = new QLabel(this);
+//    youLabel->setStyleSheet("QLabel { color: white; }");
+    youLabel->setGeometry(600, 85, 180, 50);
+    youLabel->setText("You: ");
+    youLabel->show();
+    QLabel *youIcon = new QLabel(this);
+    youIcon->setPixmap(QPixmap(":/pieces/Images/whitePawn.png"));
+    youIcon->setScaledContents(true);
+    //    youIcon->setStyleSheet("QLabel { background-color: white; }");
+    youIcon->setGeometry(630,95,25,25);
+    youIcon->show();
+    QLabel* computerLabel = new QLabel(this);
+//    computerLabel->setStyleSheet("QLabel { color: white; }");
+    computerLabel->setGeometry(600, 125, 180, 50);
+    computerLabel->setText("Computer: ");
+    computerLabel->show();
+    QLabel *computerIcon = new QLabel(this);
+    computerIcon->setPixmap(QPixmap(":/pieces/Images/blackPawn.png"));
+    computerIcon->setScaledContents(true);
+//    computerIcon->setStyleSheet("QLabel { background-color: white; }");
+    computerIcon->setGeometry(665,137,25,25);
+    computerIcon->show();
+
     // The Hint part on UI
     WhosTurnLabel = new QLabel(this);
-    WhosTurnLabel->setStyleSheet("QLabel { background-color: gray; color: white; border: none; }");
-    WhosTurnLabel->setGeometry(600, 100, 180, 50);
+    WhosTurnLabel->setStyleSheet("QLabel { background-color: rgb(144, 87, 38); color: white; border: none; }");
+    WhosTurnLabel->setGeometry(600, 175, 180, 50);
     WhosTurnLabel->setText("  Your Turn");
     WhosTurnLabel->show();
 
     QPushButton* helpButton = new QPushButton(this);
-    helpButton->setGeometry(600, 160, 180, 25);
+    helpButton->setGeometry(600, 235, 180, 25);
     helpButton->setText("Stuck? Click to reveal move.");
-    helpButton->setStyleSheet("QPushButton { background-color: brown; color: black; border: none; }");
+    helpButton->setStyleSheet("QPushButton { background-color: brown; color: white; border: none; }");
     helpButton->show();
     connect(helpButton, &QPushButton::clicked, this, &Puzzle::onHelpButtonClicked);
     revealedMove = new QLabel(this);
     revealedMove->setStyleSheet("QLabel { background-color: white; color: black; border: none; }");
-    revealedMove->setGeometry(600, 185, 180, 25);
+    revealedMove->setGeometry(600, 260, 180, 25);
     revealedMove->setText("");
     revealedMove->show();
 }
@@ -91,14 +114,14 @@ void Puzzle::createBoard(){
 
     // The menu bar
     QWidget *menuBarBackground = new QWidget(); // menu bar background
-    menuBarBackground->setStyleSheet("background-color: gray;");
+    menuBarBackground->setStyleSheet("background-color: rgb(144, 87, 38);");
 
     QHBoxLayout *menubarLayout = new QHBoxLayout(menuBarBackground); // menu bar
 
     QPushButton* goBackButton = new QPushButton(); //goBackButton
     goBackButton->setMinimumSize(50, 50);
     goBackButton->setMaximumSize(50, 50);
-    goBackButton->setStyleSheet("QPushButton { background-color: gray; color: black; border: none; }");
+//    goBackButton->setStyleSheet("QPushButton { background-color: gray; color: black; border: none; }");
     QPixmap pieceImage(":/backgrounds/Images/back.png");
     QPixmap scaledPieceImage = pieceImage.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     goBackButton->setIcon(QIcon(scaledPieceImage));
@@ -114,11 +137,17 @@ void Puzzle::createBoard(){
 
     vLayout->addWidget(menuBarBackground);
 
+    QLabel* puzzleTitle = new QLabel(this);
+//    puzzleTitle->setStyleSheet("QLabel { color: white; }");
+    puzzleTitle->setText(getPuzzleTitle());
+    puzzleTitle->show();
+    vLayout->addWidget(puzzleTitle);
+
     QHBoxLayout* rowsAndBoard = new QHBoxLayout();
     QVBoxLayout* spaceForRows = new QVBoxLayout();
     for (int i = 8; i > 0; i--) {
         QLabel* lab = new QLabel(this);
-        lab->setStyleSheet("QLabel { color: white; }");
+//        lab->setStyleSheet("QLabel { color: white; }");
         lab->setText(QString::number(i));
         lab->show();
         spaceForRows->addWidget(lab);
@@ -128,7 +157,7 @@ void Puzzle::createBoard(){
     QHBoxLayout* spaceForCols = new QHBoxLayout();
     for (int i = 97; i < 105; i++) {
         QLabel* lab = new QLabel(this);
-        lab->setStyleSheet("QLabel { color: white; }");
+//        lab->setStyleSheet("QLabel { color: white; }");
         lab->setAlignment(Qt::AlignCenter);
         lab->setText(QChar(i));
         lab->show();
@@ -192,6 +221,32 @@ void Puzzle::createBoard(){
     vLayout->addLayout(rowsAndBoard);
     vLayout->addWidget(controlsRestrictorWidget);
     this->setLayout(vLayout);
+}
+
+QString Puzzle::getPuzzleTitle() {
+    if (puzzleType == Puzzle1) {
+        return "Objective: Find the fork";
+    }
+
+    else if (puzzleType == Puzzle2) {
+        return "Objective: Pin the queen";
+    }
+
+    else if (puzzleType == Puzzle3) {
+        return "Objective: Smother mate the king";
+    }
+
+    else if (puzzleType == Puzzle4) {
+        return "Objective: Distract the queen";
+    }
+
+    else if (puzzleType == Puzzle5) {
+        return "Objective: Don't know yet";
+    }
+
+    else if (puzzleType == Puzzle6) {
+        return "Objective: Don't know yet";
+    }
 }
 
 void Puzzle::mousePressEvent(QMouseEvent * e) {
@@ -319,7 +374,7 @@ void Puzzle::selectSpace(){
 
 
                 }else{
-//                    this->setDisabled(true);
+                    //                    this->setDisabled(true);
                     // disable all buttons
                     for(QPushButton* button : allButtons){
                         button->blockSignals(true);
@@ -356,7 +411,7 @@ void Puzzle::selectSpace(){
 
                         feedbackLabel->setText("");
                         feedbackLabel->setStyleSheet("");
-//                        this->setDisabled(false);
+                        //                        this->setDisabled(false);
                         // disable all buttons
                         for(QPushButton* button : allButtons){
                             button->blockSignals(false);
@@ -747,14 +802,14 @@ void Puzzle::setUpPuzzle6() {
 }
 void Puzzle::nextMove(){
 
-//    this->setEnabled(false);
+    //    this->setEnabled(false);
     // disable all buttons
     for(QPushButton* button : allButtons){
         button->blockSignals(true);
     }
     WhosTurnLabel->setText("  Opponent's turn");
     QTimer::singleShot(4000, this, [this]() {
-//        this->setEnabled(true);
+        //        this->setEnabled(true);
         // disable all buttons
         for(QPushButton* button : allButtons){
             button->blockSignals(false);

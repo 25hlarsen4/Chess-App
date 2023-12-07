@@ -63,7 +63,7 @@ void Lesson::setUpLesson1() {
     title->show();
 
     QLabel *mainInfo = new QLabel(this);
-    mainInfo->setStyleSheet("QLabel { background-color: tan; }");
+    mainInfo->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     mainInfo->setGeometry(50,200,300,200);
     mainInfo->setWordWrap(true);
     mainInfo->setText("A double-attack, or fork, occurs when you move one piece to a position that attacks two of the opponents pieces.");
@@ -78,7 +78,7 @@ void Lesson::setUpLesson1() {
     imageToDisplay->show();
 
     QLabel *funFactOrTip = new QLabel(this);
-    funFactOrTip->setStyleSheet("QLabel { background-color: tan; }");
+    funFactOrTip->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     funFactOrTip->setGeometry(25,470,750,50);
     funFactOrTip->setWordWrap(true);
     funFactOrTip->setText("In the example above, the white knight forks black's king and rook. Also, black's pawn forks the white rooks.");
@@ -97,7 +97,7 @@ void Lesson::setUpLesson2() {
     title->show();
 
     QLabel *mainInfo = new QLabel(this);
-    mainInfo->setStyleSheet("QLabel { background-color: tan; }");
+    mainInfo->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     mainInfo->setGeometry(50,200,300,200);
     mainInfo->setWordWrap(true);
     mainInfo->setText("A pin is a tactic in which a defending piece cannot move out of an attacking piece's line of attack without exposing a more valuable defending piece. Note that a queen can only ever be partially pinned, as it can move in any linear direction to escape.");
@@ -112,7 +112,7 @@ void Lesson::setUpLesson2() {
     imageToDisplay->show();
 
     QLabel *funFactOrTip = new QLabel(this);
-    funFactOrTip->setStyleSheet("QLabel { background-color: tan; }");
+    funFactOrTip->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     funFactOrTip->setGeometry(25,470,750,50);
     funFactOrTip->setWordWrap(true);
     funFactOrTip->setText("In the example above, the black queen is pinned to the black king by the white rook, so the queen cannot move.");
@@ -130,7 +130,7 @@ void Lesson::setUpLesson3() {
     title->show();
 
     QLabel *mainInfo = new QLabel(this);
-    mainInfo->setStyleSheet("QLabel { background-color: tan; }");
+    mainInfo->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     mainInfo->setGeometry(50,200,300,200);
     mainInfo->setWordWrap(true);
     mainInfo->setText("A smothered mate is a checkmate involving the knight. It occurs when the king is surrounded and the knight can jump over the surrounding pieces.");
@@ -145,7 +145,7 @@ void Lesson::setUpLesson3() {
     imageToDisplay->show();
 
     QLabel *funFactOrTip = new QLabel(this);
-    funFactOrTip->setStyleSheet("QLabel { background-color: tan; }");
+    funFactOrTip->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     funFactOrTip->setGeometry(25,470,750,50);
     funFactOrTip->setWordWrap(true);
     funFactOrTip->setText("In the example above, the black king is surrounded by its own pieces and thus the white knight has put the king in check.");
@@ -163,7 +163,7 @@ void Lesson::setUpLesson4() {
     title->show();
 
     QLabel *mainInfo = new QLabel(this);
-    mainInfo->setStyleSheet("QLabel { background-color: tan; }");
+    mainInfo->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     mainInfo->setGeometry(50,200,300,200);
     mainInfo->setWordWrap(true);
     mainInfo->setText("Overloading is a chess tactic in which a defensive piece is given an additional defensive assignment which it cannot complete without abandoning its original defensive assignment.");
@@ -178,7 +178,7 @@ void Lesson::setUpLesson4() {
     imageToDisplay->show();
 
     QLabel *funFactOrTip = new QLabel(this);
-    funFactOrTip->setStyleSheet("QLabel { background-color: tan; }");
+    funFactOrTip->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     funFactOrTip->setGeometry(25,470,750,50);
     funFactOrTip->setWordWrap(true);
     funFactOrTip->setText("In the example above, the white rook on f1 is preventing the black queen from giving checkmate by capturing the pawn on f3. Therefore black can win immediately with Re1, further pinning the white rook against the king and overloading the rook.");
@@ -196,7 +196,7 @@ void Lesson::setUpLesson5() {
     title->show();
 
     QLabel *mainInfo = new QLabel(this);
-    mainInfo->setStyleSheet("QLabel { background-color: tan; }");
+    mainInfo->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     mainInfo->setGeometry(50,200,300,200);
     mainInfo->setText("This is the main info for lesson5");
     mainInfo->setAlignment(Qt::AlignCenter);
@@ -210,7 +210,7 @@ void Lesson::setUpLesson5() {
     imageToDisplay->show();
 
     QLabel *funFactOrTip = new QLabel(this);
-    funFactOrTip->setStyleSheet("QLabel { background-color: tan; }");
+    funFactOrTip->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     funFactOrTip->setGeometry(25,470,750,50);
     funFactOrTip->setWordWrap(true);
     funFactOrTip->setText("Lesson 5 fun fact or tip");
@@ -228,7 +228,7 @@ void Lesson::setUpLesson6() {
     title->show();
 
     QLabel *mainInfo = new QLabel(this);
-    mainInfo->setStyleSheet("QLabel { background-color: tan; }");
+    mainInfo->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     mainInfo->setGeometry(50,200,300,200);
     mainInfo->setText("This is the main info for lesson6");
     mainInfo->setAlignment(Qt::AlignCenter);
@@ -242,7 +242,7 @@ void Lesson::setUpLesson6() {
     imageToDisplay->show();
 
     QLabel *funFactOrTip = new QLabel(this);
-    funFactOrTip->setStyleSheet("QLabel { background-color: tan; }");
+    funFactOrTip->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     funFactOrTip->setGeometry(25,470,750,50);
     funFactOrTip->setWordWrap(true);
     funFactOrTip->setText("Lesson 6 fun fact or tip");
