@@ -22,6 +22,10 @@ celebration::celebration(QWidget *parent) : QWidget(parent) {
 
     balls.push_back(createBall());
     balls.push_back(createBall());
+    balls.push_back(createBall());
+    balls.push_back(createBall());
+    balls.push_back(createBall());
+    balls.push_back(createBall());
 
     // Set up the timer for the simulation step
     timer = new QTimer(this);
@@ -48,10 +52,12 @@ void celebration::paintEvent(QPaintEvent *event) {
         float y = position.y * scale;
 
         // Set the brush color based on the ball index
-        if (i == 0) {
+        if (i % 3 ==  0) {
             painter.setBrush(Qt::red); // First ball red
-        } else {
+        } else if (i % 3 == 1){
             painter.setBrush(Qt::blue); // Second ball blue
+        } else {
+            painter.setBrush(Qt::yellow); // Thrid ball yellow
         }
 
         if (x > width() + 50 || y > height() + 50 || x < -50 || y < -50) { // if ball is out of screen
