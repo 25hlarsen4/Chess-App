@@ -18,6 +18,9 @@ public:
     Chess(QWidget *parent = nullptr);
     ~Chess();
 
+public slots:
+    void loadCompletedPuzzle(int);
+
 private:
     Ui::Chess *ui;
     void startGame();

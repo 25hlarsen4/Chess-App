@@ -877,6 +877,7 @@ void Puzzle::savePuzzle(){
 
     file.write(jsonData);
 }
+
 void Puzzle::loadPuzzle(){
     QFile file("fileName.txt");
 
