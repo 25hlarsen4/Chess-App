@@ -673,23 +673,30 @@ void Puzzle::setUpPuzzle5() {
     correctClickSequence.append(qMakePair(4, 1));
     correctClickSequence.append(qMakePair(4, 1));
     correctClickSequence.append(qMakePair(1, 1));
+
+
+
     correctClickSequence.append(qMakePair(4, 5));
     correctClickSequence.append(qMakePair(1, 2));
+    correctClickSequence.append(qMakePair(6, 4));
+    correctClickSequence.append(qMakePair(2, 0));
     correctClickSequence.append(qMakePair(1, 1));
     correctClickSequence.append(qMakePair(1, 0));
     correctClickSequence.append(qMakePair(1, 0));
     correctClickSequence.append(qMakePair(0, 0));
     correctClickSequence.append(qMakePair(0, 0));
-    correctClickSequence.append(qMakePair(7, 7));
+    correctClickSequence.append(qMakePair(0, 7));
 
     computerMoves.append(qMakePair(4, 4));
     computerMoves.append(qMakePair(6, 5));
     computerMoves.append(qMakePair(6, 5));
     computerMoves.append(qMakePair(7, 7));
     computerMoves.append(qMakePair(7, 7));
-    computerMoves.append(qMakePair(6, 5));
+    computerMoves.append(qMakePair(6, 5));//
     computerMoves.append(qMakePair(0, 3));
     computerMoves.append(qMakePair(0, 2));
+    computerMoves.append(qMakePair(2, 4));
+    computerMoves.append(qMakePair(4, 2));
     computerMoves.append(qMakePair(4, 2));
     computerMoves.append(qMakePair(2, 0));
     computerMoves.append(qMakePair(0, 2));
