@@ -48,18 +48,16 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
 
     createBoard();
 
-<<<<<<< HEAD
     correctMove = false;
 
 
-=======
     // The Hint part on UI
     WhosTurnLabel = new QLabel(this);
     WhosTurnLabel->setStyleSheet("QLabel { background-color: gray; color: white; border: none; }");
     WhosTurnLabel->setGeometry(600, 100, 180, 50);
     WhosTurnLabel->setText("  Your Turn");
     WhosTurnLabel->show();
->>>>>>> refs/heads/TouchUps
+
     QPushButton* helpButton = new QPushButton(this);
     helpButton->setGeometry(600, 160, 180, 25);
     helpButton->setText("Stuck? Click to reveal move.");
