@@ -46,6 +46,7 @@ private:
 
     int currSequenceIndex;
     int computerMovesIndex;
+    bool correctMove;
 
     bool selecting;
     bool moving;

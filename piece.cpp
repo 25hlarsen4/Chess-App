@@ -66,9 +66,6 @@ void Piece::setPiece(QPushButton *space){
 void Piece::hide(){
     pieceLabel->hide();
 }
-void Piece::show(){
-    pieceLabel->show();
-}
 
 QList<QPair<int, int>> Piece::getPossibleLocations(QPair<int,int> currLocation, QHash<QPair<int, int>, Piece*> gameBoard){
     QList<QPair<int, int>> validLocations;

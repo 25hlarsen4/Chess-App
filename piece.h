@@ -36,7 +36,7 @@ public:
 
     bool freshPawn;
 
-    void setPiece(QPushButton* space);
+    void setPiece(QPushButton*);
     void hide();
     void show();
     bool whitePiece(Piece*);
