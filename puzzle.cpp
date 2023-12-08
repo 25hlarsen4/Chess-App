@@ -906,6 +906,11 @@ void Puzzle::resetBoard(){
             buttonIndex++;
         }
     }
+
+    for(QPushButton* button : allButtons){
+        button->blockSignals(false);
+    }
+    helpButton->blockSignals(false);
 }
 
 void Puzzle::savePuzzle(){
