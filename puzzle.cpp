@@ -440,7 +440,7 @@ void Puzzle::selectSpace(){
 }
 
 void Puzzle::onGoBackButtonClicked(){
-
+    resetBoard();
     emit goBackButtonClicked();
 }
 
@@ -509,10 +509,6 @@ void Puzzle::onHelpButtonClicked() {
  */
 void Puzzle::setUpPuzzle1() {
 
-    boardSetUp.clear();
-    correctClickSequence.clear();
-    computerMoves.clear();
-
     boardSetUp[qMakePair(1, 1)] = Piece::BLACK_KNIGHT;
     boardSetUp[qMakePair(2, 2)] = Piece::BLACK_KING;
     boardSetUp[qMakePair(3, 0)] = Piece::BLACK_PAWN;
@@ -547,9 +543,6 @@ void Puzzle::setUpPuzzle1() {
  * "https://www.google.com/search?q=pinned+queen+puzzles+chess&rlz=1C1CHBF_enUS1043US1043&oq=pinned+&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzIGCAEQRRhAMgYIAhBFGDkyBwgDEAAYgAQyBwgEEAAYgAQyBwgFEAAYgAQyBwgGEAAYgAQyBwgHEAAYgATSAQgxNDU0ajFqOagCALACAA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:d30812a0,vid:XIlYJjRLc_A,st:0"
  */
 void Puzzle::setUpPuzzle2() {
-
-    correctClickSequence.clear();
-    playerPieces.clear();
 
     boardSetUp[qMakePair(0, 0)] = Piece::BLACK_ROOK;
     boardSetUp[qMakePair(0, 2)] = Piece::BLACK_BISHOP;
@@ -862,6 +855,59 @@ void Puzzle::setPlayerPieces(){
         }
     }
 }
+
+void Puzzle::resetBoard(){
+    for(Piece *key : piecePositions.values()){
+        key->hide();
+    }
+    piecePositions.clear();
+    boardSetUp.clear();
+    correctClickSequence.clear();
+    computerMoves.clear();
+    playerPieces.clear();
+    currSequenceIndex = 0;
+    computerMovesIndex = 0;
+    selecting = true;
+    moving = false;
+
+    if (puzzleType == Puzzle1) {
+        setUpPuzzle1();
+    }
+
+    else if (puzzleType == Puzzle2) {
+        setUpPuzzle2();
+    }
+
+    else if (puzzleType == Puzzle3) {
+        setUpPuzzle3();
+    }
+
+    else if (puzzleType == Puzzle4) {
+        setUpPuzzle4();
+    }
+
+    else if (puzzleType == Puzzle5) {
+        setUpPuzzle5();
+    }
+
+    else if (puzzleType == Puzzle6) {
+        setUpPuzzle6();
+    }
+
+    int buttonIndex = 0;
+    for(int i = 7; i >= 0; i--){
+        for(int j = 7; j >= 0; j--){
+            // now set the pieces and correct moves
+            if (boardSetUp.contains(qMakePair(j, i))) {
+                Piece* piece = new Piece(boardSetUp[qMakePair(j, i)]);
+                piece->setPiece(allButtons[buttonIndex]);
+                piecePositions[qMakePair(j, i)] = piece;
+            }
+            buttonIndex++;
+        }
+    }
+}
+
 void Puzzle::savePuzzle(){
     QFile file("fileName.txt");
     QJsonArray puzzles;

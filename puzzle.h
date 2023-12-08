@@ -81,6 +81,7 @@ private:
     QString getPuzzleTitle();
 
     void setPlayerPieces();
+    void resetBoard();
 
     void nextMove();
     void savePuzzle();
