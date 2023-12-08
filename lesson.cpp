@@ -190,7 +190,7 @@ void Lesson::setUpLesson5() {
     title->setStyleSheet("QLabel { background-color: brown; }");
     setStyleSheet("font-weight: bold;");
     title->setGeometry(50,25,700,100);
-    title->setText("LESSON 5");
+    title->setText("CONTROL THE KING");
     title->setFont(QFont("Arial", 25));
     title->setAlignment(Qt::AlignCenter);
     title->show();
@@ -198,12 +198,13 @@ void Lesson::setUpLesson5() {
     QLabel *mainInfo = new QLabel(this);
     mainInfo->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     mainInfo->setGeometry(50,200,300,200);
-    mainInfo->setText("This is the main info for lesson5");
+    mainInfo->setWordWrap(true);
+    mainInfo->setText("In chess you win by putting the opponent's king in checkmate, however it is also very useful to force the opponent to move their king by putting them in check. This can help you to more easily get a checkmate as you move your pieces into position and your opponent can't do anything more than move their king. This can also allow you to move your pieces in such a way as to take out your opponent's more important pieces.");
     mainInfo->setAlignment(Qt::AlignCenter);
     mainInfo->show();
 
     QLabel *imageToDisplay = new QLabel(this);
-    imageToDisplay->setPixmap(QPixmap(":/examples/Images/overloadingEx.jpg"));
+    imageToDisplay->setPixmap(QPixmap(":/examples/Images/doubleAttackEx.jpg"));
     imageToDisplay->setScaledContents(true);
     imageToDisplay->setStyleSheet("QLabel { background-color: white; }");
     imageToDisplay->setGeometry(420,150,300,300);
@@ -213,7 +214,7 @@ void Lesson::setUpLesson5() {
     funFactOrTip->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     funFactOrTip->setGeometry(25,470,750,50);
     funFactOrTip->setWordWrap(true);
-    funFactOrTip->setText("Lesson 5 fun fact or tip");
+    funFactOrTip->setText("In the image above black's king must be moved due to being in check from white's knight, this allows white to take black's rook.");
     funFactOrTip->setAlignment(Qt::AlignCenter);
     funFactOrTip->show();
 }
@@ -222,7 +223,7 @@ void Lesson::setUpLesson6() {
     title->setStyleSheet("QLabel { background-color: brown; }");
     setStyleSheet("font-weight: bold;");
     title->setGeometry(50,25,700,100);
-    title->setText("LESSON 6");
+    title->setText("FORK and PINNING");
     title->setFont(QFont("Arial", 25));
     title->setAlignment(Qt::AlignCenter);
     title->show();
@@ -230,7 +231,8 @@ void Lesson::setUpLesson6() {
     QLabel *mainInfo = new QLabel(this);
     mainInfo->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     mainInfo->setGeometry(50,200,300,200);
-    mainInfo->setText("This is the main info for lesson6");
+    mainInfo->setWordWrap(true);
+    mainInfo->setText("In chess being able to combine tactics will greatly increase your chance for success. In these lessons we have gone over a few tactics like double attack or fork and pinning. If you can combine those tactics it will allow you to much more easily control the board and your opponent.");
     mainInfo->setAlignment(Qt::AlignCenter);
     mainInfo->show();
 
@@ -245,7 +247,7 @@ void Lesson::setUpLesson6() {
     funFactOrTip->setStyleSheet("QLabel { background-color: rgb(175, 104, 46); }");
     funFactOrTip->setGeometry(25,470,750,50);
     funFactOrTip->setWordWrap(true);
-    funFactOrTip->setText("Lesson 6 fun fact or tip");
+    funFactOrTip->setText("If black moves their queen to e6 they will be double attacking white's rook and bishop. White will then feel pressured to save one of their pieces. Black can then move their queen to h3, pinning white's pawn. On black's next turn they would then be able to take white's pawn and checkmate the king.");
     funFactOrTip->setAlignment(Qt::AlignCenter);
     funFactOrTip->show();
 }
