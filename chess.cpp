@@ -30,22 +30,18 @@ Chess::Chess(QWidget *parent)
 
     ui->startPage->setStyleSheet("QWidget#startPage{background-image: url(:/backgrounds/Images/chessboardbackground.png);"
                                  "background-repeat: no-repeat; background-position: center}");
-
     ui->mainPage->setStyleSheet("QPushButton{background-color: rgb(210, 70, 51);"
                                 "border-width: 6px; border-radius: 20px;"
                                 "border: 2px black; height: 75;}"
                                 "QPushButton::hover{background-color: rgb(128, 0, 32)}");
-
     ui->titleLabel->setStyleSheet("QLabel{background: transparent; color:black;}");
 
     ui->startButton->setStyleSheet("QPushButton{background-color: lightgreen;"
                                    "border-width: 6px; border-radius: 20px;}"
                                    "QPushButton::hover{background-color: rgb(68, 255, 21)}");
-
     ui->loadButton->setStyleSheet("QPushButton{background-color: rgb(255, 255, 122);"
                                    "border-width: 6px; border-radius: 20px;}"
                                    "QPushButton::hover{background-color: rgb(255, 255, 51)}");
-
     ui->windows->setStyleSheet("background-color: tan;");
     ui->windows->setCurrentIndex(0);
 
@@ -63,8 +59,10 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson1);
 
     Puzzle* puzz1 = new Puzzle(Puzzle::Puzzle1);
-    connect(puzz1, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
-//    Puzzle* puzz = new Puzzle;
+    connect(puzz1,
+            &Puzzle::goBackButtonClicked,
+            this,
+            &Chess::startGame);
     ui->windows->addWidget(puzz1);
     connect(ui->puzzle1,
             &QPushButton::clicked,
@@ -79,8 +77,10 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson2);
 
     Puzzle* puzz2 = new Puzzle(Puzzle::Puzzle2);
-    connect(puzz2, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
-    //    Puzzle* puzz = new Puzzle;
+    connect(puzz2,
+            &Puzzle::goBackButtonClicked,
+            this,
+            &Chess::startGame);
     ui->windows->addWidget(puzz2);
     connect(ui->puzzle2,
             &QPushButton::clicked,
@@ -95,8 +95,10 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson3);
 
     Puzzle* puzz3 = new Puzzle(Puzzle::Puzzle3);
-    connect(puzz3, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
-    //    Puzzle* puzz = new Puzzle;
+    connect(puzz3,
+            &Puzzle::goBackButtonClicked,
+            this,
+            &Chess::startGame);
     ui->windows->addWidget(puzz3);
     connect(ui->puzzle3,
             &QPushButton::clicked,
@@ -111,8 +113,10 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson4);
 
     Puzzle* puzz4 = new Puzzle(Puzzle::Puzzle4);
-    connect(puzz4, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
-    //    Puzzle* puzz = new Puzzle;
+    connect(puzz4,
+            &Puzzle::goBackButtonClicked,
+            this,
+            &Chess::startGame);
     ui->windows->addWidget(puzz4);
     connect(ui->puzzle4,
             &QPushButton::clicked,
@@ -127,8 +131,10 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson5);
 
     Puzzle* puzz5 = new Puzzle(Puzzle::Puzzle5);
-    connect(puzz5, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
-    //    Puzzle* puzz = new Puzzle;
+    connect(puzz5,
+            &Puzzle::goBackButtonClicked,
+            this,
+            &Chess::startGame);
     ui->windows->addWidget(puzz5);
     connect(ui->puzzle5,
             &QPushButton::clicked,
@@ -143,8 +149,10 @@ Chess::Chess(QWidget *parent)
             &Chess::lesson6);
 
     Puzzle* puzz6 = new Puzzle(Puzzle::Puzzle6);
-    connect(puzz6, &Puzzle::goBackButtonClicked, this, &Chess::startGame);
-    //    Puzzle* puzz = new Puzzle;
+    connect(puzz6,
+            &Puzzle::goBackButtonClicked,
+            this,
+            &Chess::startGame);
     ui->windows->addWidget(puzz6);
     connect(ui->puzzle6,
             &QPushButton::clicked,
@@ -158,6 +166,7 @@ Chess::Chess(QWidget *parent)
     ui->puzzle4->setEnabled(false);
     ui->puzzle5->setEnabled(false);
     ui->puzzle6->setEnabled(false);
+
     // Connect finishing lessons to opening puzzles
     connect(less1,
             &Lesson::lessonFinished,
@@ -197,8 +206,6 @@ Chess::Chess(QWidget *parent)
             &Puzzle::fileLoaded,
             this,
             &Chess::loadCompletedPuzzle);
-
-
 
     // Connect puzzle completion
     connect(puzz1,
@@ -240,7 +247,10 @@ Chess::Chess(QWidget *parent)
     celebrationPopUpBox.setText("Well Done!");
     celebrationPopUpOk = celebrationPopUpBox.addButton("Continue", QMessageBox::AcceptRole);
     celebrationGoBackMenu = celebrationPopUpBox.addButton("Return To Menu", QMessageBox::RejectRole);
-    connect(celebrationGoBackMenu, &QPushButton::clicked, this, &Chess::startGame);
+    connect(celebrationGoBackMenu,
+            &QPushButton::clicked,
+            this,
+            &Chess::startGame);
 }
 
 Chess::~Chess()
@@ -301,13 +311,10 @@ void Chess::puzzle6() {
 }
 
 void Chess::showCelebrationScreen(){
-//    this->setDisabled(true);
     QTimer::singleShot(3000, this, [this]() {
         ui->windows->setCurrentIndex(15);
         QTimer::singleShot(2000, this, [this]() {
-//            qDebug() << "here";
             celebrationPopUpBox.exec();
-//            this->setDisabled(false);
         });
     });
 }

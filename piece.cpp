@@ -198,6 +198,7 @@ void Piece::rookMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
         clear = checkPiece(currLocation.first + offsetY, currLocation.second + offsetX, black, gameBoard, validLocations);
         offsetX++;
     }
+
     // Search Down
     offsetX = 0;
     offsetY = -1;
@@ -206,6 +207,7 @@ void Piece::rookMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
         clear = checkPiece(currLocation.first + offsetY, currLocation.second + offsetX, black, gameBoard, validLocations);
         offsetY--;
     }
+
     // Left
     offsetX = -1;
     offsetY = 0;
@@ -214,6 +216,7 @@ void Piece::rookMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
         clear = checkPiece(currLocation.first + offsetY, currLocation.second + offsetX, black, gameBoard, validLocations);
         offsetX--;
     }
+
     // Search Up
     offsetX = 0;
     offsetY = 1;
@@ -234,6 +237,7 @@ void Piece::bishopMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int
         offsetX++;
         offsetY++;
     }
+
     // Search Down and Right
     offsetX = 1;
     offsetY = -1;
@@ -243,6 +247,7 @@ void Piece::bishopMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int
         offsetX++;
         offsetY--;
     }
+
     // Search Up and Left
     offsetX = -1;
     offsetY = 1;
@@ -252,6 +257,7 @@ void Piece::bishopMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int
         offsetX--;
         offsetY++;
     }
+
     // Search Down and Left
     offsetX = -1;
     offsetY = -1;
@@ -300,6 +306,7 @@ void Piece::pawnMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
             }
         }
     }
+
     // Check One Move
     if(checkInbounds(currLocation.first + direction, currLocation.second)){
         QPair<int, int> nextLocation(currLocation.first + direction, currLocation.second);
@@ -307,6 +314,7 @@ void Piece::pawnMoves(bool black, QPair<int,int> currLocation, QHash<QPair<int, 
             validLocations.append(nextLocation);
         }
     }
+
     // Check diagonal capture
     if(checkInbounds(currLocation.first + direction, currLocation.second - 1)){
         QPair<int, int> nextLocation(currLocation.first + direction, currLocation.second - 1);

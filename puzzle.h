@@ -53,7 +53,6 @@ private:
 
     QHash<QPair<int, int>, Piece::PieceType> boardSetUp;
     QHash<QPair<int, int>, Piece::PieceType> playerPieces;
-//    QHash<QPushButton*, Piece*> spacePieceMap;
     QHash<QPair<int, int>, Piece*> piecePositions;
     QList<QPair<int, int>> correctClickSequence;
     QList<QPair<int, int>> potentialLocations;
@@ -107,11 +106,43 @@ private:
     void setButtonBackgroundColor(int row, int col, QString color);
 
     // Set up the puzzles
+    /**
+     * @brief Puzzle::setUpPuzzle1
+     * This method sets up the chess board and moves for a fork puzzle.
+     */
     void setUpPuzzle1();
+
+    /**
+     * @brief Puzzle::setUpPuzzle2
+     * This method sets up the chess board and moves for a pinned queen puzzle.
+     * the puzzle came from
+     * "https://www.google.com/search?q=pinned+queen+puzzles+chess&rlz=1C1CHBF_enUS1043US1043&oq=pinned+&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzIGCAEQRRhAMgYIAhBFGDkyBwgDEAAYgAQyBwgEEAAYgAQyBwgFEAAYgAQyBwgGEAAYgAQyBwgHEAAYgATSAQgxNDU0ajFqOagCALACAA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:d30812a0,vid:XIlYJjRLc_A,st:0"
+     */
     void setUpPuzzle2();
+
+    /**
+     * @brief Puzzle::setUpPuzzle3
+     * smother mate puzzle
+     * got the puzzle from "https://lichess.org/study/oJ4jLe50/iGOCuCaa" - Sveshnikov - Ivanov, 1976
+     */
     void setUpPuzzle3();
+
+    /**
+     * @brief Puzzle::setUpPuzzle4
+     * overloading puzzle
+     */
     void setUpPuzzle4();
+
+    /**
+     * @brief Puzzle::setUpPuzzle5
+     * Control opponent king to take out important pieces.
+     */
     void setUpPuzzle5();
+
+    /**
+     * @brief Puzzle::setUpPuzzle6
+     * use forking and pinning to take out important pieces.
+     */
     void setUpPuzzle6();
 
     /**

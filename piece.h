@@ -23,7 +23,6 @@ class Piece : public QObject
 {
     Q_OBJECT
 public:
-
     enum PieceType
     {
         WHITE_KING,
@@ -77,9 +76,7 @@ public:
      */
     QList<QPair<int, int>> getPossibleLocations(QPair<int, int>, QHash<QPair<int, int>, Piece*>);
 
-
 private:
-
     bool checkInbounds(int, int);
     bool blackPiece(Piece*);
     bool checkPiece(int, int, bool, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>&);

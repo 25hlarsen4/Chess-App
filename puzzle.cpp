@@ -26,8 +26,6 @@ Puzzle::Puzzle(QWidget *parent)
 Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     : QWidget{parent}
 {
-    //    background = QImage(":/backgrounds/Images/blankBoard.jpg");
-
     puzzleType = pt;
     currSequenceIndex = 0;
     computerMovesIndex = 0;
@@ -61,28 +59,22 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     createBoard();
 
     correctMove = false;
-
-
     QLabel* youLabel = new QLabel(this);
-//    youLabel->setStyleSheet("QLabel { color: white; }");
     youLabel->setGeometry(600, 85, 180, 50);
     youLabel->setText("You: ");
     youLabel->show();
     QLabel *youIcon = new QLabel(this);
     youIcon->setPixmap(QPixmap(":/pieces/Images/whitePawn.png"));
     youIcon->setScaledContents(true);
-    //    youIcon->setStyleSheet("QLabel { background-color: white; }");
     youIcon->setGeometry(630,95,25,25);
     youIcon->show();
     QLabel* computerLabel = new QLabel(this);
-//    computerLabel->setStyleSheet("QLabel { color: white; }");
     computerLabel->setGeometry(600, 125, 180, 50);
     computerLabel->setText("Computer: ");
     computerLabel->show();
     QLabel *computerIcon = new QLabel(this);
     computerIcon->setPixmap(QPixmap(":/pieces/Images/blackPawn.png"));
     computerIcon->setScaledContents(true);
-//    computerIcon->setStyleSheet("QLabel { background-color: white; }");
     computerIcon->setGeometry(665,137,25,25);
     computerIcon->show();
 
@@ -113,13 +105,9 @@ void Puzzle::paintEvent(QPaintEvent *) {
     int w = 580;
     int h = 580;
     QRect target(x, y, w, h);
-
-    //painter.drawImage(target, background);
-
-    // just draw the first piece as a test
     QRect pieceTarget(50, 50, 80, 80);
-    //painter.drawImage(pieceTarget, piecePositions[qMakePair('a', 1)]->pieceImage);
 }
+
 void Puzzle::createBoard(){
 
     QVBoxLayout *vLayout = new QVBoxLayout(); // the layout that contains the menu bar and the board
@@ -149,7 +137,6 @@ void Puzzle::createBoard(){
     vLayout->addWidget(menuBarBackground);
 
     QLabel* puzzleTitle = new QLabel(this);
-//    puzzleTitle->setStyleSheet("QLabel { color: white; }");
     puzzleTitle->setText(getPuzzleTitle());
     puzzleTitle->show();
     vLayout->addWidget(puzzleTitle);
@@ -158,7 +145,6 @@ void Puzzle::createBoard(){
     QVBoxLayout* spaceForRows = new QVBoxLayout();
     for (int i = 8; i > 0; i--) {
         QLabel* lab = new QLabel(this);
-//        lab->setStyleSheet("QLabel { color: white; }");
         lab->setText(QString::number(i));
         lab->show();
         spaceForRows->addWidget(lab);
@@ -168,7 +154,6 @@ void Puzzle::createBoard(){
     QHBoxLayout* spaceForCols = new QHBoxLayout();
     for (int i = 97; i < 105; i++) {
         QLabel* lab = new QLabel(this);
-//        lab->setStyleSheet("QLabel { color: white; }");
         lab->setAlignment(Qt::AlignCenter);
         lab->setText(QChar(i));
         lab->show();
@@ -217,7 +202,6 @@ void Puzzle::createBoard(){
             layout->addWidget(space, j, i);
 
             // now set the pieces and correct moves
-
             if (boardSetUp.contains(qMakePair(j, i))) {
                 Piece* piece = new Piece(boardSetUp[qMakePair(j, i)]);
                 piece->setPiece(space);      //(have piece have qlabel member)
@@ -298,7 +282,6 @@ void Puzzle::selectSpace(){
             selecting = false;
             moving = true;
             currSequenceIndex++;
-
         }
     }
     else if (moving) {
@@ -321,7 +304,6 @@ void Puzzle::selectSpace(){
                 // hide piece if we're capturing one
                 if (piecePositions.contains(buttonCoords)) {
                     piecePositions[buttonCoords]->hide();
-                    // should we delete the piece here?
                 }
                 // if we're overtaking a piece, save it in case the move is incorrect and must be reset
                 Piece* capturedPiece = nullptr;
@@ -331,7 +313,6 @@ void Puzzle::selectSpace(){
 
                 piecePositions.insert(buttonCoords, piece);
                 playerPieces.insert(buttonCoords, piece->pieceType);
-
 
                 piece->setPiece(selectedSpace);
 
@@ -384,9 +365,6 @@ void Puzzle::selectSpace(){
                         selecting = true;
 
                     }
-
-
-
                 }else{
                     // disable all buttons
                     for(QPushButton* button : allButtons){
@@ -408,7 +386,6 @@ void Puzzle::selectSpace(){
                         piecePositions.insert(buttonCoords, capturedPiece);
                         playerPieces.insert(buttonCoords, capturedPiece->pieceType);
                     }
-
 
                     QTimer::singleShot(2000, this, [this, piece, capturedPiece, selectedSpace] {
                         piece->hide();
@@ -439,8 +416,6 @@ void Puzzle::selectSpace(){
                     currSequenceIndex--;
 
                 }
-
-
             }
         }
         else {
@@ -504,7 +479,6 @@ void Puzzle::onHelpButtonClicked() {
         pieceType = "pawn";
     }
 
-
     if (selecting) {
         helpMessage = "Select " + pieceType + " on " + QChar(97 + pieceCoords.second) + QString::number(8 - pieceCoords.first);
     }
@@ -515,10 +489,6 @@ void Puzzle::onHelpButtonClicked() {
     revealedMove->setText(helpMessage);
 }
 
-/**
- * @brief Puzzle::setUpPuzzle1
- * This method sets up the chess board and moves for a fork puzzle.
- */
 void Puzzle::setUpPuzzle1() {
 
     boardSetUp[qMakePair(1, 1)] = Piece::BLACK_KNIGHT;
@@ -548,12 +518,7 @@ void Puzzle::setUpPuzzle1() {
     computerMoves.append(qMakePair(2,2));
     computerMoves.append(qMakePair(2,1));
 }
-/**
- * @brief Puzzle::setUpPuzzle2
- * This method sets up the chess board and moves for a pinned queen puzzle.
- * the puzzle came from
- * "https://www.google.com/search?q=pinned+queen+puzzles+chess&rlz=1C1CHBF_enUS1043US1043&oq=pinned+&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzIGCAEQRRhAMgYIAhBFGDkyBwgDEAAYgAQyBwgEEAAYgAQyBwgFEAAYgAQyBwgGEAAYgAQyBwgHEAAYgATSAQgxNDU0ajFqOagCALACAA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:d30812a0,vid:XIlYJjRLc_A,st:0"
- */
+
 void Puzzle::setUpPuzzle2() {
 
     boardSetUp[qMakePair(0, 0)] = Piece::BLACK_ROOK;
@@ -597,11 +562,6 @@ void Puzzle::setUpPuzzle2() {
 
 }
 
-/**
- * @brief Puzzle::setUpPuzzle3
- * smother mate puzzle
- * got the puzzle from "https://lichess.org/study/oJ4jLe50/iGOCuCaa" - Sveshnikov - Ivanov, 1976
- */
 void Puzzle::setUpPuzzle3() {
 
     boardSetUp[qMakePair(0, 0)] = Piece::BLACK_ROOK;
@@ -647,10 +607,6 @@ void Puzzle::setUpPuzzle3() {
 
 }
 
-/**
- * @brief Puzzle::setUpPuzzle4
- * overloading puzzle
- */
 void Puzzle::setUpPuzzle4() {
 
     boardSetUp[qMakePair(0, 7)] = Piece::BLACK_KING;
@@ -696,10 +652,6 @@ void Puzzle::setUpPuzzle4() {
 
 }
 
-/**
- * @brief Puzzle::setUpPuzzle5
- * Control opponent king to take out important pieces.
- */
 void Puzzle::setUpPuzzle5() {
     correctClickSequence.clear();
     playerPieces.clear();
@@ -743,10 +695,6 @@ void Puzzle::setUpPuzzle5() {
 
 }
 
-/**
- * @brief Puzzle::setUpPuzzle6
- * use forking and pinning to take out important pieces.
- */
 void Puzzle::setUpPuzzle6() {
 
     boardSetUp[qMakePair(0, 3)] = Piece::BLACK_KING;

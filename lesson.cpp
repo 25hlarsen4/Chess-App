@@ -35,7 +35,6 @@ Lesson::Lesson(LessonType pt, QWidget *parent)
             this,
             &Lesson::nextClicked);
 
-
     lessonType = pt;
 
     if (lessonType == Lesson1) {
@@ -130,6 +129,7 @@ void Lesson::setUpLesson2() {
     funFactOrTip->setAlignment(Qt::AlignCenter);
     funFactOrTip->show();
 }
+
 void Lesson::setUpLesson3() {
     QLabel *title = new QLabel(this);
     title->setStyleSheet("QLabel { background-color: brown; }");
@@ -163,6 +163,7 @@ void Lesson::setUpLesson3() {
     funFactOrTip->setAlignment(Qt::AlignCenter);
     funFactOrTip->show();
 }
+
 void Lesson::setUpLesson4() {
     QLabel *title = new QLabel(this);
     title->setStyleSheet("QLabel { background-color: brown; }");
@@ -196,6 +197,7 @@ void Lesson::setUpLesson4() {
     funFactOrTip->setAlignment(Qt::AlignCenter);
     funFactOrTip->show();
 }
+
 void Lesson::setUpLesson5() {
     QLabel *title = new QLabel(this);
     title->setStyleSheet("QLabel { background-color: brown; }");
@@ -229,6 +231,7 @@ void Lesson::setUpLesson5() {
     funFactOrTip->setAlignment(Qt::AlignCenter);
     funFactOrTip->show();
 }
+
 void Lesson::setUpLesson6() {
     QLabel *title = new QLabel(this);
     title->setStyleSheet("QLabel { background-color: brown; }");

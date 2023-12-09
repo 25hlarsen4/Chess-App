@@ -46,9 +46,7 @@ signals:
      */
     void lessonFinished(int);
 
-
 private:
-
     // Set up the specific lessons
     void setUpLesson1();
     void setUpLesson2();
