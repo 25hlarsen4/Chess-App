@@ -1,5 +1,15 @@
-// should do control stuffs, .ui file -> veiw stuffs
-
+/**
+ * @file chess.cpp
+ * @author teamname: The QT's
+ *
+ * @brief
+ * CS 3505
+ * Assignment Name: A9-An-Educational-App
+ *
+ * The chess class is reponsible for overall view of the application.
+ *
+ * @date 2023-12-08
+ */
 #include "chess.h"
 #include "celebration.h"
 #include "puzzle.h"

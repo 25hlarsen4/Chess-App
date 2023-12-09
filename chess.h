@@ -1,3 +1,15 @@
+/**
+ * @file chess.h
+ * @author teamname: The QT's
+ *
+ * @brief
+ * CS 3505
+ * Assignment Name: A9-An-Educational-App
+ *
+ * The chess class is reponsible for overall view of the application.
+ *
+ * @date 2023-12-08
+ */
 #ifndef CHESS_H
 #define CHESS_H
 
@@ -19,13 +31,20 @@ public:
     ~Chess();
 
 public slots:
+    /**
+     * @brief Handles the loading of puzzles completed previously.
+     * @param puzzleIndex The index states which puzzle is completed
+     */
     void loadCompletedPuzzle(int);
 
 private:
     Ui::Chess *ui;
+    /**
+     * @brief Shows the starting screen.
+     */
     void startGame();
-    void styleChessboard();
 
+    // Loads the specfic lesson / puzle
     void lesson1();
     void puzzle1();
 
@@ -44,15 +63,32 @@ private:
     void lesson6();
     void puzzle6();
 
+    /**
+     * @brief Enables a specific puzzle after related lesson is completed.
+     * @param puzzleIndex The index of the puzzle to enable.
+     */
     void enablePuzzle(int);
+
+    /**
+     * @brief Marks a puzzle as completed.
+     * @param puzzleIndex The index of the completed puzzle.
+     */
     void completePuzzle(int);
 
+    // Reponsible for the message box on the celebration screen
     QMessageBox celebrationPopUpBox;
     QPushButton *celebrationPopUpOk;
     QPushButton *celebrationGoBackMenu;
+
+    /**
+     * @brief Displays the celebration screen.
+     */
     void showCelebrationScreen();
 
 signals:
+    /**
+     * @brief Signal emitted when a puzzle is completed.
+     */
     void completePuzzleSignal();
 
 };

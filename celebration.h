@@ -1,4 +1,15 @@
-// a view class for the celebration screen
+/**
+ * @file celebration.h
+ * @author teamname: The QT's
+ *
+ * @brief
+ * CS 3505
+ * Assignment Name: A9-An-Educational-App
+ *
+ * The celebration class is reponsible for the well done screen when the player complete a puzzle.
+ *
+ * @date 2023-12-08
+ */
 #ifndef CELEBRATION_H
 #define CELEBRATION_H
 
@@ -17,23 +28,38 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private slots:
+    /**
+     * @brief A slot to update the physics world.
+     */
     void updateWorld();
 
 signals:
+    /**
+     * @brief Signal emitted when a ball goes out of bounds of the screen.
+     * @param ball The ball that went out of bounds.
+     */
     void ballOutOfBoundSignal(b2Body *ball);
 
 private:
     b2World *world;
-    b2Body *ballBody;
     QTimer *timer;
     const float32 scale = 50.0f; // Pixels per meter
     const int updateInterval = 16; // Timer interval in ms (about 60 FPS)
-
-    b2Body* createBall();
-    void refreshBall(b2Body *ball);
     std::vector<b2Body*> balls;
+    QPixmap backgroundPixmap; // The background of the celebration screen.
 
-    QPixmap backgroundPixmap;
+    /**
+     * @brief Creates a new ball in the physics simulation.
+     * @return The body of the created ball.
+     */
+    b2Body* createBall();
+
+    /**
+     * @brief Refreshes the properties of a ball in the physics world.
+     * @param ball The ball to be refreshed.
+     */
+    void refreshBall(b2Body *ball);
+
 };
 
 

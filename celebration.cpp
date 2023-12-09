@@ -1,3 +1,15 @@
+/**
+ * @file celebration.cpp
+ * @author teamname: The QT's
+ *
+ * @brief
+ * CS 3505
+ * Assignment Name: A9-An-Educational-App
+ *
+ * The celebration class is reponsible for the well done screen when the player complete a puzzle.
+ *
+ * @date 2023-12-08
+ */
 #include "celebration.h"
 #include <QPainter>
 #include <QRandomGenerator>
