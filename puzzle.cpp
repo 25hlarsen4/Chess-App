@@ -1,3 +1,15 @@
+/**
+ * @file puzzle.h
+ * @author teamname: The QT's
+ *
+ * @brief
+ * CS 3505
+ * Assignment Name: A9-An-Educational-App
+ *
+ * The puzzle class sets up puzzles in the application and allows users to interact with puzzles.
+ *
+ * @date 2023-12-08
+ */
 #include <QMouseEvent>
 #include "puzzle.h"
 #include "qpainter.h"

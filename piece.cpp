@@ -1,3 +1,16 @@
+/**
+ * @file piece.cpp
+ * @author teamname: The QT's
+ *
+ * @brief
+ * CS 3505
+ * Assignment Name: A9-An-Educational-App
+ *
+ * The piece class defines various types of chess pieces, their properties, and movement rules.
+ * It is used to create and manage individual chess pieces on the game board.
+ *
+ * @date 2023-12-08
+ */
 #include "piece.h"
 
 Piece::Piece(PieceType pt, bool newPawn, QObject *parent)

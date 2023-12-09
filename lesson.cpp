@@ -1,4 +1,15 @@
-
+/**
+ * @file lesson.cpp
+ * @author teamname: The QT's
+ *
+ * @brief
+ * CS 3505
+ * Assignment Name: A9-An-Educational-App
+ *
+ * The lesson class is reponsible for all lessons stuff in the application.
+ *
+ * @date 2023-12-08
+ */
 #include "lesson.h"
 
 Lesson::Lesson(QWidget *parent)
