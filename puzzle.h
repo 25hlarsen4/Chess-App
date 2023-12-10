@@ -38,52 +38,73 @@ public:
     };
 
     explicit Puzzle(QWidget *parent = nullptr);
-    // correct moves, piece set up
+
     explicit Puzzle(PuzzleType, QWidget *parent = nullptr);
     PuzzleType puzzleType;
 
-    /**
-     * @brief Handles mouse press events from user.
-     * @param e The mouse press event.
-     */
-    void mousePressEvent(QMouseEvent * e);
 
 private:
-    QImage background;
+    Piece* selectedPiece;
 
     QHash<QPair<int, int>, Piece::PieceType> boardSetUp;
+
+    /**
+     * @brief Map to keep track of the type of piece held in occupied spaces.
+     */
     QHash<QPair<int, int>, Piece::PieceType> playerPieces;
+
+    /**
+     * @brief Map to keep track of the acutal pieces held in occupied spaces.
+     */
     QHash<QPair<int, int>, Piece*> piecePositions;
+
+    /**
+     * @brief Contains the correct sequence of user clicks to complete a puzzle. Used to
+     * track puzzle progress.
+     */
     QList<QPair<int, int>> correctClickSequence;
-    QList<QPair<int, int>> potentialLocations;
+
+    /**
+     * @brief Holds the current index the user is at in the correct click sequence.
+     */
+    int currSequenceIndex;
+
+    /**
+     * @brief Holds the list of moves the computer must make.
+     */
     QList<QPair<int, int>> computerMoves;
+
+    int computerMovesIndex;
+
+    /**
+     * @brief Holds the potential valid move locations for the currently selected piece.
+     */
+    QList<QPair<int, int>> potentialLocations;
+
+    /**
+     * @brief Holds the coordinates of the. Saves this information on a selecting click so the
+     * proceeding moving click can caluclate valid moves based on that position.
+     */
+    QPair<int, int> selectedPiecePos;
+
     QList<QPushButton*> allButtons;
 
+    /**
+     * @brief Displays feedback on whether a correct or incorrect move was made.
+     */
     QLabel* feedbackLabel;
+
     QPushButton* helpButton;
-
-    int currSequenceIndex;
-    int computerMovesIndex;
-    bool correctMove;
-
-    bool selecting;
-    bool moving;
-
-    Piece* selectedPiece;
-    QPair<int, int> prevPiecePos;
-
-    QGridLayout *layout;
-
     QLabel* revealedMove;
     QLabel* WhosTurnLabel;
 
-    QList<PuzzleType> completedPuzzles;
+    bool correctMove;
+    bool selecting;
+    bool moving;
 
-    /**
-     * @brief Handles paint events for drawing the puzzle.
-     * @param event The paint event.
-     */
-    void paintEvent(QPaintEvent *);
+    QGridLayout *layout;
+
+    QList<PuzzleType> completedPuzzles;
 
     /**
      * @brief Creates the puzzle page.

@@ -12,7 +12,6 @@
  */
 #include <QMouseEvent>
 #include "puzzle.h"
-#include "qpainter.h"
 #include <QTimer>
 #include <memory>
 
@@ -22,7 +21,6 @@ Puzzle::Puzzle(QWidget *parent)
 
 }
 
-// have enum specifying which puzzle to create
 Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     : QWidget{parent}
 {
@@ -31,6 +29,7 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     computerMovesIndex = 0;
     selecting = true;
     moving = false;
+    correctMove = false;
 
     if (puzzleType == Puzzle1) {
         setUpPuzzle1();
@@ -58,7 +57,7 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
 
     createBoard();
 
-    correctMove = false;
+    // player piece color labels
     QLabel* youLabel = new QLabel(this);
     youLabel->setGeometry(600, 85, 180, 50);
     youLabel->setText("You: ");
@@ -78,7 +77,6 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     computerIcon->setGeometry(665,137,25,25);
     computerIcon->show();
 
-    // The Hint part on UI
     WhosTurnLabel = new QLabel(this);
     WhosTurnLabel->setStyleSheet("QLabel { background-color: rgb(144, 87, 38); color: white; border: none; }");
     WhosTurnLabel->setGeometry(600, 175, 180, 50);
@@ -96,16 +94,6 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
     revealedMove->setGeometry(600, 260, 180, 25);
     revealedMove->setText("");
     revealedMove->show();
-}
-
-void Puzzle::paintEvent(QPaintEvent *) {
-    QPainter painter(this);
-    int x = 3;
-    int y = 3;
-    int w = 580;
-    int h = 580;
-    QRect target(x, y, w, h);
-    QRect pieceTarget(50, 50, 80, 80);
 }
 
 void Puzzle::createBoard(){
@@ -244,12 +232,6 @@ QString Puzzle::getPuzzleTitle() {
     }
 }
 
-void Puzzle::mousePressEvent(QMouseEvent * e) {
-    qDebug() << e->pos().x();
-    qDebug() << e->pos().y();
-}
-
-
 void Puzzle::selectSpace(){
     QPushButton *selectedSpace = qobject_cast<QPushButton*>(sender());
     QPair<int, int> buttonCoords = qMakePair(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt());
@@ -260,7 +242,7 @@ void Puzzle::selectSpace(){
 
     if (selecting) {
 
-        // only select if there's a piece in the space & it's the correct selection
+        // only select if there's a piece in the space
         if (piecePositions.contains(buttonCoords) && playerPieces.contains(buttonCoords)) {
             // clear help message if there was one
             revealedMove->setText("");
@@ -268,8 +250,8 @@ void Puzzle::selectSpace(){
             setButtonBackgroundColor(selectedSpace->property("row").toInt(), selectedSpace->property("col").toInt(), "rgb(0,255,0)");
 
             selectedPiece = piecePositions[buttonCoords];
-            prevPiecePos = buttonCoords;
-            potentialLocations = selectedPiece->getPossibleLocations(prevPiecePos, piecePositions);
+            selectedPiecePos = buttonCoords;
+            potentialLocations = selectedPiece->getPossibleLocations(selectedPiecePos, piecePositions);
 
             for(auto& location : potentialLocations){
                 setButtonBackgroundColor(location.first, location.second, "rgb(0,255,0)");
@@ -288,17 +270,17 @@ void Puzzle::selectSpace(){
         // if a valid move
         if (potentialLocations.contains(buttonCoords)) {
             // check that it's also the right move for the puzzle
-            if (piecePositions.contains(prevPiecePos)) {
+            if (piecePositions.contains(selectedPiecePos)) {
                 // clear help message if there was one
                 revealedMove->setText("");
 
-                Piece* piece = piecePositions[prevPiecePos];
+                Piece* piece = piecePositions[selectedPiecePos];
                 piece->hide();
 
                 // accept the move and update accordingly
                 // update map, setPiece label
-                piecePositions.remove(prevPiecePos);
-                playerPieces.remove(prevPiecePos);
+                piecePositions.remove(selectedPiecePos);
+                playerPieces.remove(selectedPiecePos);
 
 
                 // hide piece if we're capturing one
@@ -378,8 +360,8 @@ void Puzzle::selectSpace(){
                     piecePositions.remove(buttonCoords);
                     playerPieces.remove(buttonCoords);
 
-                    piecePositions.insert(prevPiecePos, piece);
-                    playerPieces.insert(prevPiecePos,piece->pieceType);
+                    piecePositions.insert(selectedPiecePos, piece);
+                    playerPieces.insert(selectedPiecePos,piece->pieceType);
 
                     // won't be null if we captured a piece
                     if (capturedPiece) {
@@ -392,12 +374,11 @@ void Puzzle::selectSpace(){
 
 
                         for(QPushButton* button : allButtons){
-                            if(button->property("row") == prevPiecePos.first && button->property("col") == prevPiecePos.second){
+                            if(button->property("row") == selectedPiecePos.first && button->property("col") == selectedPiecePos.second){
                                 piece->setPiece(button);
                             }
                         }
                         if (capturedPiece) {
-                            qDebug() << "here";
                             capturedPiece->setPiece(selectedSpace);
                         }
 
