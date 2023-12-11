@@ -4,6 +4,7 @@
         <file>Images/blankBoard.jpg</file>
         <file>Images/back.png</file>
         <file>Images/welldone.jpeg</file>
+        <file>Images/confettiBackground.jpg</file>
     </qresource>
     <qresource prefix="/pieces">
         <file>Images/blackKnight.png</file>

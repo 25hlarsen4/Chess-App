@@ -18,7 +18,7 @@
 celebration::celebration(QWidget *parent) : QWidget(parent) {
     setFixedSize(800, 600);
 
-    backgroundPixmap.load(":/backgrounds/Images/welldone.jpeg");
+    backgroundPixmap.load(":/backgrounds/Images/confettiBackground.jpg");
 
     // Initialize Box2D world with gravity
     b2Vec2 gravity(0.0f, 10.0f);
@@ -32,12 +32,9 @@ celebration::celebration(QWidget *parent) : QWidget(parent) {
     groundBox.SetAsBox(400.0f / scale, 0.1f); // Half-width of window, small height
     groundBody->CreateFixture(&groundBox, 0.0f);
 
-    balls.push_back(createBall());
-    balls.push_back(createBall());
-    balls.push_back(createBall());
-    balls.push_back(createBall());
-    balls.push_back(createBall());
-    balls.push_back(createBall());
+    for (int i = 0; i < 12; i++) {
+        balls.push_back(createBall());
+    }
 
     // Set up the timer for the simulation step
     timer = new QTimer(this);
@@ -55,7 +52,8 @@ void celebration::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
 
     // Fill the background
-    painter.drawPixmap(rect(), backgroundPixmap.scaled(size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    QRect rect = QRect(97, 10, 600, 600);
+    painter.drawPixmap(rect, backgroundPixmap.scaled(size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 
     for (size_t i = 0; i < balls.size(); ++i) {
         b2Body* ball = balls[i];
@@ -75,7 +73,7 @@ void celebration::paintEvent(QPaintEvent *event) {
         if (x > width() + 50 || y > height() + 50 || x < -50 || y < -50) { // if ball is out of screen
             emit ballOutOfBoundSignal(ball);
         } else {
-            painter.drawEllipse(QPointF(x, y), 50, 50); // Draw the ball
+            painter.drawEllipse(QPointF(x, y), 10, 10); // Draw the ball
         }
     }
 }
