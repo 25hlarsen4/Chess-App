@@ -77,13 +77,47 @@ public:
     QList<QPair<int, int>> getPossibleLocations(QPair<int, int>, QHash<QPair<int, int>, Piece*>);
 
 private:
+    /**
+     * @brief checkInbounds tells if a given location is in bounds
+     * @return True if a location is in bounds and false otherwise
+     */
     bool checkInbounds(int, int);
+
+    /**
+     * @brief blackPiece tells if a given piece is a black piece
+     * @return True if piece is black and false otherwise
+     */
     bool blackPiece(Piece*);
+
+    /**
+     * @brief checkPiece check if new location is valid and add to valid locations if it is
+     * @return true if a location was added
+     */
     bool checkPiece(int, int, bool, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>&);
+
+    /**
+     * @brief rookMoves loop through all locations a rook can access, horizontal and vertical
+     */
     void rookMoves(bool, QPair<int,int>, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>&);
+
+    /**
+     * @brief bishopMoves loop through all locations a bishop can access, diagonals
+     */
     void bishopMoves(bool, QPair<int,int>, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>&);
+
+    /**
+     * @brief knightMoves loop through all locations a knight can access, L's
+     */
     void knightMoves(bool, QPair<int,int>, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>&);
+
+    /**
+     * @brief kingMoves loop through all locations a king can access, 1 square away
+     */
     void kingMoves(bool, QPair<int,int>, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>&);
+
+    /**
+     * @brief pawnMoves check through all locations a pawn can access, 1 or 2 forward/diagonal captures
+     */
     void pawnMoves(bool, QPair<int,int>, QHash<QPair<int, int>, Piece*>, QList<QPair<int, int>>&);
 
 };
