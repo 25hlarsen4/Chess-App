@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="startPage">
      <widget class="QPushButton" name="startButton">
@@ -128,84 +128,84 @@
        <item row="3" column="0">
         <widget class="QPushButton" name="lesson4">
          <property name="text">
-          <string>Lesson 4</string>
+          <string>Overloading</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
         <widget class="QPushButton" name="puzzle4">
          <property name="text">
-          <string>Puzzle 4</string>
+          <string>Distract The Queen</string>
          </property>
         </widget>
        </item>
        <item row="4" column="0">
         <widget class="QPushButton" name="lesson5">
          <property name="text">
-          <string>Lesson 5</string>
+          <string>Controling The King</string>
          </property>
         </widget>
        </item>
        <item row="4" column="1">
         <widget class="QPushButton" name="puzzle5">
          <property name="text">
-          <string>Puzzle 5</string>
+          <string>Force The King</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
         <widget class="QPushButton" name="puzzle1">
          <property name="text">
-          <string>Puzzle 1</string>
+          <string>Find The Fork</string>
          </property>
         </widget>
        </item>
        <item row="0" column="0">
         <widget class="QPushButton" name="lesson1">
          <property name="text">
-          <string>Lesson 1</string>
+          <string>Fork</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
         <widget class="QPushButton" name="lesson3">
          <property name="text">
-          <string>Lesson 3</string>
+          <string>Smother Mate</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="QPushButton" name="puzzle2">
          <property name="text">
-          <string>Puzzle 2</string>
+          <string>Pin The Queen</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QPushButton" name="lesson2">
          <property name="text">
-          <string>Lesson 2</string>
+          <string>Pinning</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
         <widget class="QPushButton" name="puzzle3">
          <property name="text">
-          <string>Puzzle 3</string>
+          <string>Smother Mate The King</string>
          </property>
         </widget>
        </item>
        <item row="5" column="0">
         <widget class="QPushButton" name="lesson6">
          <property name="text">
-          <string>Lesson 6</string>
+          <string>Combining Tactics</string>
          </property>
         </widget>
        </item>
        <item row="5" column="1">
         <widget class="QPushButton" name="puzzle6">
          <property name="text">
-          <string>Puzzle 6</string>
+          <string>Find The Fork And Pins</string>
          </property>
         </widget>
        </item>
