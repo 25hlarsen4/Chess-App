@@ -59,13 +59,13 @@ Puzzle::Puzzle(PuzzleType pt, QWidget *parent)
 
     // player piece color labels
     QLabel* youLabel = new QLabel(this);
-    youLabel->setGeometry(600, 85, 180, 50);
+    youLabel->setGeometry(600, 90, 180, 50);
     youLabel->setText("You: ");
     youLabel->show();
     QLabel *youIcon = new QLabel(this);
     youIcon->setPixmap(QPixmap(":/pieces/Images/whitePawn.png"));
     youIcon->setScaledContents(true);
-    youIcon->setGeometry(630,95,25,25);
+    youIcon->setGeometry(630,100,25,25);
     youIcon->show();
     QLabel* computerLabel = new QLabel(this);
     computerLabel->setGeometry(600, 125, 180, 50);
@@ -125,6 +125,7 @@ void Puzzle::createBoard(){
     vLayout->addWidget(menuBarBackground);
 
     QLabel* puzzleTitle = new QLabel(this);
+    puzzleTitle->setStyleSheet("font-weight: bold;");
     puzzleTitle->setText(getPuzzleTitle());
     puzzleTitle->show();
     vLayout->addWidget(puzzleTitle);

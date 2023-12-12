@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="startPage">
      <widget class="QPushButton" name="startButton">
@@ -66,14 +66,14 @@
        </font>
       </property>
       <property name="text">
-       <string>Load Save</string>
+       <string>Load</string>
       </property>
      </widget>
      <widget class="QLabel" name="titleLabel">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>190</y>
+        <y>200</y>
         <width>800</width>
         <height>150</height>
        </rect>
