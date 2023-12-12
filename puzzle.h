@@ -49,12 +49,12 @@ private:
     QHash<QPair<int, int>, Piece::PieceType> boardSetUp;
 
     /**
-     * @brief Map to keep track of the type of piece held in occupied spaces.
+     * @brief Map to keep track which pieces on the board the player is playing with.
      */
     QHash<QPair<int, int>, Piece::PieceType> playerPieces;
 
     /**
-     * @brief Map to keep track of the acutal pieces held in occupied spaces.
+     * @brief Map to keep track of the actual pieces held in occupied spaces.
      */
     QHash<QPair<int, int>, Piece*> piecePositions;
 
@@ -82,7 +82,7 @@ private:
     QList<QPair<int, int>> potentialLocations;
 
     /**
-     * @brief Holds the coordinates of the. Saves this information on a selecting click so the
+     * @brief Holds the coordinates of the pieces. Saves this information on a selecting click so the
      * proceeding moving click can caluclate valid moves based on that position.
      */
     QPair<int, int> selectedPiecePos;
@@ -143,14 +143,14 @@ private:
 
     /**
      * @brief Puzzle::setUpPuzzle3
-     * smother mate puzzle
+     * this method sets up the chess board for a smother mate puzzle
      * got the puzzle from "https://lichess.org/study/oJ4jLe50/iGOCuCaa" - Sveshnikov - Ivanov, 1976
      */
     void setUpPuzzle3();
 
     /**
      * @brief Puzzle::setUpPuzzle4
-     * overloading puzzle
+     * this method sets up the chess board for a overloading puzzle
      */
     void setUpPuzzle4();
 

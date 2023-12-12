@@ -10,6 +10,7 @@
  *
  * @date 2023-12-08
  */
+
 #include <QMouseEvent>
 #include "puzzle.h"
 #include <QTimer>
@@ -230,6 +231,8 @@ QString Puzzle::getPuzzleTitle() {
 
     else if (puzzleType == Puzzle6) {
         return "Objective: Fork the bishop and knight. Pin the king to take out rooks and gain an advantage.";
+    }else{
+        return "";
     }
 }
 
@@ -373,12 +376,12 @@ void Puzzle::selectSpace(){
                     QTimer::singleShot(2000, this, [this, piece, capturedPiece, selectedSpace] {
                         piece->hide();
 
-
                         for(QPushButton* button : allButtons){
                             if(button->property("row") == selectedPiecePos.first && button->property("col") == selectedPiecePos.second){
                                 piece->setPiece(button);
                             }
                         }
+
                         if (capturedPiece) {
                             capturedPiece->setPiece(selectedSpace);
                         }
@@ -390,13 +393,13 @@ void Puzzle::selectSpace(){
                         for(QPushButton* button : allButtons){
                             button->blockSignals(false);
                         }
+
                         helpButton->blockSignals(false);
                     });
 
                     moving = false;
                     selecting = true;
                     currSequenceIndex--;
-
                 }
             }
         }
@@ -464,6 +467,7 @@ void Puzzle::onHelpButtonClicked() {
     if (selecting) {
         helpMessage = "Select " + pieceType + " on " + QChar(97 + pieceCoords.second) + QString::number(8 - pieceCoords.first);
     }
+
     else if (moving) {
         helpMessage = "Move " + pieceType + " to " + QChar(97 + correctClickSequence[currSequenceIndex].second) + QString::number(8 - correctClickSequence[currSequenceIndex].first);
     }
@@ -673,8 +677,6 @@ void Puzzle::setUpPuzzle5() {
     computerMoves.append(qMakePair(0, 1));
     computerMoves.append(qMakePair(0, 1));
     computerMoves.append(qMakePair(1, 1));
-
-
 }
 
 void Puzzle::setUpPuzzle6() {
@@ -739,7 +741,6 @@ void Puzzle::setUpPuzzle6() {
     computerMoves.append(qMakePair(2, 0));
     computerMoves.append(qMakePair(0, 2));
     computerMoves.append(qMakePair(1, 2));
-
 }
 
 void Puzzle::nextMove(){
@@ -748,9 +749,11 @@ void Puzzle::nextMove(){
     for(QPushButton* button : allButtons){
         button->blockSignals(true);
     }
+
     helpButton->blockSignals(true);
 
     WhosTurnLabel->setText("  Opponent's turn");
+
     QTimer::singleShot(1000, this, [this]() {
         // reenable all buttons
         for(QPushButton* button : allButtons){
@@ -760,6 +763,7 @@ void Puzzle::nextMove(){
 
         WhosTurnLabel->setText("  Your turn");
     });
+
     feedbackLabel->setText("Correct move!");
     feedbackLabel->setStyleSheet("background-color: green; color: white;");
 
@@ -793,7 +797,7 @@ void Puzzle::nextMove(){
 
 void Puzzle::setPlayerPieces(){
 
-    for(const auto& key : boardSetUp.keys()){
+    for(QPair key : boardSetUp.keys()){
 
         Piece::PieceType pieceType = boardSetUp[key];
         Piece* piece = new Piece(pieceType);
@@ -808,6 +812,7 @@ void Puzzle::resetBoard(){
     for(Piece *key : piecePositions.values()){
         key->hide();
     }
+
     piecePositions.clear();
     boardSetUp.clear();
     correctClickSequence.clear();
@@ -863,16 +868,24 @@ void Puzzle::resetBoard(){
 
 void Puzzle::savePuzzle(){
     QFile file("fileName.txt");
+
     QJsonArray puzzles;
+
     if (file.open(QIODevice::ReadOnly)) {
+
         QByteArray saveData = file.readAll();
+
         QJsonDocument jsonDoc(QJsonDocument::fromJson(saveData));
+
         puzzles = jsonDoc.array();
+
         puzzles[puzzleType] = true;
+
     }else{
         puzzles = {false, false, false, false, false, false};
         puzzles[puzzleType] = true;
     }
+
     file.close();
 
     if (!file.open(QIODevice::WriteOnly)) {
