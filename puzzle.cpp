@@ -797,7 +797,7 @@ void Puzzle::nextMove(){
 
 void Puzzle::setPlayerPieces(){
 
-    for(QPair key : boardSetUp.keys()){
+    for(QPair<int, int> key : boardSetUp.keys()){
 
         Piece::PieceType pieceType = boardSetUp[key];
         Piece* piece = new Piece(pieceType);

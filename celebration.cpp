@@ -70,10 +70,10 @@ void celebration::paintEvent(QPaintEvent *event) {
             painter.setBrush(Qt::yellow); // Thrid ball yellow
         }
 
-        if (x > width() + 50 || y > height() + 50 || x < -50 || y < -50) { // if ball is out of screen
+        if (x > width() + scale || y > height() + scale || x < -scale || y < -scale) { // if ball is out of screen
             emit ballOutOfBoundSignal(ball);
         } else {
-            painter.drawEllipse(QPointF(x, y), 10, 10); // Draw the ball
+            painter.drawEllipse(QPointF(x, y), scale, scale); // Draw the ball
         }
     }
 }
@@ -109,7 +109,6 @@ void celebration::refreshBall(b2Body* ball) {
     ball->SetTransform(b2Vec2(random / scale, 0.0f), 0.0f); // Reset position
 
     // Set the initial velocity for a 45-degree drop
-    float initialVelocityMagnitude = 5.0f; // Adjust this value as needed
     if (random > 400){
         ball->SetLinearVelocity(b2Vec2(-initialVelocityMagnitude, initialVelocityMagnitude));
     }

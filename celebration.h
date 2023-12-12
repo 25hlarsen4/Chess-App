@@ -43,7 +43,8 @@ signals:
 private:
     b2World *world;
     QTimer *timer;
-    const float32 scale = 50.0f; // Pixels per meter
+    const float32 scale = 30.0f; // The ball size on screen
+    const float initialVelocityMagnitude = 10.0f; // The ball speed
     const int updateInterval = 16; // Timer interval in ms (about 60 FPS)
     std::vector<b2Body*> balls;
     QPixmap backgroundPixmap; // The background of the celebration screen.
