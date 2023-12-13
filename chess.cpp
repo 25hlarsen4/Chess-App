@@ -40,8 +40,8 @@ Chess::Chess(QWidget *parent)
                                    "border-width: 6px; border-radius: 20px;}"
                                    "QPushButton::hover{background-color: rgb(68, 255, 21)}");
     ui->loadButton->setStyleSheet("QPushButton{background-color: rgb(255, 255, 122);"
-                                   "border-width: 6px; border-radius: 20px;}"
-                                   "QPushButton::hover{background-color: rgb(255, 255, 51)}");
+                                  "border-width: 6px; border-radius: 20px;}"
+                                  "QPushButton::hover{background-color: rgb(255, 255, 51)}");
     ui->windows->setStyleSheet("background-color: tan;");
     ui->windows->setCurrentIndex(0);
 
@@ -159,15 +159,20 @@ Chess::Chess(QWidget *parent)
             this,
             &Chess::puzzle6);
 
-    // Disable all puzzles
+    // Disable all puzzles & every lesson but the first
     ui->puzzle1->setEnabled(false);
     ui->puzzle2->setEnabled(false);
     ui->puzzle3->setEnabled(false);
     ui->puzzle4->setEnabled(false);
     ui->puzzle5->setEnabled(false);
     ui->puzzle6->setEnabled(false);
+    ui->lesson2->setEnabled(false);
+    ui->lesson3->setEnabled(false);
+    ui->lesson4->setEnabled(false);
+    ui->lesson5->setEnabled(false);
+    ui->lesson6->setEnabled(false);
 
-    // Connect finishing lessons to opening puzzles
+    // Connect finishing lessons to opening puzzles and next lesson
     connect(less1,
             &Lesson::lessonFinished,
             this,
@@ -265,7 +270,7 @@ void Chess::startGame() {
 void Chess::lesson1() {
     ui->windows->setCurrentIndex(3);
 }
-          
+
 void Chess::puzzle1() {
     ui->windows->setCurrentIndex(4);
 }
@@ -320,7 +325,6 @@ void Chess::showCelebrationScreen(){
 }
 
 void Chess::enablePuzzle(int index){
-    qDebug() << index;
     if(index == 1){
         ui->puzzle1->setEnabled(true);
         ui->lesson1->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
@@ -351,22 +355,27 @@ void Chess::enablePuzzle(int index){
 
 void Chess::completePuzzle(int index){
     if(index == 1){
+        ui->lesson2->setEnabled(true);
         ui->puzzle1->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle1);
     }else if(index == 2){
+        ui->lesson3->setEnabled(true);
         ui->puzzle2->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle2);
     }else if(index == 3){
+        ui->lesson4->setEnabled(true);
         ui->puzzle3->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle3);
     }else if(index == 4){
+        ui->lesson5->setEnabled(true);
         ui->puzzle4->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle4);
     }else if(index == 5){
+        ui->lesson6->setEnabled(true);
         ui->puzzle5->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
         connect(celebrationPopUpOk, &QPushButton::clicked, this, &Chess::puzzle5);
@@ -381,18 +390,23 @@ void Chess::completePuzzle(int index){
 
 void Chess::loadCompletedPuzzle(int index){
     if(index == 1){
+        ui->lesson2->setEnabled(true);
         ui->puzzle1->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }else if(index == 2){
+        ui->lesson3->setEnabled(true);
         ui->puzzle2->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }else if(index == 3){
+        ui->lesson4->setEnabled(true);
         ui->puzzle3->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }else if(index == 4){
+        ui->lesson5->setEnabled(true);
         ui->puzzle4->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }else if(index == 5){
+        ui->lesson6->setEnabled(true);
         ui->puzzle5->setStyleSheet("QPushButton{background-color: rgb(50, 255, 50);}"
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }else if(index == 6){
@@ -400,3 +414,5 @@ void Chess::loadCompletedPuzzle(int index){
                                    "QPushButton::hover{background-color: rgb(0, 128, 0)}");
     }
 }
+
+
