@@ -15,7 +15,5 @@ Starting a New Sprite
 - To complete a puzzle, move the pieces to do what the prompt tells you to. To move a piece, click it, at which point the valid positions to move to will be highlighted in green.
   Click to choose the position to move to. If you move incorrectly, you will be notified of the incorrect move and your position will be reset. If you need a hint, click the hint
   button to reveal the next correct move.
-
-Saving and Loading
-1.	To save, click File > Save.
-2.	To load, click File > Open and select a .ssp file.
+- Lessons and puzzles are initially locked until you complete the prerequisites, so your progress through the app will be saved as you complete them. To pick back up where you
+  left off in your learning, hit the load puzzle button upon the app starting to go back to your furthest point of progress.
