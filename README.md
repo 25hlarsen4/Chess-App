@@ -5,7 +5,7 @@ This chess learning app offers lessons to teach 6 common chess tactics, with puz
 # Installation
 To install this application, follow these steps:
 1.	Ensure you have Qt5 installed on your system.
-2.	Clone this repository: .
+2.	Clone this repository: 
 3.	Open the project in Qt Creator.
 4.	Build and run the application.
 
