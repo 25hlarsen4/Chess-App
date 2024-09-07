@@ -1,4 +1,4 @@
-# Chess Learning App
+# README for the QT's Chess Learning App
 # Introduction
 This chess learning app offers lessons to teach 6 common chess tactics, with puzzles corresponding to each tactic to test and solidify the concepts taught in the lessons.
 
