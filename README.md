@@ -2,6 +2,8 @@
 # Introduction
 This chess learning app offers lessons to teach 6 common chess tactics, with puzzles corresponding to each tactic to test and solidify the concepts taught in the lessons.
 
+**Check out this quick [demo video](https://youtu.be/DxzgohbbB3Q) of the project.**
+
 # Installation
 To install this application, follow these steps:
 1.	Ensure you have Qt5 installed on your system.
